@@ -1,0 +1,8 @@
+
+autoloads/*
+cache/*
+straight/
+elpa/
+straight/repos/*
+var/
+etc/
