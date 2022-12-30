@@ -8,7 +8,8 @@
   :ensure t)
 
 (null-keybinds-major-key-def
-  :keymaps 'normal
+  :states '(normal visual)
+  :keymaps 'rust-mode-map
   "b r" 'rustic-cargo-run
   "b b" 'rustic-cargo-build
   "b c" 'rustic-compile

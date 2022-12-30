@@ -49,4 +49,5 @@
   "le" 'lsp-ui-flycheck-list
   "lS" 'lsp-ui-sideline-mode)
 
+(provide 'null-lsp)
 ;;; null-lsp.el ends here

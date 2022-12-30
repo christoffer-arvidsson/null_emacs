@@ -14,6 +14,7 @@
 ;; editor
 (require 'null-editor)
 (require 'null-completion)
+(require 'null-lsp)
 
 ;; languages
 (require 'null-elisp)
