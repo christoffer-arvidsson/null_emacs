@@ -1,7 +1,5 @@
 ;;; Code:
 
-(require 'consult)
-
 ;; Blazingly fast
 (use-package rg
     :ensure t
@@ -23,9 +21,79 @@
   (define-key project-prefix-map "m" #'magit-project-status)
   (add-to-list 'project-switch-commands '(magit-project-status "Magit") t))
 
+;;; Version control
+
 (use-package magit
   :config
   (setenv "SSH_AUTH_SOCK" "/run/user/1400946984/ssh-agent.socket"))
+
+(use-package hydra)
+(use-package smerge-mode
+  :config
+  (defhydra scimax-smerge (:color red :hint nil)
+    "
+Navigate       Keep               other
+----------------------------------------
+_p_: previous  _c_: current       _e_: ediff
+_n_: next      _m_: mine  <<      _u_: undo
+_j_: up        _o_: other >>      _r_: refine
+_k_: down      _a_: combine       _q_: quit
+               _b_: base
+"
+    ("n" smerge-next)
+    ("p" smerge-prev)
+    ("c" smerge-keep-current)
+    ("m" smerge-keep-mine)
+    ("o" smerge-keep-other)
+    ("b" smerge-keep-base)
+    ("a" smerge-keep-all)
+    ("e" smerge-ediff)
+    ("j" previous-line)
+    ("k" forward-line)
+    ("r" smerge-refine)
+    ("u" undo)
+    ("q" nil :exit t))
+
+  (defun enable-smerge-maybe ()
+    (when (and buffer-file-name (vc-backend buffer-file-name))
+      (save-excursion
+        (goto-char (point-min))
+        (when (re-search-forward "^<<<<<<< " nil t)
+          (smerge-mode +1)
+          (scimax-smerge/body))))))
+
+(use-package git-gutter-fringe
+  :config
+  ;; places the git gutter outside the margins.
+  (setq-default fringes-outside-margins t)
+  ;; thin fringe bitmaps
+  (define-fringe-bitmap 'git-gutter-fr:added [224]
+    nil nil '(center repeated))
+  (define-fringe-bitmap 'git-gutter-fr:modified [224]
+    nil nil '(center repeated))
+  (define-fringe-bitmap 'git-gutter-fr:deleted [128 192 224 240]
+    nil nil 'bottom)
+  (global-git-gutter-mode +1))
+
+
+;; Flycheck
+(use-package flycheck
+  :ensure t
+  :defer t
+  :hook (lsp-mode . flycheck-mode)
+  :init (global-flycheck-mode))
+
+;; Treesitter
+(use-package tree-sitter
+  :ensure t
+  :config
+  (global-tree-sitter-mode)
+  (add-hook 'tree-sitter-after-on-hook #'tree-sitter-hl-mode))
+
+(use-package tree-sitter-langs
+  :ensure tree-sitter)
+
+
 
 (null-keybinds-leader-key-def
   :keymaps 'normal
@@ -38,6 +106,7 @@
   "/" '(consult-ripgrep :wk "Search project")
 
   "g" '(:ignore t :wk "git")
-  "g g" '(magit :wk "Magit status"))
+  "g g" '(magit :wk "Magit status")
+  "g m" '(null/smerge-body :wk "Smerge hydra"))
 
 (provide 'null-project)

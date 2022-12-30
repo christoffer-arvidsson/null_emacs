@@ -63,12 +63,12 @@ the only window, use evil-window-move-* (e.g. `evil-window-move-far-left')."
 (defun null-windows-scroll-half-page-down ()
   "Scrolls exactly half page down keeping cursor/point position."
   (interactive)
-  (eethern/scroll-half-page nil))
+  (null-windows-scroll-half-page nil))
 
 (defun null-windows-scroll-half-page-up ()
   "Scrolls exactly half page up keeping cursor/point position."
   (interactive)
-  (eethern/scroll-half-page t))
+  (null-windows-scroll-half-page t))
 
 (general-define-key
  :states 'normal

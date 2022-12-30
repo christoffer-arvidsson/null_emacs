@@ -28,6 +28,35 @@
   :config
   (global-evil-surround-mode 1))
 
+;; Align stuff
+(use-package evil-lion
+  :ensure t
+  :config
+  (evil-lion-mode))
+
+;; Extra text objects
+(use-package evil-args
+  :ensure t
+  :config
+  ;; bind evil-args text objects
+  (define-key evil-inner-text-objects-map "a" 'evil-inner-arg)
+  (define-key evil-outer-text-objects-map "a" 'evil-outer-arg)
+
+  ;; bind evil-forward/backward-args
+  (define-key evil-normal-state-map "L" 'evil-forward-arg)
+  (define-key evil-normal-state-map "H" 'evil-backward-arg)
+  (define-key evil-motion-state-map "L" 'evil-forward-arg)
+  (define-key evil-motion-state-map "H" 'evil-backward-arg)
+
+  ;; bind evil-jump-out-args
+  (define-key evil-normal-state-map "K" 'evil-jump-out-args))
+
+;; Indent text object
+(use-package evil-indent-plus
+  :ensure t
+  :config
+  (evil-indent-plus-default-bindings))
+
 ;; Nerd commenter
 (use-package evil-nerd-commenter
   :config
@@ -112,5 +141,23 @@
   :ensure t
   :config
   (global-undo-tree-mode))
+
+;; Snippets
+(use-package yasnippet
+  :ensure t
+  :hook (lsp-mode . yas-minor-mode)
+  :custom
+  (yas-snippet-dirs (list (expand-file-name "snippets/" user-emacs-directory)))
+  :config
+  (yas-global-mode 1))
+
+(use-package yasnippet-snippets
+  :ensure yasnippet)
+
+(null-keybinds-leader-key-def
+  :keymaps 'normal
+  "i" '(:ignore t :wk "insert")
+  "i s" '(nil :wk "yas-insert-snippet"))
+
 
 (provide 'null-editor)

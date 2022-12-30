@@ -1,16 +1,23 @@
+;;; Code:
 
+;; core
 (require 'null-startup)
 (require 'null-ui)
 (require 'null-keybinds)
 (require 'null-defaults)
-(require 'null-editor)
-(require 'null-completion)
-(require 'null-windows)
+
+;; buffer, files, windows
 (require 'null-files)
-(require 'null-elisp)
+(require 'null-windows)
 (require 'null-project)
 
-;;; Code:
+;; editor
+(require 'null-editor)
+(require 'null-completion)
+
+;; languages
+(require 'null-elisp)
+(require 'null-rust)
 
 ;; Personal information
 (setq user-full-name "Christoffer Arvidsson"

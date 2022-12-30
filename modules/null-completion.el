@@ -6,7 +6,7 @@
   :custom
   (vertico-cycle t)
   (vertico-count 13)
-  (vertico-resize t)
+  (vertico-resize nil)
   :config
   (vertico-mode))
 
@@ -29,13 +29,24 @@
   (marginalia-mode))
 
 (use-package company
+  :hook (after-init . global-company-mode)
   :custom
   (company-minimum-prefix-length 1)
   (company-idle-delay 0.0)
   (completion-ignore-case t)
+  (company-dabbrev-downcase nil)
+  (evil-complete-next-func 'complete-complete-cycle-next)
+  (evil-complete-previous-func 'complete-complete-cycle-previous)
+  (company-selection-wrap-around t)
+  (company-tooltip-align-annotations t)
+
   :config
-  (add-to-list 'company-backends 'company-capf)
-  (global-company-mode '(not shell-script-mode)))
+  (add-to-list 'company-backends 'company-capf))
+
+(use-package company-shell
+  :after company
+  :config
+  (add-to-list 'company-backends '(company-shell company-shell-env company-fish-shell)))
 
 (use-package embark
   :ensure t

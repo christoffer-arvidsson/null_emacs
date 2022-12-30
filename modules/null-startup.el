@@ -32,3 +32,4 @@
 (setq initial-buffer-choice (lambda () (get-buffer "*dashboard*")))
 
 (provide 'null-startup)
+;;; null-startup.el ends here
