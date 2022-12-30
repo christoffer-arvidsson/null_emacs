@@ -82,6 +82,7 @@
 (null-keybinds-leader-key-def
   :keymaps 'normal
   "" '(nil :wk "Leader")
+  "u" 'universal-argument
   "RET" '(consult-bookmark :wk "Jump to bookmark")
   "q" '(:ignore t :wk "quit")
   "q r" '(restart-emacs :wk "Restart emacs")
