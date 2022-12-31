@@ -16,6 +16,11 @@
 (require 'null-completion)
 (require 'null-lsp)
 
+;; org
+(require 'null-org)
+(require 'null-org-agenda)
+(require 'null-org-knowledge)
+
 ;; languages
 (require 'null-elisp)
 (require 'null-rust)
