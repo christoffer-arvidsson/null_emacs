@@ -157,7 +157,7 @@
 (null-keybinds-leader-key-def
   :keymaps 'normal
   "i" '(:ignore t :wk "insert")
-  "i s" '(nil :wk "yas-insert-snippet"))
+  "i s" '(yas-insert-snippet :wk "yas-insert-snippet"))
 
 
 (provide 'null-editor)
