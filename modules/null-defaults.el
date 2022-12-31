@@ -56,6 +56,8 @@
 (use-package helpful
   :ensure t)
 
+;; Scroll compilation buffers to end
+(setq compilation-scroll-output t)
 
 (general-define-key
  :states 'normal
