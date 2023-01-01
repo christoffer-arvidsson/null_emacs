@@ -43,9 +43,9 @@
   :bind (:map minibuffer-local-map
               ("M-b" . citar-insert-preset))
   :custom
-  (citar-notes-paths '(eethern/citar-path))
-  (citar-bibliography '(eethern/citar-bibliography-path))
-  (org-cite-global-bibliography '(eethern/citar-bibliography-path))
+  (citar-notes-paths (list eethern/citar-path))
+  (citar-bibliography (list eethern/citar-bibliography-path))
+  (org-cite-global-bibliography (list eethern/citar-bibliography-path))
   (org-cite-insert-processor 'citar)
   (org-cite-follow-processor 'citar)
   (org-cite-activate-processor 'citar)
