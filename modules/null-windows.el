@@ -2,6 +2,8 @@
 
 (require 'null-keybinds)
 
+;; Functions
+
 (defun +evil--window-swap (direction)
   "Move current window to the next window in DIRECTION.
 If there are no windows there and there is only one window, split in that
@@ -72,6 +74,24 @@ the only window, use evil-window-move-* (e.g. `evil-window-move-far-left')."
   (interactive)
   (null-windows-scroll-half-page t))
 
+;; Packages
+(use-package tabspaces
+  ;; use this next line only if you also use straight, otherwise ignore it. 
+  :straight (:type git :host github :repo "mclear-tools/tabspaces")
+  :hook (after-init . tabspaces-mode) ;; use this only if you want the minor-mode loaded at startup. 
+  :commands (tabspaces-switch-or-create-workspace
+             tabspaces-open-or-create-project-and-workspace)
+  :custom
+  (tabspaces-use-filtered-buffers-as-default t)
+  (tabspaces-default-tab "Default")
+  (tabspaces-remove-to-default t)
+  (tabspaces-include-buffers '("*scratch*"))
+  ;; sessions
+  (tabspaces-session t)
+  (tabspaces-session-auto-restore t))
+
+;; Keybinds
+
 (general-define-key
  :states 'normal
  "<prior>" 'null-windows-scroll-half-page-up
@@ -104,6 +124,17 @@ the only window, use evil-window-move-* (e.g. `evil-window-move-far-left')."
   "w J" '(+evil/window-move-down :wk "Move window down")
   "w K" '(+evil/window-move-up :wk "Move window up")
   "w L" '(+evil/window-move-right :wk "Move window right")
-  )
+
+  ;; Workspace
+  "W" '(nil :wk "workspace")
+  "W C" '(tabspaces-clear-buffers :wk "clear workspace buffers")
+  "W b" '(tabspaces-switch-to-buffer :wk "switch workspace buffer")
+  "W x" '(tabspaces-close-workspace :wk "close workspace")
+  "W X" '(tabspaces-kill-buffers-close-workspace :wk "kill buffers and close workspace")
+  "W o" '(tabspaces-open-or-create-project-and-workspace :wk "open or create project workspace")
+  "W d" '(tabspaces-remove-current-buffer :wk "remove current buffer")
+  "W D" '(tabspaces-remove-current-buffer :wk "remove selected buffer")
+  "W s" '(tabspaces-switch-or-create-workspace :wk "switch or create workspace")
+  "W t" '(tabspaces-switch-buffer-and-tab :wk "switch buffer and tab"))
 
 (provide 'null-windows)
