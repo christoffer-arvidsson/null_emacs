@@ -35,7 +35,9 @@
 (use-package python
   :defer t
   :custom
-  (python-indent-offset 4))
+  (python-indent-offset 4)
+  :config
+  (setenv "PYTHONPATH" "/home/s0001520/repos/madame-web"))
 
 (use-package anaconda-mode
   :defer t

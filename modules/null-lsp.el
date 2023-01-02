@@ -10,7 +10,7 @@
   :ensure t
   :commands lsp
   :hook
-  ;; (python-mode . lsp-deferred)
+  (python-mode . lsp-deferred)
   (c++-mode . lsp-deferred)
   (cc-mode . lsp-deferred)
   (rust-mode . lsp-deferred)
