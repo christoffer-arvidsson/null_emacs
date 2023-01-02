@@ -78,6 +78,7 @@ the only window, use evil-window-move-* (e.g. `evil-window-move-far-left')."
 (use-package tabspaces
   ;; use this next line only if you also use straight, otherwise ignore it. 
   :straight (:type git :host github :repo "mclear-tools/tabspaces")
+  :after consult
   :hook (after-init . tabspaces-mode) ;; use this only if you want the minor-mode loaded at startup. 
   :commands (tabspaces-switch-or-create-workspace
              tabspaces-open-or-create-project-and-workspace)
@@ -88,7 +89,27 @@ the only window, use evil-window-move-* (e.g. `evil-window-move-far-left')."
   (tabspaces-include-buffers '("*scratch*"))
   ;; sessions
   (tabspaces-session t)
-  (tabspaces-session-auto-restore t))
+  (tabspaces-session-auto-restore t)
+  
+  :config
+  ;; hide full buffer list (still available with "b" prefix)
+  (consult-customize consult--source-buffer :hidden t :default nil)
+  ;; set consult-workspace buffer list
+  (defvar consult--source-workspace
+    (list :name     "Workspace Buffers"
+          :narrow   ?w
+          :history  'buffer-name-history
+          :category 'buffer
+          :state    #'consult--buffer-state
+          :default  t
+          :items    (lambda () (consult--buffer-query
+                                :predicate #'tabspaces--local-buffer-p
+                                :sort 'visibility
+                                :as #'buffer-name)))
+
+    "Set workspace buffer list for consult-buffer.")
+  (add-to-list 'consult-buffer-sources 'consult--source-workspace))
+
 
 ;; Keybinds
 
@@ -127,6 +148,7 @@ the only window, use evil-window-move-* (e.g. `evil-window-move-far-left')."
 
   ;; Workspace
   "W" '(nil :wk "workspace")
+  "W TAB" '(tab-previous :wk "previous workspaces")
   "W C" '(tabspaces-clear-buffers :wk "clear workspace buffers")
   "W b" '(tabspaces-switch-to-buffer :wk "switch workspace buffer")
   "W x" '(tabspaces-close-workspace :wk "close workspace")
