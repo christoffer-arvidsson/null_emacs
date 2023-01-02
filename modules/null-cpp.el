@@ -30,6 +30,8 @@
 
 ;;; Code:
 
+(require 'null-keybinds)
+
 ;; Lsp 
 (use-package ccls
   :after lsp
@@ -81,6 +83,12 @@
   :config
   (setq auto-mode-alist
         (cons '("\\.cu$" . cuda-mode) auto-mode-alist)))
+
+;; Keybinds
+(null-keybinds-major-key-def
+  :states '(normal visual)
+  :keymaps 'c++-mode-map
+  "f" '(ff-find-other-file :wk "find other file"))
 
 (provide 'null-cpp)
 
