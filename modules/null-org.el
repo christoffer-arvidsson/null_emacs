@@ -29,6 +29,7 @@
 ;; commentary
 
 ;;; Code:
+(require 'null-keybinds)
 (require 'org-tempo)
 (require 'org-indent)
 

@@ -1,5 +1,7 @@
 ;;; null-windows.el -*- lexical-binding: t; -*-
 
+(require 'null-keybinds)
+
 (defun +evil--window-swap (direction)
   "Move current window to the next window in DIRECTION.
 If there are no windows there and there is only one window, split in that

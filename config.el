@@ -1,19 +1,19 @@
 ;;; Code:
 
 ;; core
+(require 'null-defaults)
+(require 'null-keybinds)
 (require 'null-startup)
 (require 'null-ui)
-(require 'null-keybinds)
-(require 'null-defaults)
 
 ;; buffer, files, windows
 (require 'null-files)
-(require 'null-windows)
 (require 'null-project)
+(require 'null-windows)
 
 ;; editor
-(require 'null-editor)
 (require 'null-completion)
+(require 'null-editor)
 (require 'null-lsp)
 
 ;; org
@@ -22,7 +22,9 @@
 (require 'null-org-knowledge)
 
 ;; languages
+(require 'null-cpp)
 (require 'null-elisp)
+(require 'null-python)
 (require 'null-rust)
 
 ;; Personal information
