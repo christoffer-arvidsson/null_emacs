@@ -27,12 +27,12 @@
 (require 'null-python)
 (require 'null-rust)
 
-(defun eethern/init_work_packages ()
+(defun null/init_work_packages ()
   "Do work specific initialization."
   (message "using work configuration."))
 
 ;; Work
-(if (string-equal (system-name) "ucnd1387l61") (eethern/init_work_packages))
+(if (string-equal (system-name) "ucnd1387l61") (null/init_work_packages))
 
 ;; Personal information
 (setq user-full-name "Christoffer Arvidsson"

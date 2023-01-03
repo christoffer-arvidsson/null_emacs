@@ -2,7 +2,9 @@
 
 (require 'null-keybinds)
 
-;; Functions
+;; Code
+
+;;; Functions
 
 (defun +evil--window-swap (direction)
   "Move current window to the next window in DIRECTION.
@@ -110,14 +112,12 @@ the only window, use evil-window-move-* (e.g. `evil-window-move-far-left')."
     "Set workspace buffer list for consult-buffer.")
   (add-to-list 'consult-buffer-sources 'consult--source-workspace))
 
-
-;; Keybinds
+;;; Bindings
 
 (general-define-key
  :states 'normal
  "<prior>" 'null-windows-scroll-half-page-up
- "<next>" 'null-windows-scroll-half-page-down
- )
+ "<next>" 'null-windows-scroll-half-page-down)
 
 (null-keybinds-leader-key-def
   :keymaps 'normal

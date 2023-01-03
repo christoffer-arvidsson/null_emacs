@@ -32,10 +32,10 @@
 
 (require 'null-org)
 
-(defconst eethern/citar-path (concat eethern/org-directory "bibliography")
+(defconst null/citar-path (concat null/org-directory "bibliography")
   "Path to citar base directory")
 
-(defconst eethern/citar-bibliography-path (expand-file-name "references.bib" eethern/citar-path)
+(defconst null/citar-bibliography-path (expand-file-name "references.bib" null/citar-path)
   "Path to file bibliography file.")
 
 (use-package citar
@@ -43,9 +43,9 @@
   :bind (:map minibuffer-local-map
               ("M-b" . citar-insert-preset))
   :custom
-  (citar-notes-paths (list eethern/citar-path))
-  (citar-bibliography (list eethern/citar-bibliography-path))
-  (org-cite-global-bibliography (list eethern/citar-bibliography-path))
+  (citar-notes-paths (list null/citar-path))
+  (citar-bibliography (list null/citar-bibliography-path))
+  (org-cite-global-bibliography (list null/citar-bibliography-path))
   (org-cite-insert-processor 'citar)
   (org-cite-follow-processor 'citar)
   (org-cite-activate-processor 'citar)

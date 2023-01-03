@@ -34,38 +34,38 @@
 (require 'null-org)
 (add-to-list 'org-modules 'org-habit)
 
-(defun eethern/org-agenda-open-todos (&optional arg)
+(defun null/org-agenda-open-todos (&optional arg)
   "Open todo view."
   (interactive "P")
   (org-agenda arg "t"))
 
-(defun eethern/org-agenda-open-work (&optional arg)
+(defun null/org-agenda-open-work (&optional arg)
   "Open work agenda view."
   (interactive "P")
   (org-agenda arg "w"))
 
-(defun eethern/org-agenda-open-personal (&optional arg)
+(defun null/org-agenda-open-personal (&optional arg)
   "Open personal agenda view."
   (interactive "P")
   (org-agenda arg "a"))
 
-(defun eethern/org-capture-to-project-heading ()
+(defun null/org-capture-to-project-heading ()
   "Capture to a project heading via completion."
   (interactive)
   (let ((projects
          (org-map-entries `(lambda () (nth 4 (org-heading-components)))
-                          "+project+LEVEL=2" (list eethern/org-capture-work-file))))
+                          "+project+LEVEL=2" (list null/org-capture-work-file))))
     (setq choice (completing-read "Project: " projects nil t nil nil))
-    (org-capture-set-target-location (list 'file+headline eethern/org-capture-work-file choice))))
+    (org-capture-set-target-location (list 'file+headline null/org-capture-work-file choice))))
 
-(defun eethern/consult-clock-in ()
+(defun null/consult-clock-in ()
   "Clock into an Org agenda heading."
   (interactive)
   (save-window-excursion
     (consult-org-agenda)
     (org-clock-in)))
 
-(defun eethern/consult-clock-in-recent (&optional match scope resolve)
+(defun null/consult-clock-in-recent (&optional match scope resolve)
   "Clock into an Org heading."
   (interactive (list nil nil current-prefix-arg))
   (require 'org-clock)
@@ -85,10 +85,10 @@
                         (org-read-date t t)))))
 
 (with-eval-after-load 'consult
-  (consult-customize eethern/consult-clock-in
+  (consult-customize null/consult-clock-in
                      :prompt "Clock in: "
                      :preview-key (kbd "M-."))
-  (consult-customize eethern/consult-clock-in-recent
+  (consult-customize null/consult-clock-in-recent
                      :prompt "Clock in: "
                      :preview-key (kbd "M-.")
                      :group
@@ -102,10 +102,10 @@
 
 (with-eval-after-load 'org
   (org-clock-persistence-insinuate) ; hooks for clock persistence
-  (setq eethern/org-capture-todo-file eethern/org-capture-todo-file
-        org-capture-journal-file eethern/org-capture-journal-file
+  (setq null/org-capture-todo-file null/org-capture-todo-file
+        org-capture-journal-file null/org-capture-journal-file
 
-        org-agenda-files (list eethern/org-capture-todo-file eethern/org-capture-work-file)
+        org-agenda-files (list null/org-capture-todo-file null/org-capture-work-file)
         org-refile-targets '((org-agenda-files :maxlevel . 2))
         org-refile-allow-creating-parent-nodes 'confirm
         org-refile-use-outline-path 'file
@@ -140,39 +140,39 @@
   ;; Capture templates
   (setq org-capture-templates
         '(("t" "Personal todo" entry
-           (file+headline eethern/org-capture-todo-file "Inbox")
+           (file+headline null/org-capture-todo-file "Inbox")
            "* TODO %?\n%i\n%a" :prepend t)
           ("c" "To clocked task" item
            (clock)
            "- %?")
           ("j" "Journal" entry
-           (file+datetree eethern/org-capture-journal-file)
+           (file+datetree null/org-capture-journal-file)
            "* %U %?" :prepend t)
 
           ("w" "Work")
           ("ww" "Work inbox" entry
-           (file+headline eethern/org-capture-work-file "Inbox")
+           (file+headline null/org-capture-work-file "Inbox")
            "* %?" :prepend t)
           ("wt" "Work Todo" entry
-           (file+headline eethern/org-capture-work-file "Todos")
+           (file+headline null/org-capture-work-file "Todos")
            "* TODO %?" :prepend t)
           ("wT" "Work Clocked Todo" entry
-           (file+headline eethern/org-capture-work-file "Todos")
+           (file+headline null/org-capture-work-file "Todos")
            "* NEXT %?" :prepend t :clock-in t)
           ("wm" "Work Meeting notes" entry
-           (file+headline eethern/org-capture-work-file "Meeting notes")
+           (file+headline null/org-capture-work-file "Meeting notes")
            "* %?\n<%<%Y-%m-%d %a %H:00>>" :prepend t :clock-in t)
-          ("wp" "Project Todo" entry (file+function eethern/org-capture-work-file eethern/org-capture-to-project-heading)
+          ("wp" "Project Todo" entry (file+function null/org-capture-work-file null/org-capture-to-project-heading)
            "* TODO %?\n" :prepend t)
-          ("wP" "Project Todo Clocked" entry (file+function eethern/org-capture-work-file eethern/org-capture-to-project-heading)
+          ("wP" "Project Todo Clocked" entry (file+function null/org-capture-work-file null/org-capture-to-project-heading)
            "* TODO %?\n" :prepend t :clock-in t)
 
           ("u" "University")
           ("ub" "Bioinformatics" entry
-           (file+headline eethern/org-capture-todo-file "Bioinformatics")
+           (file+headline null/org-capture-todo-file "Bioinformatics")
            "* TODO %u %? \n%i\n%a" :prepend t)
           ("un" "Natural language processing" entry
-           (file+headline eethern/org-capture-todo-file "Natural language processing")
+           (file+headline null/org-capture-todo-file "Natural language processing")
            "* TODO %u %? \n%i\n%a" :prepend t)
           ("d" "Drill")
           ("db" "Bioinformatics" entry
@@ -183,9 +183,9 @@
            "* %u %^{Question} :drill:\n%?\n** The Answer\n %^{Answer}" :prepend t)
           ("p" "Templates for projects")
           ("pi" "Idea" entry
-           (file+headline eethern/org-capture-todo-file "Project ideas"))
+           (file+headline null/org-capture-todo-file "Project ideas"))
           ("pt" "Project todo" entry
-           (file+headline eethern/org-capture-todo-file "Project todos")
+           (file+headline null/org-capture-todo-file "Project todos")
            "* TODO %u %?\n%i\n%a" :prepend t))))
 
 ;; Cleaner agenda
@@ -343,7 +343,7 @@
 (use-package org-drill
   :after org
   :custom 
-  (org-drill-file eethern/org-drill-file))
+  (org-drill-file null/org-drill-file))
 
 (null-keybinds-major-key-def
   :states 'normal
@@ -367,9 +367,9 @@
   "X" 'org-capture
   "o a /" 'consult-org-agenda
   "o a A" 'org-agenda
-  "o a t" 'eethern/org-agenda-open-todos
-  "o a w" 'eethern/org-agenda-open-work
-  "o a p" 'eethern/org-agenda-open-personal
+  "o a t" 'null/org-agenda-open-todos
+  "o a w" 'null/org-agenda-open-work
+  "o a p" 'null/org-agenda-open-personal
 
  ;; clocks
  "c i" 'consult-clock-in

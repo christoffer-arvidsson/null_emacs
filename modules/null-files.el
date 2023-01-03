@@ -4,7 +4,7 @@
 
 (require 'null-keybinds)
 
-(defun eethern/delete-current-buffer-file ()
+(defun null/delete-current-buffer-file ()
   "Remove file connected to current buffer and kill buffer."
   (interactive)
   (let ((filename (buffer-file-name))
@@ -17,7 +17,7 @@
         (kill-buffer buffer)
         (message "File '%s' successfully removed" filename)))))
 
-(defun eethern/rename-current-buffer-file ()
+(defun null/rename-current-buffer-file ()
   "Rename current buffer and file it is visiting."
   (interactive)
   (let ((name (buffer-name))
@@ -34,7 +34,7 @@
           (message "File '%s' successfully renamed to '%s'"
                    name (file-name-nondirectory new-name)))))))
 
-(defun eethern/yank-buffer-path (&optional root)
+(defun null/yank-buffer-path (&optional root)
   "Copy the current buffer's path to the kill ring."
   (interactive)
   (if-let (filename (or (buffer-file-name (buffer-base-buffer))
@@ -46,26 +46,26 @@
                             filename))))
     (error "Couldn't find filename in current buffer")))
 
-(defun eethern/yank-buffer-path-relative-to-project (&optional include-root)
+(defun null/yank-buffer-path-relative-to-project (&optional include-root)
   "Copy the current buffer's path to the kill ring.
 With non-nil prefix INCLUDE-ROOT, also include the project's root."
   (interactive "P")
-  (eethern/yank-buffer-path
+  (null/yank-buffer-path
    (if include-root
        (file-name-directory (directory-file-name (project-root)))
      (project-root))))
 
-(defun eethern/find-project-file-in-directory (directory)
+(defun null/find-project-file-in-directory (directory)
   "Find project file in DIRECTORY."
   (let ((default-directory directory))
     (project-find-file)))
 
-(defun eethern/find-config-file ()
+(defun null/find-config-file ()
   "Find project file in Emacs user directory."
   (interactive)
-  (eethern/find-project-file-in-directory user-emacs-directory))
+  (null/find-project-file-in-directory user-emacs-directory))
 
-(defun eethern/search-symbol-at-point ()
+(defun null/search-symbol-at-point ()
   "Search lines by symbol at point."
   (interactive)
   (consult-line (thing-at-point 'symbol)))
@@ -78,18 +78,18 @@ With non-nil prefix INCLUDE-ROOT, also include the project's root."
   "s" '(:ignore t :wk "search")
   "s i" '(consult-imenu :wk "Jump to symbol")
   "s b" '(consult-line :wk "Search lines")
-  "s s" '(eethern/search-symbol-at-point :wk "Search symbol at point")
+  "s s" '(null/search-symbol-at-point :wk "Search symbol at point")
 
   "f" '(:ignore t :wk "file")
   "f r" '(consult-recent-file :wk "Recent files")
   "f f" '(find-file :wk "Find file")
   "f s" '(save-buffer :wk "Save buffer")
-  "f p" '(eethern/find-config-file :wk "Find emacs config file")
-  "f y" '(eethern/yank-buffer-path :wk "Yank buffer path")
-  "f Y" '(eethern/yank-buffer-path-relative-to-project :wk "Yank project-relative buffer path")
+  "f p" '(null/find-config-file :wk "Find emacs config file")
+  "f y" '(null/yank-buffer-path :wk "Yank buffer path")
+  "f Y" '(null/yank-buffer-path-relative-to-project :wk "Yank project-relative buffer path")
   "f S" '(write-file :wk "Save buffer as...")
-  "f D" '(eethern/delete-current-buffer-file :wk "Delete current file")
-  "f R" '(eethern/rename-current-buffer-file :wk "Move current file")
+  "f D" '(null/delete-current-buffer-file :wk "Delete current file")
+  "f R" '(null/rename-current-buffer-file :wk "Move current file")
 
   "b" '(:ignore t :wk "buffer")
   "b b" '(consult-buffer :wk "Switch buffer")

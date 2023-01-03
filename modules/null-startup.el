@@ -2,7 +2,7 @@
 
 ;;; Code:
 
-(defun eethern/dashboard-banner ()
+(defun null/dashboard-banner ()
   """Set a dashboard banner including information on package initialization
        time and garbage collections."""
   (setq dashboard-banner-logo-title
@@ -12,7 +12,7 @@
 (use-package dashboard
   :init
   (add-hook 'after-init-hook 'dashboard-refresh-buffer)
-  (add-hook 'dashboard-mode-hook 'eethern/dashboard-banner)
+  (add-hook 'dashboard-mode-hook 'null/dashboard-banner)
   :custom
   (dashboard-projects-backend 'project-el)
   (dashboard-startup-banner 'logo)

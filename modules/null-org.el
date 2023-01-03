@@ -33,25 +33,25 @@
 (require 'org-tempo)
 (require 'org-indent)
 
-(defconst eethern/org-directory (file-truename "~/Dropbox/org/")
+(defconst null/org-directory (file-truename "~/Dropbox/org/")
   "Path to org directory.")
 
-(defconst eethern/org-capture-todo-file (expand-file-name "agenda.org" eethern/org-directory)
+(defconst null/org-capture-todo-file (expand-file-name "agenda.org" null/org-directory)
   "Path to file containing personal todos.")
 
-(defconst eethern/org-capture-work-file (expand-file-name "work.org" eethern/org-directory)
+(defconst null/org-capture-work-file (expand-file-name "work.org" null/org-directory)
   "Path to file containing work todos.")
 
-(defconst eethern/org-capture-work-journal-file (expand-file-name "work_journal.org" eethern/org-directory)
+(defconst null/org-capture-work-journal-file (expand-file-name "work_journal.org" null/org-directory)
   "Path to file containing work journal.")
 
-(defconst eethern/org-capture-journal-file (expand-file-name "journal.org" eethern/org-directory)
+(defconst null/org-capture-journal-file (expand-file-name "journal.org" null/org-directory)
   "Path to file containing personal journal.")
 
-(defconst eethern/org-drill-file (expand-file-name "drill.org" eethern/org-directory)
+(defconst null/org-drill-file (expand-file-name "drill.org" null/org-directory)
   "Path to file containing drills.")
 
-(defun eethern/org--get-foldlevel ()
+(defun null/org--get-foldlevel ()
   (let ((max 1))
     (save-restriction
       (narrow-to-region (window-start) (window-end))
@@ -65,20 +65,20 @@
                 (setq max level))))))
       max)))
 
-(defun eethern/org-show-next-fold-level (&optional count)
+(defun null/org-show-next-fold-level (&optional count)
   "Decrease the fold-level of the visible area of the buffer. This unfolds
     another level of headings on each invocation."
   (interactive "p")
-  (let ((new-level (+ (eethern/org--get-foldlevel) (or count 1))))
+  (let ((new-level (+ (null/org--get-foldlevel) (or count 1))))
     (outline-hide-sublevels new-level)
     (message "Folded to level %s" new-level)))
 
-(defun eethern/org-close-all-folds (&optional level)
+(defun null/org-close-all-folds (&optional level)
   "Close all folds in the buffer (or below LEVEL)."
   (interactive "p")
   (outline-hide-sublevels (or level 1)))
 
-(defun eethern/org-open-all-folds (&optional level)
+(defun null/org-open-all-folds (&optional level)
   "Open all folds in the buffer (or up to LEVEL)."
   (interactive "P")
   (if (integerp level)
@@ -87,22 +87,22 @@
     (outline-show-all)))
 
 
-(defun eethern/org-mode-setup ()
+(defun null/org-mode-setup ()
   (auto-fill-mode nil)
-  (visual-line-mode 1))
+  (visual-line-mode 1)
 
-  ;; (set-face-attribute 'org-document-title nil :font "Iosevka Aile" :weight 'bold :height 1.0)
-  ;; (dolist (face '((org-level-1 . 1.2)
-  ;;                 (org-level-2 . 1.1)
-  ;;                 (org-level-3 . 1.05)
+  (set-face-attribute 'org-document-title nil :font "Iosevka Aile" :weight 'bold :height 1.0))
+  ;; (dolist (face '((org-level-1 . 1.0)
+  ;;                 (org-level-2 . 1.0)
+  ;;                 (org-level-3 . 1.0)
   ;;                 (org-level-4 . 1.0)
-  ;;                 (org-level-5 . 1.1)
-  ;;                 (org-level-6 . 1.1)
-  ;;                 (org-level-7 . 1.1)
-  ;;                 (org-level-8 . 1.1)))
+  ;;                 (org-level-5 . 1.0)
+  ;;                 (org-level-6 . 1.0)
+  ;;                 (org-level-7 . 1.0)
+  ;;                 (org-level-8 . 1.0)))
   ;;   (set-face-attribute (car face) nil :font "Iosevka Aile" :weight 'bold :height (cdr face)))
 
-  ;; (require 'org-indent)
+  ;; ;; (require 'org-indent)
   ;; (set-face-attribute 'org-block nil :foreground nil :inherit 'fixed-pitch)
   ;; (set-face-attribute 'org-table nil  :inherit 'fixed-pitch)
   ;; (set-face-attribute 'org-formula nil  :inherit 'fixed-pitch)
@@ -118,10 +118,10 @@
 (use-package org
   :ensure t
   :hook
-  (org-mode . eethern/org-mode-setup)
+  (org-mode . null/org-mode-setup)
   (org-babel-after-execute . org-redisplay-inline-images)
   :custom
-  (org-directory eethern/org-directory)
+  (org-directory null/org-directory)
   (org-hide-leading-stars nil) ; superstar needs this to be nil
   (org-startup-indented t) ; indent mode on startup
   (org-indent-mode-turns-on-hiding-stars nil) ; superstar needs this to be nil
@@ -231,8 +231,8 @@
 
 (general-define-key
  :states 'normal
- "z r" 'eethern/show-next-fold-level
- "z R" 'eethern/open-all-folds
+ "z r" 'null/show-next-fold-level
+ "z R" 'null/open-all-folds
  "z i" 'org-toggle-inline-images
  "C-n" 'org-babel-next-src-block
  "C-e" 'org-babel-previous-src-block)
