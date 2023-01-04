@@ -29,6 +29,7 @@
 
 (defun null/init_work_packages ()
   "Do work specific initialization."
+  (require 'null-gerrit)
   (message "using work configuration."))
 
 ;; Work
