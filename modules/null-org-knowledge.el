@@ -79,11 +79,7 @@
                                           (propertize "${file:48}" 'face 'org-tag)))
   :config
   (setq org-roam-capture-templates
-        '(("d" "temporary note" plain
-           (file "~/Dropbox/org/orbit/templates/draft.org")
-           :target (file "%<%Y%m%d%H%M%S>-${slug}.org")
-           :unnarrowed t)
-          ("l" "lecture note" plain
+        '(("l" "lecture note" plain
            (file "~/Dropbox/org/orbit/templates/lecture_note.org")
            :target (file "%<%Y%m%d%H%M%S>-${slug}.org")
            :unnarrowed t)
@@ -95,6 +91,25 @@
            (file "~/Dropbox/org/orbit/templates/notebook.org")
            :target (file "%<%Y%m%d%H%M%S>-${slug}.org")
            :unnarrowed t))))
+
+
+(use-package org-drill
+  :ensure t
+  :after org)
+
+(use-package org-roam-review
+  :straight (:type git :host github :repo "chrisbarrett/nursery" :files (:defaults "list/*.el"))
+  :after (org-roam drill)
+  :commands (org-roam-review
+             org-roam-review-list-by-maturity
+             org-roam-review-list-recently-added)
+  :general
+  (:states '(normal) :keymaps 'org-roam-review-mode-map
+           "TAB" 'magit-section-cycle
+           "g r" 'org-roam-review-refresh))
+
+(add-hook 'org-roam-capture-new-node-hook
+        (lambda () (org-roam-review-set-seedling)))
 
 (use-package org-roam-ui
   :after org-roam
@@ -109,7 +124,7 @@
   :keymaps 'normal
   "n r" '(:ignore t :wk "Org roam")
   "n r f" '(org-roam-node-find :wk "Find node")
-  "n r r" '(org-roam-node-random :wk "Random node") 
+  "n r r" '(org-roam-node-random :wk "Random node")
   "n r c" '(org-roam-capture :wk "Capture note")
   "n r t" '(org-roam-tag-add :wk "Add tag")
   "n r a" '(org-roam-alias-add :wk "Add alias")
@@ -117,7 +132,16 @@
   "n r s" '(org-roam-buffer-toggle :wk "Toggle org roam status buffer")
   "n r S" '(org-roam-db-sync :wk "Sync roam database")
   "n r u" '(org-roam-ui-open :wk "Open org roam ui")
-  "n r i" '(org-roam-node-insert :wk "Insert node"))
+  "n r i" '(org-roam-node-insert :wk "Insert node")
+
+  "n e" '(:ignore t :wk "Org roam review")
+  "n e r" '(org-roam-review :wk "review")
+  "n e a" '(org-roam-review-accept :wk "accept")
+  "n e u" '(org-roam-review-bury :wk "bury")
+  "n e x" '(org-roam-review-set-excluded :wk "set excluded")
+  "n e b" '(org-roam-review-set-budding :wk "set budding")
+  "n e s" '(org-roam-review-set-seedling :wk "set seedling")
+  "n e e" '(org-roam-review-set-evergreen :wk "set evergreen"))
 
 
 (provide 'null-org-knowledge)

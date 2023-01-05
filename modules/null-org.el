@@ -51,6 +51,17 @@
 (defconst null/org-drill-file (expand-file-name "drill.org" null/org-directory)
   "Path to file containing drills.")
 
+(defun null/org-toggle-properties ()
+  "Toggle visibility of properties in current header if it exists."
+  (save-excursion
+    (when (not (org-at-heading-p))
+      (org-previous-visible-heading 1))
+    (when (org-header-property-p)
+      (let* ((a (re-search-forward "\n\\:" nil t)))
+        (if (outline-invisible-p (point))
+            (outline-show-entry)
+          (org-cycle-hide-drawers 'all))))))
+
 (defun null/org--get-foldlevel ()
   (let ((max 1))
     (save-restriction
@@ -234,6 +245,7 @@
  "z r" 'null/show-next-fold-level
  "z R" 'null/open-all-folds
  "z i" 'org-toggle-inline-images
+ "z p" 'null/org-toggle-properties
  "C-n" 'org-babel-next-src-block
  "C-e" 'org-babel-previous-src-block)
 
