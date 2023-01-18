@@ -35,6 +35,13 @@
         evil-undo-system 'undo-tree
         evil-respect-visual-line-mode t)
   :config
+  (let ((after-fn (lambda (&rest _) (recenter nil))))
+    (advice-add 'evil-goto-line :after after-fn)
+    (advice-add 'evil-goto-mark :after after-fn)
+    (advice-add 'evil-goto-mark-line :after after-fn)
+    (advice-add 'evil-scroll-down :after after-fn)
+    (advice-add 'evil-scroll-up :after after-fn))
+
   (evil-mode 1))
 
 (use-package evil-collection
