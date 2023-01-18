@@ -37,10 +37,9 @@
   :custom
   (python-indent-offset 4)
   :config
-  (setenv "PYTHONPATH" "/home/s0001520/repos/madame-web")
+  (setenv "PYTHONPATH" "/home/s0001520/repos/madame-web"))
 
-  ;; Make evil treat words_words as one symbol
-  (add-hook 'python-mode-hook #'(lambda () (modify-syntax-entry ?_ "w"))))
+(add-hook 'python-mode-hook #'(lambda () (modify-syntax-entry ?_ "w")))
 
 (use-package anaconda-mode
   :defer t
