@@ -34,26 +34,25 @@
           (message "File '%s' successfully renamed to '%s'"
                    name (file-name-nondirectory new-name)))))))
 
-(defun null/yank-buffer-path (&optional root)
+(defun null/yank-buffer-path ()
   "Copy the current buffer's path to the kill ring."
   (interactive)
-  (if-let (filename (or (buffer-file-name (buffer-base-buffer))
-                        (bound-and-true-p list-buffers-directory)))
-      (message "Copied path to clipboard: %s"
-               (kill-new (abbreviate-file-name
-                          (if root
-                              (file-relative-name filename root)
-                            filename))))
-    (error "Couldn't find filename in current buffer")))
+  (let ((filename (abbreviate-file-name (if (equal major-mode 'dired-mode)
+                      default-directory
+                    (buffer-file-name)))))
+    (when filename
+      (let ((x-select-enable-clipboard t)) (kill-new filename))
+      (message filename))))
 
-(defun null/yank-buffer-path-relative-to-project (&optional include-root)
-  "Copy the current buffer's path to the kill ring.
-With non-nil prefix INCLUDE-ROOT, also include the project's root."
-  (interactive "P")
-  (null/yank-buffer-path
-   (if include-root
-       (file-name-directory (directory-file-name (project-root)))
-     (project-root))))
+(defun null/yank-buffer-path-relative-to-project ()
+  "Copy the current buffer's path relative to current projects root, to the kill ring."
+  (interactive)
+  (let ((filename (abbreviate-file-name (file-relative-name (if (equal major-mode 'dired-mode)
+                      default-directory
+                    (buffer-file-name)) (project-root (project-current))))))
+    (when filename
+      (let ((x-select-enable-clipboard t)) (kill-new filename))
+      (message filename))))
 
 (defun null/find-project-file-in-directory (directory)
   "Find project file in DIRECTORY."
