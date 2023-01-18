@@ -101,6 +101,11 @@ the only window, use evil-window-move-* (e.g. `evil-window-move-far-left')."
     "Set workspace buffer list for consult-buffer.")
   (add-to-list 'consult-buffer-sources 'consult--source-workspace))
 
+(use-package winner
+  :config
+  ;; Allow restoring window changes
+  (winner-mode +1))
+
 ;;; Bindings
 
 (general-define-key
@@ -122,6 +127,8 @@ the only window, use evil-window-move-* (e.g. `evil-window-move-far-left')."
   "w I" '(+evil/window-move-right :wk "Move window right")
   "w v" '(evil-window-vsplit :wk "Vertical window split")
   "w s" '(evil-window-split :wk "Horizontal window split")
+  "w u" '(winner-undo :wk "Undo layout change")
+  "w r" '(winner-redo :wk "Redo layout change")
   "w q" '(evil-quit :wk "Evil quit")
   "w =" '(balance-windows :wk "Balance windows")
 
