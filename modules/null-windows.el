@@ -55,17 +55,6 @@ the only window, use evil-window-move-* (e.g. `evil-window-move-far-left')."
   "Swap windows downward."
   (interactive) (+evil--window-swap 'down))
 
-
-(defun null-windows-scroll-half-page (direction)
-  "Scrolls half page up if `direction' is non-nil, otherwise will scroll half page down."
-  (let ((opos (cdr (nth 6 (posn-at-point)))))
-    ;; opos = original position line relative to window
-    (move-to-window-line nil)  ;; Move cursor to middle line
-    (if direction
-        (recenter-top-bottom -1)  ;; Current line becomes last
-      (recenter-top-bottom 0))  ;; Current line becomes first
-    (move-to-window-line opos)))  ;; Restore cursor/point position
-
 (defun null-windows-scroll-half-page-down ()
   "Scrolls exactly half page down keeping cursor/point position."
   (interactive)
@@ -116,8 +105,8 @@ the only window, use evil-window-move-* (e.g. `evil-window-move-far-left')."
 
 (general-define-key
  :states 'normal
- "<prior>" 'null-windows-scroll-half-page-up
- "<next>" 'null-windows-scroll-half-page-down)
+ "<prior>" 'evil-scroll-up
+ "<next>" 'evil-scroll-down)
 
 (null-keybinds-leader-key-def
   :keymaps 'normal
