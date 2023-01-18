@@ -14,7 +14,7 @@
   (tooltip-mode -1)
   (column-number-mode +1)
   ;; (setq-default display-line-numbers-width 3)
-  (setq visible-bell t)
+  (setq visible-bell nil)
   (menu-bar-mode -1))
 
 (dolist (mode '(text-mode-hook
@@ -36,7 +36,6 @@
   :config
 
   (load-theme 'doom-horizon t)
-  (doom-themes-visual-bell-config)
   (doom-themes-org-config))
 
 ;; brighter line numbers
