@@ -77,6 +77,12 @@ _k_: down      _a_: combine       _q_: quit
     nil nil 'bottom)
   (global-git-gutter-mode +1))
 
+(use-package git-timemachine
+  :after magit
+  :config
+  (evil-make-overriding-map git-timemachine-mode-map 'normal)
+  ;; force update evil keymaps after git-timemachine-mode loaded
+  (add-hook 'git-timemachine-mode-hook #'evil-normalize-keymaps))
 
 ;; Flycheck
 (use-package flycheck
@@ -108,7 +114,9 @@ _k_: down      _a_: combine       _q_: quit
   "/" '(consult-ripgrep :wk "Search project")
 
   "g" '(:ignore t :wk "git")
+  "g B" '(magit-blame :wk "Magit blame")
   "g g" '(magit :wk "Magit status")
+  "g t" '(git-timemachine :wk "Git timemachine")
   "g m" '(null/smerge-body :wk "Smerge hydra"))
 
 (provide 'null-project)
