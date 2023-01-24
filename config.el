@@ -27,6 +27,9 @@
 (require 'null-python)
 (require 'null-rust)
 
+;; other
+(require 'null-apps)
+
 (defun null/init_work_packages ()
   "Do work specific initialization."
   (require 'null-gerrit)
