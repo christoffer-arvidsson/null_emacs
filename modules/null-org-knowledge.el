@@ -92,6 +92,31 @@
            :target (file "%<%Y%m%d%H%M%S>-${slug}.org")
            :unnarrowed t))))
 
+(use-package consult-org-roam
+   :ensure t
+   :after org-roam
+   :init
+   (require 'consult-org-roam)
+   ;; Activate the minor mode
+   (consult-org-roam-mode 1)
+   :custom
+   ;; Use `ripgrep' for searching with `consult-org-roam-search'
+   (consult-org-roam-grep-func #'consult-ripgrep)
+   ;; Configure a custom narrow key for `consult-buffer'
+   (consult-org-roam-buffer-narrow-key ?r)
+   ;; Display org-roam buffers right after non-org-roam buffers
+   ;; in consult-buffer (and not down at the bottom)
+   (consult-org-roam-buffer-after-buffers t)
+   :config
+   ;; Eventually suppress previewing for certain functions
+   ;; (consult-customize
+   ;;  consult-org-roam-forward-links
+   ;;  :preview-key (kbd "M-."))
+   :bind
+   ;; Define some convenient keybindings as an addition
+   ("C-c n b" . consult-org-roam-backlinks)
+   ("C-c n l" . consult-org-roam-forward-links)
+   ("C-c n r" . consult-org-roam-search))
 
 (use-package org-drill
   :ensure t
@@ -106,7 +131,9 @@
   :general
   (:states '(normal) :keymaps 'org-roam-review-mode-map
            "TAB" 'magit-section-cycle
-           "g r" 'org-roam-review-refresh))
+           "g r" 'org-roam-review-refresh)
+  :custom
+  (org-roam-ui-open-on-start nil))
 
 (add-hook 'org-roam-capture-new-node-hook
         (lambda () (org-roam-review-set-seedling)))
@@ -123,8 +150,12 @@
 (null-keybinds-leader-key-def
   :keymaps 'normal
   "n r" '(:ignore t :wk "Org roam")
-  "n r f" '(org-roam-node-find :wk "Find node")
+  ;; "n r f" '(org-roam-node-find :wk "Find node")
+  "n r f" '(consult-org-roam-file-find :wk "Find node")
+  "n r b" '(consult-org-roam-backlinks :wk "List backlinks")
+  "n r B" '(consult-org-roam-forward-links :wk "List forward links")
   "n r r" '(org-roam-node-random :wk "Random node")
+  "n r R" '(org-roam-rewrite-rename :wk "Rename node")
   "n r c" '(org-roam-capture :wk "Capture note")
   "n r t" '(org-roam-tag-add :wk "Add tag")
   "n r a" '(org-roam-alias-add :wk "Add alias")
@@ -133,6 +164,7 @@
   "n r S" '(org-roam-db-sync :wk "Sync roam database")
   "n r u" '(org-roam-ui-open :wk "Open org roam ui")
   "n r i" '(org-roam-node-insert :wk "Insert node")
+  "n r /" '(consult-org-roam-search :wk "Search org roam")
 
   "n e" '(:ignore t :wk "Org roam review")
   "n e r" '(org-roam-review :wk "review")
