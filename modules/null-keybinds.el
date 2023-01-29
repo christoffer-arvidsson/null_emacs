@@ -89,6 +89,7 @@
 (null-keybinds-leader-key-def
   :keymaps 'normal
   "" '(nil :wk "Leader")
+  "t" '(:ignore t :wk "toggle")
   "u" 'universal-argument
   "RET" '(consult-bookmark :wk "Jump to bookmark")
   "q" '(:ignore t :wk "quit")

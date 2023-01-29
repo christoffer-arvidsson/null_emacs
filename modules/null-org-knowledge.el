@@ -147,6 +147,21 @@
   (org-roam-ui-update-on-save t)
   (org-roam-ui-open-on-start t))
 
+(use-package writeroom-mode
+  :after visual-fill-column
+  :custom
+  (writeroom-fullscreen-effect 'maximized)
+  (writeroom-restore-window-config t)
+  :config
+  ;; adjust writeroom one font resize
+  (advice-add 'text-scale-adjust :after
+              #'visual-fill-column-adjust)
+  (advice-add 'mouse-wheel-text-scale :after
+              #'visual-fill-column-adjust)
+  (advice-add 'mouse-wheel-global-text-scale :after
+              #'visual-fill-column-adjust))
+
+
 (null-keybinds-leader-key-def
   :keymaps 'normal
   "n r" '(:ignore t :wk "Org roam")
@@ -173,7 +188,9 @@
   "n e x" '(org-roam-review-set-excluded :wk "set excluded")
   "n e b" '(org-roam-review-set-budding :wk "set budding")
   "n e s" '(org-roam-review-set-seedling :wk "set seedling")
-  "n e e" '(org-roam-review-set-evergreen :wk "set evergreen"))
+  "n e e" '(org-roam-review-set-evergreen :wk "set evergreen")
+
+  "t z" '(writeroom-mode :wk "Toggle writeroom mode"))
 
 
 (provide 'null-org-knowledge)
