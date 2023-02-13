@@ -48,6 +48,14 @@
   :config
   (add-to-list 'company-backends '(company-shell company-shell-env company-fish-shell)))
 
+(use-package consult
+  :hook (completion-list-mode . consult-preview-at-point-mode))
+
+(use-package consult-company
+  :after (consult company)
+  :config
+  (define-key company-mode-map [remap completion-at-point] #'consult-company))
+
 (use-package embark
   :ensure t
   :bind
