@@ -89,7 +89,9 @@ _k_: down      _a_: combine       _q_: quit
   :ensure t
   :defer t
   :hook (lsp-mode . flycheck-mode)
-  :init (global-flycheck-mode))
+  :init (global-flycheck-mode)
+  :config
+  (setq flycheck-checker-error-threshold 1500))
 
 ;; Treesitter
 (use-package tree-sitter
