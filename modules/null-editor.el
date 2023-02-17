@@ -154,6 +154,13 @@
 (use-package yasnippet-snippets
   :ensure yasnippet)
 
+(use-package yasnippet-radical-snippets
+  :straight (:type git :host github :repo "Xaldew/yasnippet-radical-snippets" :files (:defaults "snippets" "yasnippet-radical-snippets.el"))
+  :ensure t
+  :after yasnippet
+  :config
+  (yasnippet-radical-snippets-initialize))
+
 (null-keybinds-leader-key-def
   :keymaps 'normal
   "i" '(:ignore t :wk "insert")
