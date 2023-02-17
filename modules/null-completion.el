@@ -30,6 +30,8 @@
 
 (use-package company
   :hook (after-init . global-company-mode)
+  :bind(:map company-active-map
+             ("<tab>" . nil))
   :custom
   (company-minimum-prefix-length 1)
   (company-idle-delay 0.0)
