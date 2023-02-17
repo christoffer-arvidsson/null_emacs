@@ -13,6 +13,7 @@
 
 ;; yes or no
 (defalias 'yes-or-no-p 'y-or-n-p)
+(setq use-dialog-box nil)
 
 ;; Save history
 (use-package savehist
