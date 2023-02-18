@@ -89,10 +89,12 @@
 (null-keybinds-major-key-def
   :states '(normal visual)
   :keymaps 'python-mode-map
-  "r" 'run-python
-  "c" 'python-shell-send-buffer
-  "f" 'python-shell-send-defun
-  "v" 'python-shell-send-region)
+  "e" '(:ignore t :wk "eval")
+  "e r" 'run-python
+  "e e" 'python-shell-send-statement
+  "e b" 'python-shell-send-buffer
+  "e f" 'python-shell-send-defun
+  "e v" 'python-shell-send-region)
 
 (provide 'null-python)
 
