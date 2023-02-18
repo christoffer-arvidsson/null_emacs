@@ -17,9 +17,11 @@
 (require 'null-lsp)
 
 ;; org
+(require 'null-latex)
 (require 'null-org)
 (require 'null-org-agenda)
 (require 'null-org-knowledge)
+(require 'null-org-latex)
 
 ;; languages
 (require 'null-cpp)

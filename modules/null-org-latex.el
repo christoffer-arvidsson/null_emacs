@@ -50,7 +50,6 @@
   :ensure t
   :config
   (add-hook 'org-mode-hook 'org-fragtog-mode)
-  (add-hook 'org-mode-hook 'update-org-latex-fragment-scale)
   (setq org-fragtog-ignore-predicates '(org-at-table-p)))
 
 ;; Numbered equations all have (1) as the number for fragments with vanilla
