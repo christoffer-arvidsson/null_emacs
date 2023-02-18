@@ -1,4 +1,4 @@
-;;; null-lsp.el --- summary -*- lexical-binding: t -*-
+;;; null-popups.el --- summary -*- lexical-binding: t -*-
 
 ;;; Commentary:
 
@@ -75,4 +75,4 @@
   "z" '(:ignore t :wk "show")
   "z p" '(popper-toggle-latest :wk "toggle popup"))
 
-;;; null-lsp.el ends here
+;;; null-popups.el ends here
