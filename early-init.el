@@ -18,5 +18,5 @@
 
 ;; Make gc pauses faster by decreasing the threshold.
 (setq gc-cons-threshold (* 100 1000 1000))
-(setq read-process-output-max (* 1024 1024)) ;; 1mb
+(setq read-process-output-max (* 3 1024 1024)) ;; 3mb
 
