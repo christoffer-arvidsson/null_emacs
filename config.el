@@ -1,5 +1,9 @@
 ;;; Code:
 
+;; Personal information
+(setq user-full-name "Christoffer Arvidsson"
+      user-mail-address "christoffer@arvidson.nu")
+
 ;; core
 (require 'null-defaults)
 (require 'null-keybinds)
@@ -47,10 +51,6 @@
 
 ;; Work
 (if (string-equal (system-name) "ucnd1387l61") (null/init_work_packages))
-
-;; Personal information
-(setq user-full-name "Christoffer Arvidsson"
-      user-mail-address "christoffer@arvidson.nu")
 
 (provide 'config)
 ;;; config.el ends here
