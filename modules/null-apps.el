@@ -35,10 +35,14 @@
 (use-package calc
   :ensure t)
 
+(use-package vterm
+  :ensure t)
+
 ;; Non-package keys
 (null-keybinds-leader-key-def
   :keymaps 'normal
   "o c" '(quick-calc :wk "Quick calculator")
+  "o t" '(vterm :wk "Open vterm")
   "o C" '(calc :wk "Calculator"))
 
 (provide 'null-apps)
