@@ -93,6 +93,7 @@
   "e r" 'run-python
   "e e" 'python-shell-send-statement
   "e b" 'python-shell-send-buffer
+  "e B" '(lambda () (interactive )(python-shell-send-buffer t))
   "e f" 'python-shell-send-defun
   "e v" 'python-shell-send-region)
 
