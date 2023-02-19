@@ -95,6 +95,7 @@ _p_rev       _u_pper              _=_: upper/lower       _r_esolve
 (use-package flycheck
   :ensure t
   :defer t
+
   :init (global-flycheck-mode)
   :config
   (setq flycheck-checker-error-threshold 1500))

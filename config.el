@@ -49,4 +49,3 @@
 
 (provide 'config)
 ;;; config.el ends here
-
