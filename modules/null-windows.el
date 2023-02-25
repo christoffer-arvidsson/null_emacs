@@ -66,40 +66,19 @@ the only window, use evil-window-move-* (e.g. `evil-window-move-far-left')."
   (null-windows-scroll-half-page t))
 
 ;; Packages
-(use-package tabspaces
-  ;; use this next line only if you also use straight, otherwise ignore it. 
-  :straight (:type git :host github :repo "mclear-tools/tabspaces")
-  :after consult
-  :hook (after-init . tabspaces-mode) ;; use this only if you want the minor-mode loaded at startup. 
-  :commands (tabspaces-switch-or-create-workspace
-             tabspaces-open-or-create-project-and-workspace)
-  :custom
-  (tabspaces-use-filtered-buffers-as-default t)
-  (tabspaces-default-tab "Default")
-  (tabspaces-remove-to-default t)
-  (tabspaces-include-buffers '("*scratch*"))
-  ;; sessions
-  (tabspaces-session t)
-  (tabspaces-session-auto-restore t)
-  
-  :config
-  ;; hide full buffer list (still available with "b" prefix)
-  (consult-customize consult--source-buffer :hidden t :default nil)
-  ;; set consult-workspace buffer list
-  (defvar consult--source-workspace
-    (list :name     "Workspace Buffers"
-          :narrow   ?w
-          :history  'buffer-name-history
-          :category 'buffer
-          :state    #'consult--buffer-state
-          :default  t
-          :items    (lambda () (consult--buffer-query
-                                :predicate #'tabspaces--local-buffer-p
-                                :sort 'visibility
-                                :as #'buffer-name)))
 
-    "Set workspace buffer list for consult-buffer.")
-  (add-to-list 'consult-buffer-sources 'consult--source-workspace))
+;; (use-package persp-mode
+;;   :ensure t
+;;   :hook (window-setup . (lambda () (persp-mode 1)))
+;;   :config
+;;   (setq persp-autokill-buffer-on-remove 'kill-weak))
+
+(use-package eyebrowse
+  :init
+  (setq eyebrowse-keymap-prefix "z")
+  :config
+  (eyebrowse-setup-evil-keys)
+  (eyebrowse-mode +1))
 
 (use-package winner
   :config
@@ -130,29 +109,6 @@ the only window, use evil-window-move-* (e.g. `evil-window-move-far-left')."
   "w u" '(winner-undo :wk "Undo layout change")
   "w r" '(winner-redo :wk "Redo layout change")
   "w q" '(evil-quit :wk "Evil quit")
-  "w =" '(balance-windows :wk "Balance windows")
-
-  ;; For standard vi bindings (incase of non-colemak kb)
-  "w h" '(evil-window-left :wk "Select window left")
-  "w j" '(evil-window-down :wk "Select window down")
-  "w k" '(evil-window-up :wk "Select window up")
-  "w l" '(evil-window-right :wk "Select window right")
-  "w H" '(+evil/window-move-left :wk "Move window left")
-  "w J" '(+evil/window-move-down :wk "Move window down")
-  "w K" '(+evil/window-move-up :wk "Move window up")
-  "w L" '(+evil/window-move-right :wk "Move window right")
-
-  ;; Workspace
-  "W" '(nil :wk "workspace")
-  "W TAB" '(tab-previous :wk "previous workspaces")
-  "W C" '(tabspaces-clear-buffers :wk "clear workspace buffers")
-  "W b" '(tabspaces-switch-to-buffer :wk "switch workspace buffer")
-  "W x" '(tabspaces-close-workspace :wk "close workspace")
-  "W X" '(tabspaces-kill-buffers-close-workspace :wk "kill buffers and close workspace")
-  "W o" '(tabspaces-open-or-create-project-and-workspace :wk "open or create project workspace")
-  "W d" '(tabspaces-remove-current-buffer :wk "remove current buffer")
-  "W D" '(tabspaces-remove-current-buffer :wk "remove selected buffer")
-  "W s" '(tabspaces-switch-or-create-workspace :wk "switch or create workspace")
-  "W t" '(tabspaces-switch-buffer-and-tab :wk "switch buffer and tab"))
+  "w =" '(balance-windows :wk "Balance windows"))
 
 (provide 'null-windows)
