@@ -36,7 +36,7 @@
 ;; other
 (require 'null-apps)
 
-(defun null/init_work_packages ()
+(defun null/init-work-packages ()
   "Do work specific initialization."
   (require 'null-gerrit)
 
@@ -50,7 +50,7 @@
   (message "using work configuration."))
 
 ;; Work
-(if (string-equal (system-name) "ucnd1387l61") (null/init_work_packages))
+(if (string-equal (system-name) "ucnd1387l61") (null/init-work-packages))
 
 (provide 'config)
 ;;; config.el ends here
