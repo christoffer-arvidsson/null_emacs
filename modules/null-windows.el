@@ -75,7 +75,7 @@ the only window, use evil-window-move-* (e.g. `evil-window-move-far-left')."
 
 (use-package eyebrowse
   :init
-  (setq eyebrowse-keymap-prefix "z")
+  (setq eyebrowse-keymap-prefix "C-w")
   :config
   (eyebrowse-setup-evil-keys)
   (eyebrowse-mode +1))
