@@ -122,6 +122,8 @@
   :ensure t
   :after org)
 
+(use-package ht)
+
 (use-package org-roam-review
   :straight (:type git :host github :repo "chrisbarrett/nursery" :files (:defaults "list/*.el"))
   :after (org-roam drill)
