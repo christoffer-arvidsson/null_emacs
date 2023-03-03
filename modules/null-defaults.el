@@ -8,7 +8,7 @@
 (setq display-line-numbers-type 'relative)
 
 ;; bookmarks
-(setq bookmark-default-file "~/.emacs.d/bookmarks")  ;;define file to use.
+(setq bookmark-default-file "~/.config/null_emacs/var/bookmarks")  ;;define file to use.
 (setq bookmark-save-flag 1)  ;save bookmarks to .emacs.bmk after each entry
 
 ;; yes or no
