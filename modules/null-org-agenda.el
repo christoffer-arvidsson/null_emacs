@@ -364,6 +364,7 @@
   "c R" 'org-clock-report)
 
 (null-keybinds-leader-key-def
+  :keymaps 'global-map
   "X" 'org-capture
   "o a /" 'consult-org-agenda
   "o a A" 'org-agenda

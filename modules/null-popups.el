@@ -71,7 +71,7 @@
 
 ;; Non-package keys
 (null-keybinds-leader-key-def
-  :keymaps 'normal
+  :states 'normal
   "z" '(:ignore t :wk "show")
   "z p" '(popper-toggle-latest :wk "toggle popup"))
 

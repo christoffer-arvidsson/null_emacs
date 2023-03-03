@@ -71,7 +71,7 @@
 
 ;; bookmarks
 (null-keybinds-leader-key-def
-  :keymaps 'normal
+  :states 'normal
   "RET" '(consult-bookmark :wk "Jump bookmark")
 
   "s" '(:ignore t :wk "search")

@@ -162,7 +162,7 @@
   (yasnippet-radical-snippets-initialize))
 
 (null-keybinds-leader-key-def
-  :keymaps 'normal
+  :states 'normal
   "i" '(:ignore t :wk "insert")
   "i s" '(yas-insert-snippet :wk "yas-insert-snippet"))
 

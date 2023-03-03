@@ -71,7 +71,7 @@
  "K" 'helpful-at-point)
 
 (null-keybinds-leader-key-def
-  :keymaps 'normal
+  :states 'normal
   "h" '(:ignore t :wk "help")
   "h f" 'helpful-callable
   "h v" 'helpful-variable

@@ -40,7 +40,7 @@
 
 ;; Non-package keys
 (null-keybinds-leader-key-def
-  :keymaps 'normal
+  :states 'normal
   "o c" '(quick-calc :wk "Quick calculator")
   "o t" '(vterm :wk "Open vterm")
   "o C" '(calc :wk "Calculator"))

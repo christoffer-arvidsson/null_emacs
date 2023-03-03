@@ -30,8 +30,6 @@
 
 (use-package company
   :hook (after-init . global-company-mode)
-  :bind(:map company-active-map
-             ("<tab>" . nil))
   :custom
   (company-minimum-prefix-length 1)
   (company-idle-delay 0.0)
@@ -43,6 +41,7 @@
   (company-tooltip-align-annotations t)
 
   :config
+  (define-key company-active-map (kbd "<tab>") nil)
   (add-to-list 'company-backends 'company-capf))
 
 (use-package company-shell

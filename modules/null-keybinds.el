@@ -23,6 +23,33 @@
   :group 'null-keybinds
   :type 'string)
 
+;; General
+(use-package general
+  :config
+  (general-override-mode)
+  (general-evil-setup t)
+
+  (general-create-definer null-keybinds-leader-key-def
+    :states '(normal motion visual emacs)
+    :keymaps 'override
+    :prefix null-keybinds-leader-key)
+
+  (general-create-definer null-keybinds-major-key-def
+    :states '(normal visual emacs)
+    :prefix null-keybinds-major-key)
+
+  (general-create-definer null-keybinds-ctrl-c-key-def
+    :prefix null-keybinds-ctrl-c-key)
+
+  (defadvice keyboard-escape-quit (around my-keyboard-escape-quit activate)
+    (let (orig-one-window-p)
+      (fset 'orig-one-window-p (symbol-function 'one-window-p))
+      (fset 'one-window-p (lambda (&optional nomini all-frames) t))
+      (unwind-protect
+          ad-do-it
+        (fset 'one-window-p (symbol-function 'orig-one-window-p))))))
+
+
 ;; Evil mode
 (use-package evil
   :init
@@ -54,30 +81,6 @@
   (delete 'org-present evil-collection-mode-list)
   (evil-collection-init))
 
-;; General
-(use-package general
-  :config
-  (general-evil-setup t)
-
-  (general-create-definer null-keybinds-leader-key-def
-    :keymaps '(normal visual emacs)
-    :prefix null-keybinds-leader-key)
-
-  (general-create-definer null-keybinds-major-key-def
-    :keymaps '(normal visual emacs)
-    :prefix null-keybinds-major-key)
-
-  (general-create-definer null-keybinds-ctrl-c-key-def
-    :prefix null-keybinds-ctrl-c-key)
-  
-  (defadvice keyboard-escape-quit (around my-keyboard-escape-quit activate)
-    (let (orig-one-window-p)
-      (fset 'orig-one-window-p (symbol-function 'one-window-p))
-      (fset 'one-window-p (lambda (&optional nomini all-frames) t))
-      (unwind-protect
-          ad-do-it
-        (fset 'one-window-p (symbol-function 'orig-one-window-p))))))
-
 ;; Which key
 (use-package which-key
   :init (which-key-mode)
@@ -87,7 +90,7 @@
 
 ;; Non-package keys
 (null-keybinds-leader-key-def
-  :keymaps 'normal
+  :states 'normal
   "" '(nil :wk "Leader")
   "t" '(:ignore t :wk "toggle")
   "u" 'universal-argument

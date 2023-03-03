@@ -40,15 +40,16 @@
   (lsp-ui-doc-show))
 
 (null-keybinds-leader-key-def
+  :keymaps 'lsp-mode-map
   "l"  '(:ignore t :wk "lsp")
-  "ld" 'xref-find-definitions
-  "lh" 'lsp-describe-thing-at-point
-  "lr" 'lsp-rename
-  "lR" 'xref-find-references
-  "ln" 'lsp-ui-find-next-reference
-  "lp" 'lsp-ui-find-prev-reference
-  "le" 'lsp-ui-flycheck-list
-  "lS" 'lsp-ui-sideline-mode)
+  "l d" 'xref-find-definitions
+  "l h" 'lsp-describe-thing-at-point
+  "l r" 'lsp-rename
+  "l R" 'xref-find-references
+  "l n" 'lsp-ui-find-next-reference
+  "l p" 'lsp-ui-find-prev-reference
+  "l e" 'lsp-ui-flycheck-list
+  "l S" 'lsp-ui-sideline-mode)
 
 (provide 'null-lsp)
 ;;; null-lsp.el ends here

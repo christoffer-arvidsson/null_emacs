@@ -79,7 +79,7 @@ the only window, use evil-window-move-* (e.g. `evil-window-move-far-left')."
  "<next>" 'evil-scroll-down)
 
 (null-keybinds-leader-key-def
-  :keymaps 'normal
+  :states 'normal
   "TAB" '(evil-switch-to-windows-last-buffer :wk "Previous buffer")
   "w" '(nil :wk "window")
   "w m" '(evil-window-left :wk "Select window left")

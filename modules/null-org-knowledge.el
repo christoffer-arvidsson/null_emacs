@@ -165,7 +165,7 @@
 
 
 (null-keybinds-leader-key-def
-  :keymaps 'normal
+  :states 'normal
   "n r" '(:ignore t :wk "Org roam")
   ;; "n r f" '(org-roam-node-find :wk "Find node")
   "n r f" '(consult-org-roam-file-find :wk "Find node")

@@ -106,7 +106,7 @@ _k_: down      _a_: combine       _q_: quit
 
 
 (null-keybinds-leader-key-def
-  :keymaps 'normal
+  :states 'normal
   "p" '(:ignore t :wk "project")
   "p c" '(project-compile :wk "Compile project")
   "p f" '(project-find-file :wk "Find file in project")

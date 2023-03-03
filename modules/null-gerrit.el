@@ -67,7 +67,7 @@
   (zengerrit-setup))
 
 (null-keybinds-leader-key-def
-  :keymaps 'normal
+  :states 'normal
   "g z" '(egerrit-dashboard :wk "Magit status"))
 
 (provide 'null-gerrit)
