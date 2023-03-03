@@ -41,6 +41,7 @@
 ;; Non-package keys
 (null-keybinds-leader-key-def
   :states 'normal
+  "." '(dired :wk "Open dired")
   "o c" '(quick-calc :wk "Quick calculator")
   "o t" '(vterm :wk "Open vterm")
   "o C" '(calc :wk "Calculator"))

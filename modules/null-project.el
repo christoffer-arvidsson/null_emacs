@@ -113,6 +113,7 @@ _k_: down      _a_: combine       _q_: quit
   "p p" '(project-switch-project :wk "Switch project")
   "p b" '(project-switch-to-buffer :wk "Switch to project buffer")
   "p s" '(consult-ripgrep :wk "Search project")
+  "p ." '(project-dired :wk "Open dired in projcet")
   "/" '(consult-ripgrep :wk "Search project")
 
   "g" '(:ignore t :wk "git")
