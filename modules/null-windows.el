@@ -66,20 +66,6 @@ the only window, use evil-window-move-* (e.g. `evil-window-move-far-left')."
   (null-windows-scroll-half-page t))
 
 ;; Packages
-
-;; (use-package persp-mode
-;;   :ensure t
-;;   :hook (window-setup . (lambda () (persp-mode 1)))
-;;   :config
-;;   (setq persp-autokill-buffer-on-remove 'kill-weak))
-
-(use-package eyebrowse
-  :init
-  (setq eyebrowse-keymap-prefix "C-w")
-  :config
-  (eyebrowse-setup-evil-keys)
-  (eyebrowse-mode +1))
-
 (use-package winner
   :config
   ;; Allow restoring window changes
