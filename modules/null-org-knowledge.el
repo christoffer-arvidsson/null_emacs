@@ -67,6 +67,8 @@
   :after org
   :init
   (setq org-roam-v2-ack t)
+  :hook (org-roam-find-file . balance-windows)
+  :hook (org-follow-link . balance-windows)
   :custom
   (org-roam-directory (file-truename "~/Dropbox/org/orbit/articles"))
   (+org-roam-open-buffer-on-find-file nil)

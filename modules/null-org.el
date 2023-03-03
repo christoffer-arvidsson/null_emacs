@@ -143,7 +143,7 @@
   (org-fontify-quote-and-verse-blocks t)
   (org-fontify-whole-heading-line t)
   (org-hide-emphasis-markers t)
-  (org-pretty-entities t)
+  (org-pretty-entities nil)
   (org-startup-truncated nil) ; Force org to not truncate lines
   (org-startup-with-inline-images "inlineimages")
 
@@ -238,6 +238,7 @@
   ;; "i P" 'academic-phrases-by-section
   "s n" 'org-toggle-narrow-to-subtree
 
+  "o" 'org-open-at-point
   "t" 'org-todo
   "e" 'org-export-dispatch)
 

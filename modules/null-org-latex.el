@@ -33,17 +33,7 @@
 
 (require 'null-org)
 
-;; (defvar org--font-locking-latex-fragment nil)
 
-;; (defadvice signal-font-locking-latex (orig-fun &rest args)
-;;   :around #'org-do-latex-and-related
-;;   (let ((org--font-locking-latex-fragment t)
-;;         (apply orig-fun args))))
-
-;; (defadvice do-not-block-my-latex-advice (_ start end)
-;;   :after #'org-src-font-lock-fontify-block
-;;   (when org--font-locking-latex-fragment
-;;     (alter-text-property start end 'face (lambda (l) (remove 'org-block l)))))
 
 ;; Latex
 (use-package org-fragtog
@@ -51,6 +41,25 @@
   :config
   (add-hook 'org-mode-hook 'org-fragtog-mode)
   (setq org-fragtog-ignore-predicates '(org-at-table-p)))
+
+(use-package cdlatex
+  :custom
+  (cdlatex-use-dollar-to-ensure-math nil)
+  :hook (org-mode . org-cdlatex-mode)
+  :bind (:map cdlatex-mode-map 
+              ("<tab>" . cdlatex-tab)))
+
+(use-package company-math
+    :after (org-mode TeX-mode company)
+    :config
+    (add-to-list 'company-backends 
+     '(company-math-symbols-latex company-math-latex-commands)))
+
+(use-package company-auctex
+  :after (org-mode TeX-mode, company, auctex)
+  :init
+  (add-to-list 'company-backends #'company-auctex-environments nil #'eq)
+  (add-to-list 'company-backends #'company-auctex-macros nil #'eq))
 
 ;; Numbered equations all have (1) as the number for fragments with vanilla
 ;; org-mode. This code injects the correct numbers into the previews so they
