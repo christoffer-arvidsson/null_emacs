@@ -138,16 +138,14 @@
 
 (use-package org-roam-review
   :straight (:type git :host github :repo "chrisbarrett/nursery" :files (:defaults "list/*.el"))
-  :after (org-roam drill)
+  :after (org-roam org-drill)
   :commands (org-roam-review
              org-roam-review-list-by-maturity
              org-roam-review-list-recently-added)
   :general
   (:states '(normal) :keymaps 'org-roam-review-mode-map
            "TAB" 'magit-section-cycle
-           "g r" 'org-roam-review-refresh)
-  :custom
-  (org-roam-ui-open-on-start nil))
+           "g r" 'org-roam-review-refresh))
 
 (add-hook 'org-roam-capture-new-node-hook
         (lambda () (org-roam-review-set-seedling)))
@@ -159,7 +157,7 @@
   (org-roam-ui-sync-theme t)
   (org-roam-ui-follow t)
   (org-roam-ui-update-on-save t)
-  (org-roam-ui-open-on-start t))
+  (org-roam-ui-open-on-start nil))
 
 (use-package writeroom-mode
   :after visual-fill-column
