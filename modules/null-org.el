@@ -131,6 +131,7 @@
   :hook
   (org-mode . null/org-mode-setup)
   (org-babel-after-execute . org-redisplay-inline-images)
+  (org-capture-mode . evil-insert-state)
   :custom
   (org-directory null/org-directory)
   (org-hide-leading-stars nil) ; superstar needs this to be nil
