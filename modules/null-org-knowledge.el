@@ -39,29 +39,29 @@
   "Path to file bibliography file.")
 
 (use-package citar
-  :no-require
+  :after org
   :bind (:map minibuffer-local-map
               ("M-b" . citar-insert-preset))
   :custom
-  (citar-notes-paths (list null/citar-path))
-  (citar-bibliography (list null/citar-bibliography-path))
   (org-cite-global-bibliography (list null/citar-bibliography-path))
+  (citar-bibliography org-cite-global-bibliography)
+  (citar-notes-paths (list null/citar-path))
   (org-cite-insert-processor 'citar)
   (org-cite-follow-processor 'citar)
   (org-cite-activate-processor 'citar)
-  (citar-bibliography org-cite-global-bibliography)
   (citar-symbols
    `((file ,(all-the-icons-faicon "file-o" :face 'all-the-icons-green :v-adjust -0.1) . " ")
      (note ,(all-the-icons-material "speaker_notes" :face 'all-the-icons-blue :v-adjust -0.3) . " ")
      (link ,(all-the-icons-octicon "link" :face 'all-the-icons-orange :v-adjust 0.01) . " ")))
-  (citar-symbol-separator "  "))
+  (citar-symbol-separator "  ")
+  :hook
+  (LaTeX-mode . citar-capf-setup)
+  (org-mode . citar-capf-setup))
 
-(use-package citar-org-roam
-  :after citar org-roam
+(use-package citar-embark
+  :after citar embark
   :no-require
-  :config
-  (setq citar-org-roam-note-title-template "${author editor} :: ${title}")
-  (citar-org-roam-mode))
+  :config (citar-embark-mode))
 
 (use-package org-roam
   :after org
@@ -93,6 +93,11 @@
            (file "~/Dropbox/org/orbit/templates/notebook.org")
            :target (file "%<%Y%m%d%H%M%S>-${slug}.org")
            :unnarrowed t))))
+(use-package citar-org-roam
+  :after citar org-roam
+  :no-require
+  :config (citar-org-roam-mode)
+  (setq citar-org-roam-note-title-template "${author} :: ${title}\n#+filetags: ${tags}"))
 
 (use-package consult-org-roam
    :ensure t
