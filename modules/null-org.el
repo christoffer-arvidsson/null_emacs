@@ -138,6 +138,7 @@
   (org-indent-mode-turns-on-hiding-stars nil) ; superstar needs this to be nil
 
   ;; Visuals
+  (org-highlight-latex-and-related '(native))
   (org-image-actual-width nil)
   (org-fontify-done-headline t)
   (org-fontify-quote-and-verse-blocks t)
