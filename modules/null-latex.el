@@ -30,14 +30,9 @@
 
 ;;; Code:
 
-(use-package tex-site
-  :straight (auctex :host github
-                    :repo "emacs-mirror/auctex"
-                    :files (:defaults (:exclude "*.el.in"))))
-(use-package auctex
+(use-package tex
+  :straight auctex
   :mode
-                                        ; https://www.mail-archive.com/auctex@gnu.org/msg07608.html
-                                        ; https://www.gnu.org/software/emacs/manual/html_node/reftex/Installation.html
   ("\\.tex\\'" . latex-mode) ; Must first activate the inferior Emacs latex mode
   :hook
   (LaTeX-mode . TeX-PDF-mode)
@@ -45,10 +40,9 @@
   (LaTeX-mode . flyspell-mode)
   (LaTeX-mode . flycheck-mode)
   (LaTeX-mode . LaTeX-math-mode)
-  (LaTeX-mode . turn-on-reftex)
-  (LaTeX-mode . turn-on-cdlatex)
+  (LaTeX-mode . reftex-mode)
+  (LaTeX-mode . cdlatex-mode)
   :init
-  (load "auctex.el" nil t t)
   ;; (load "preview-latex.el" nil t t)
   (require 'reftex)
 
