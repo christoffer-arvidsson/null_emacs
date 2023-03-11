@@ -92,7 +92,12 @@
           ("n" "notebook" plain
            (file "~/Dropbox/org/orbit/templates/notebook.org")
            :target (file "%<%Y%m%d%H%M%S>-${slug}.org")
-           :unnarrowed t))))
+           :unnarrowed t)))
+
+  (setq org-roam-dailies-capture-templates
+        '(("d" "default" entry "* %?" :unnarrowed t :target
+           (file+head "%<%Y_%m_%d>.org" "#filetags: :daily:\n#+title: %<%Y-%m-%d>\n\n")))))
+
 (use-package citar-org-roam
   :after citar org-roam
   :no-require
@@ -189,6 +194,13 @@
   "n r u" '(org-roam-ui-open :wk "Open org roam ui")
   "n r i" '(org-roam-node-insert :wk "Insert node")
   "n r /" '(consult-org-roam-search :wk "Search org roam")
+  "n d" '(:ignore t :wk "Org roam dailies")
+  "n d t" '(org-roam-dailies-capture-today :wk "find today")
+  "n d T" '(org-roam-dailies-capture-tomorrow :wk "find tomorrow")
+  "n d y" '(org-roam-dailies-capture-yesterday :wk "find yesterday")
+  "n d d" '(org-roam-dailies-capture-date :wk "find by date")
+  "n d p" '(org-roam-dailies-goto-previous-note :wk "find previous note")
+  "n d n" '(org-roam-dailies-goto-next-note :wk "find next note")
 
   "n e" '(:ignore t :wk "Org roam review")
   "n e r" '(org-roam-review :wk "review")
