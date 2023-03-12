@@ -40,7 +40,9 @@
 
 ;; brighter line numbers
 (custom-set-faces
- `(line-number ((t (:foreground ,(doom-color 'magenta))))))
+ `(line-number ((t (:foreground ,(doom-color 'magenta)))))
+ `(org-special-keyword ((t (:foreground ,(doom-color 'magenta)))))
+ `(org-property-value ((t (:foreground ,(doom-color 'magenta))))))
 
 ;; icons
 (use-package all-the-icons
