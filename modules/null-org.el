@@ -137,6 +137,7 @@
   (org-directory null/org-directory)
   (org-hide-leading-stars nil) ; superstar needs this to be nil
   (org-startup-indented t) ; indent mode on startup
+  (org-startup-folded 'showeverythin)
   (org-indent-mode-turns-on-hiding-stars nil) ; superstar needs this to be nil
 
   ;; Visuals
