@@ -44,6 +44,12 @@
   (define-key company-active-map (kbd "<tab>") nil)
   (add-to-list 'company-backends 'company-capf))
 
+  ;; Required for proportional font
+  (use-package company-posframe
+    :after company
+    :config
+    (company-posframe-mode 1))
+
 (use-package company-shell
   :after company
   :config
