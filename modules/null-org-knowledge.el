@@ -77,7 +77,7 @@
   (org-roam-db-autosync-mode t)
 
   (org-roam-node-display-template (format "${title:*} %s %s"
-                                          (propertize "${tags:10}" 'face 'font-lock-keyword-face)
+                                          (propertize "${tags:30}" 'face 'font-lock-keyword-face)
                                           (propertize "${file:48}" 'face 'org-tag)))
   :config
   (setq org-roam-capture-templates
