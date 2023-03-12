@@ -46,9 +46,7 @@
 
 ;; icons
 (use-package all-the-icons
-  :ensure t
-  :custom
-  (doom-modeline-icon t))
+  :ensure t)
 
 (use-package all-the-icons-completion
   :ensure all-the-icons
@@ -56,21 +54,11 @@
   (all-the-icons-completion-mode)
   (add-hook 'marginalia-mode-hook #'all-the-icons-completion-marginalia-setup))
 
-;; modeline
-(use-package doom-modeline
-  :ensure t
-  :hook (after-init . doom-modeline-mode)
+(use-package mood-line
   :custom
-  (doom-modeline-height 15)
-  (doom-modeline-window-width-limit fill-column)
-  (doom-modeline-lsp t)
-  (doom-modeline-github t)
-  (doom-modeline-env-enable-python t)
-  (doom-modeline-minor-modes nil)
-  (doom-modeline-persp-name t)
-  (doom-modeline-project-detection 'auto)
-  (doom-modeline-icon (display-graphic-p))
-  (doom-modeline-buffer-file-name-style 'truncate-except-project))
+  (mood-line-glyph-alist mood-line-glyphs-unicode)
+  :config
+  (mood-line-mode))
 
 (use-package solaire-mode
   :defer t
@@ -98,7 +86,6 @@
 (if (daemonp)
     (add-hook 'after-make-frame-functions
               (lambda (frame)
-                (setq doom-modeline-icon t)
                 (with-selected-frame frame
                   (null-ui-set-font-faces))))
   (null-ui-set-font-faces))
