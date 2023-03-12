@@ -222,6 +222,7 @@
   "n e x" '(org-roam-review-set-excluded :wk "set excluded")
 
   "t z" '(writeroom-mode :wk "Toggle writeroom mode")
+  "t Z" '(global-writeroom-mode :wk "Toggle global writeroom mode")
   "t i" '(org-toggle-inline-images :wk "Toggle inline images"))
 
 
