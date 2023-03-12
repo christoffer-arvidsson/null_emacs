@@ -99,10 +99,11 @@
 
 
 (defun null/org-mode-setup ()
-  (auto-fill-mode nil)
-  (visual-line-mode 1)
+  (setq fill-column 80)
+  (auto-fill-mode t)
+  (visual-line-mode 1))
 
-  (set-face-attribute 'org-document-title nil :font "Iosevka Aile" :weight 'bold :height 1.0))
+  ;; (set-face-attribute 'org-document-title nil :font "Iosevka Aile" :weight 'bold :height 1.0))
   ;; (dolist (face '((org-level-1 . 1.0)
   ;;                 (org-level-2 . 1.0)
   ;;                 (org-level-3 . 1.0)
@@ -140,7 +141,7 @@
 
   ;; Visuals
   (org-highlight-latex-and-related '(native))
-  (org-image-actual-width nil)
+  (org-image-actual-width 750)
   (org-fontify-done-headline t)
   (org-fontify-quote-and-verse-blocks t)
   (org-fontify-whole-heading-line t)
@@ -182,10 +183,12 @@
   (add-to-list 'org-tempo-keywords-alist '("oo" . "attr_org"))
   (add-to-list 'org-tempo-keywords-alist '("ol" . "attr_latex")))
 
+
 ;; Pretty bullets
 (use-package org-superstar
   :hook (org-mode . org-superstar-mode)
   :custom
+  (org-superstar-special-todo-items t)
   (org-superstar-leading-bullet ?\s)
   (org-superstar-headline-bullets-list '("◉" "◈" "○" "◇")))
 
@@ -225,6 +228,29 @@
   :after '(org evil)
   :hook ((org-mode . evil-org-mode)
          (org-agenda-mode . evil-org-mode)))
+
+(use-package org-appear
+  :after org
+  :custom
+  (org-appear-trigger 'manual)
+  (org-appear-autolinks t)
+  (org-appear-inside-latex nil)
+  :config
+  (setq org-appear-trigger 'manual)
+  (add-hook 'org-mode-hook (lambda ()
+                             (add-hook 'evil-insert-state-entry-hook
+                                       #'org-appear-manual-start
+                                       nil
+                                       t)
+                             (add-hook 'evil-insert-state-exit-hook
+                                       #'org-appear-manual-stop
+                                       nil
+                                       t))))
+
+(use-package org-modern
+  :after org
+  :config
+  (global-org-modern-mode))
 
 (null-keybinds-major-key-def
   :states 'normal

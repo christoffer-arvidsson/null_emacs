@@ -33,7 +33,9 @@
 
 (require 'null-org)
 
-
+;; Scale up latex fragments
+(with-eval-after-load 'org
+  (plist-put org-format-latex-options :scale 1.0))
 
 ;; Latex
 (use-package org-fragtog

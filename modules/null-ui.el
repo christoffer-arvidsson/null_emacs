@@ -80,17 +80,17 @@
   (set-face-attribute 'default nil
                       :font "Iosevka"
                       :weight 'normal
-                      :height 95)
+                      :height 100)
 
   (set-face-attribute 'fixed-pitch nil
-                      :font "Iosevka"
+                      :font "Vollkorn"
                       :weight 'normal
-                      :height 110)
+                      :height 150)
 
   (set-face-attribute 'variable-pitch nil
-                      :font "Iosevka Aile"
-                      :weight 'light
-                      :height 110))
+                      :font "Vollkorn"
+                      :weight 'normal
+                      :height 150))
 
 ;; Required so that emacs client changes font
 (if (daemonp)

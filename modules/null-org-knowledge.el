@@ -159,9 +159,12 @@
   (org-roam-ui-update-on-save t)
   (org-roam-ui-open-on-start nil))
 
+(defcustom writeroom-text-scale 2.0 "Scale increase for text in writeroom." :type 'integer)
+
 (use-package writeroom-mode
   :after visual-fill-column
   :custom
+  (writeroom-width 60)
   (writeroom-fullscreen-effect 'maximized)
   (writeroom-restore-window-config t)
   :config
@@ -171,8 +174,16 @@
   (advice-add 'mouse-wheel-text-scale :after
               #'visual-fill-column-adjust)
   (advice-add 'mouse-wheel-global-text-scale :after
-              #'visual-fill-column-adjust))
+              #'visual-fill-column-adjust)
 
+  ;; big mode
+  (add-hook 'writeroom-mode-enable-hook #'(lambda () (text-scale-increase writeroom-text-scale)))
+  (add-hook 'writeroom-mode-disable-hook #'(lambda () (text-scale-decrease writeroom-text-scale))))
+
+
+(use-package mixed-pitch
+  :hook
+  (text-mode . mixed-pitch-mode))
 
 (null-keybinds-leader-key-def
   :states 'normal
@@ -210,7 +221,8 @@
   "n e u" '(org-roam-review-bury :wk "bury")
   "n e x" '(org-roam-review-set-excluded :wk "set excluded")
 
-  "t z" '(writeroom-mode :wk "Toggle writeroom mode"))
+  "t z" '(writeroom-mode :wk "Toggle writeroom mode")
+  "t i" '(org-toggle-inline-images :wk "Toggle inline images"))
 
 
 (provide 'null-org-knowledge)
