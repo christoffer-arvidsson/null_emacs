@@ -96,7 +96,7 @@
 
   (setq org-roam-dailies-capture-templates
         '(("d" "default" entry "* %?" :unnarrowed t :target
-           (file+head "%<%Y_%m_%d>.org" "#filetags: :daily:\n#+title: %<%Y-%m-%d>\n\n")))))
+           (file+head "%<%Y_%m_%d>.org" "#+filetags: :daily:\n#+title: %<%Y-%m-%d>\n\n")))))
 
 (use-package citar-org-roam
   :after citar org-roam
