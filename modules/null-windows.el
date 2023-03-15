@@ -71,6 +71,11 @@ the only window, use evil-window-move-* (e.g. `evil-window-move-far-left')."
   ;; Allow restoring window changes
   (winner-mode +1))
 
+
+(use-package satchel
+  :custom
+  (satchel-directory (no-littering-expand-var-file-name "satchel/")))
+
 ;;; Bindings
 
 (general-define-key
@@ -95,6 +100,18 @@ the only window, use evil-window-move-* (e.g. `evil-window-move-far-left')."
   "w u" '(winner-undo :wk "Undo layout change")
   "w r" '(winner-redo :wk "Redo layout change")
   "w q" '(evil-quit :wk "Evil quit")
-  "w =" '(balance-windows :wk "Balance windows"))
+  "w =" '(balance-windows :wk "Balance windows")
+
+  "'" '(:ignore t :wk "satchel")
+  "' s" '(satchel-pick :wk "Pick file")
+  "' '" '(satchel-feeling-lucky :wk "Lucky swap file")
+  "' X" '(satchel-burn :wk "Burn satchel")
+  "' a" '(satchel-place :wk "Add file")
+  "' d" '(satchel-demote :wk "Demote file")
+  "' u" '(satchel-promote :wk "Demote file")
+  "' x" '(satchel-drop :wk "Drop file"))
+
+
+
 
 (provide 'null-windows)

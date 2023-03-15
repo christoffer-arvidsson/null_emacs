@@ -68,22 +68,6 @@
 
 (setq split-window-preferred-function #'my-split-window-sensibly)
 
-(use-package satchel
-  :custom
-  (satchel-directory (no-littering-expand-var-file-name "satchel/")))
-
-(null-keybinds-leader-key-def
-  :states 'normal
-  "'" '(:ignore t :wk "satchel")
-  "' s" '(satchel-pick :wk "Pick file")
-  "' '" '(satchel-feeling-lucky :wk "Lucky swap file")
-  "' X" '(satchel-burn :wk "Burn satchel")
-  "' a" '(satchel-place :wk "Add file")
-  "' d" '(satchel-demote :wk "Demote file")
-  "' u" '(satchel-promote :wk "Demote file")
-  "' x" '(satchel-drop :wk "Drop file"))
-
-
 (provide 'config)
 ;;; config.el ends here
 
