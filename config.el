@@ -32,6 +32,7 @@
 (require 'null-elisp)
 (require 'null-python)
 (require 'null-rust)
+(require 'null-sql)
 
 ;; other
 (require 'null-apps)
