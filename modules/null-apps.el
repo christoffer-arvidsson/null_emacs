@@ -38,13 +38,18 @@
 (use-package vterm
   :ensure t)
 
+(use-package ranger
+  :ensure t)
+
 ;; Non-package keys
 (null-keybinds-leader-key-def
   :states 'normal
   "." '(dired :wk "Open dired")
   "o c" '(quick-calc :wk "Quick calculator")
   "o t" '(vterm :wk "Open vterm")
+  "o r" '(ranger :wk "Open ranger")
   "o C" '(calc :wk "Calculator"))
+
 
 (provide 'null-apps)
 
