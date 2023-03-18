@@ -183,7 +183,7 @@
 
 (use-package mixed-pitch
   :hook
-  (text-mode . mixed-pitch-mode))
+  (org-mode . mixed-pitch-mode))
 
 (null-keybinds-leader-key-def
   :states 'normal
