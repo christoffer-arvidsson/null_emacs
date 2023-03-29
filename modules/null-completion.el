@@ -40,7 +40,21 @@
   (company-selection-wrap-around t)
   (company-tooltip-align-annotations t)
   :config
-  (add-to-list 'company-backends 'company-capf))
+  (add-to-list 'company-backends 'company-capf)
+
+  ;; Company yas
+  (with-eval-after-load 'yasnippet
+    (defvar company-mode/enable-yas t
+      "Enable yasnippet for all backends.")
+
+    (defun company-mode/backend-with-yas (backend)
+      (if (or (not company-mode/enable-yas) (and (listp backend) (member 'company-yasnippet backend)))
+          backend
+        (append (if (consp backend) backend (list backend))
+                '(:with company-yasnippet))))
+
+    (with-eval-after-load 'company
+      (setq company-backends (mapcar #'company-mode/backend-with-yas company-backends)))))
 
 
 ;; Required for proportional font
