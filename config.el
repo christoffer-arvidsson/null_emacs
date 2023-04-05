@@ -68,6 +68,11 @@
                      (split-window-below))))))
 
 (setq split-window-preferred-function #'my-split-window-sensibly)
+(use-package gptel
+  :straight (:type git :host github :repo "karthink/gptel" :files (:defaults "list/*.el"))
+  :custom
+  (gptel-default-mode #'org-mode)
+  (gptel-api-key "SET ME"))
 
 (provide 'config)
 ;;; config.el ends here
