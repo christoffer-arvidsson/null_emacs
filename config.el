@@ -34,6 +34,8 @@
 (require 'null-rust)
 (require 'null-sql)
 
+(require 'null-org-babel)
+
 ;; other
 (require 'null-apps)
 
