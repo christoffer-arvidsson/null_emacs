@@ -39,8 +39,6 @@
   :config
   (setenv "PYTHONPATH" "/home/s0001520/repos/madame-web"))
 
-(add-hook 'python-mode-hook #'(lambda () (modify-syntax-entry ?_ "w")))
-
 (use-package anaconda-mode
   :defer t
   :hook ((python-mode . anaconda-mode)
