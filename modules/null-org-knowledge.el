@@ -76,10 +76,25 @@
   (org-roam-completion-everywhere t)
   (org-roam-db-autosync-mode t)
 
-  (org-roam-node-display-template (format "${title:*} %s %s"
+  (org-roam-node-display-template (format "${directories:12} ${title:*} %s %s ${backlinkscount:6}"
                                           (propertize "${tags:30}" 'face 'font-lock-keyword-face)
                                           (propertize "${file:48}" 'face 'org-tag)))
   :config
+
+  (cl-defmethod org-roam-node-directories ((node org-roam-node))
+    (if-let ((dirs (file-name-directory (file-relative-name (org-roam-node-file node) org-roam-directory))))
+        (format "(%s)" (car (split-string dirs "/")))
+      ""))
+
+  (cl-defmethod org-roam-node-backlinkscount ((node org-roam-node))
+    (let* ((count (caar (org-roam-db-query
+                         [:select (funcall count source)
+                                  :from links
+                                  :where (= dest $s1)
+                                  :and (= type "id")]
+                         (org-roam-node-id node)))))
+      (format "[%d]" count)))
+
   (setq org-roam-capture-templates
         '(("l" "lecture note" plain
            (file "~/Dropbox/org/orbit/templates/lecture_note.org")
