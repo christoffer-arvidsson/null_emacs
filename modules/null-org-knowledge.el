@@ -151,6 +151,10 @@
 
 (use-package ht)
 
+(use-package org-format
+  :hook (org-mode . org-format-on-save-mode)
+  :straight (:type git :host github :repo "chrisbarrett/nursery" :files (:defaults "list/*.el")))
+
 (use-package org-roam-review
   :straight (:type git :host github :repo "chrisbarrett/nursery" :files (:defaults "list/*.el"))
   :after (org-roam org-drill)
