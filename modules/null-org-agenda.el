@@ -167,20 +167,6 @@
           ("wP" "Project Todo Clocked" entry (file+function null/org-capture-work-file null/org-capture-to-project-heading)
            "* TODO %?\n" :prepend t :clock-in t)
 
-          ("u" "University")
-          ("ub" "Bioinformatics" entry
-           (file+headline null/org-capture-todo-file "Bioinformatics")
-           "* TODO %u %? \n%i\n%a" :prepend t)
-          ("un" "Natural language processing" entry
-           (file+headline null/org-capture-todo-file "Natural language processing")
-           "* TODO %u %? \n%i\n%a" :prepend t)
-          ("d" "Drill")
-          ("db" "Bioinformatics" entry
-           (file+headline org-drill-file "Bioinformatics")
-           "* %u %^{Question} :drill:\n%?\n** The Answer\n %^{Answer}" :prepend t)
-          ("dn" "Natural language processing" entry
-           (file+headline org-drill-file "Natural language processing")
-           "* %u %^{Question} :drill:\n%?\n** The Answer\n %^{Answer}" :prepend t)
           ("p" "Templates for projects")
           ("pi" "Idea" entry
            (file+headline null/org-capture-todo-file "Project ideas"))
