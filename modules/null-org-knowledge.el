@@ -76,7 +76,7 @@
   (org-roam-completion-everywhere t)
   (org-roam-db-autosync-mode t)
 
-  (org-roam-node-display-template (format "${directories:12} ${title:*} %s %s ${backlinkscount:6}"
+  (org-roam-node-display-template (format "${directories:12} ${title:120} %s %s ${backlinkscount:6}"
                                           (propertize "${tags:30}" 'face 'font-lock-keyword-face)
                                           (propertize "${file:48}" 'face 'org-tag)))
   :config
