@@ -100,6 +100,34 @@
   :hook
   (embark-collect-mode . consult-preview-at-point-mode))
 
+
+;; Fix company with yasnippet
+
+(defvar company-mode/enable-yas t
+  "Enable yasnippet for all backends.")
+
+(with-eval-after-load 'company
+  (defun company-mode/backend-with-yas (backends)
+    (if (or (not company-mode/enable-yas) (and (listp backends) (member 'company-yasnippet backends)))
+        backends
+      (append (if (consp backends) backends (list backends))
+              '(:with company-yasnippet))))
+
+  (setq company-backends (mapcar #'company-mode/backend-with-yas company-backends))
+
+  ;; From here. Dated 2015, tested 2023. API use confirmed by author of yasnippet
+  ;; https://stackoverflow.com/a/28510968
+  ;; Try yas-expand and on failure to company-completion
+  (defun company-yasnippet-or-completion ()
+    (interactive)
+    (let ((yas-fallback-behavior nil))
+      (unless (yas-expand)
+        (call-interactively #'company-complete-common))))
+
+  (add-hook 'company-mode-hook (lambda ()
+                                 (substitute-key-definition 'company-complete-common
+                                                            'company-yasnippet-or-completion
+                                                            company-active-map))))
 (use-package emacs
   :config
   ;; Add prompt indicator to `completing-read-multiple'.
