@@ -55,12 +55,6 @@
 ;; Work
 (if (string-equal (system-name) "ucnd1387l61") (null/init-work-packages))
 
-(use-package gptel
-  :straight (:type git :host github :repo "karthink/gptel" :files (:defaults "list/*.el"))
-  :custom
-  (gptel-default-mode #'org-mode)
-  (gptel-api-key "SET ME"))
-
 (provide 'config)
 ;;; config.el ends here
 
