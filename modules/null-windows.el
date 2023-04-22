@@ -76,6 +76,16 @@ the only window, use evil-window-move-* (e.g. `evil-window-move-far-left')."
   :custom
   (satchel-directory (no-littering-expand-var-file-name "satchel/")))
 
+(use-package shackle
+  :commands shackle-mode
+  :config
+  (setq shackle-rules
+        '(("\\*org-roam\\*" :regexp t :autoclose t :align right :size 100)
+          ("\\*org-roam-review\\*" :regexp t :autoclose t :align right :size 100))
+        shackle-default-rule '(:select t))
+
+  (shackle-mode))
+
 ;;; Bindings
 
 (general-define-key
