@@ -128,6 +128,17 @@
                                  (substitute-key-definition 'company-complete-common
                                                             'company-yasnippet-or-completion
                                                             company-active-map))))
+
+(use-package company-prescient
+  :after company
+  :config
+  (company-prescient-mode +1))
+
+(use-package vertico-prescient
+  :after vertico
+  :config
+  (vertico-prescient-mode +1))
+
 (use-package emacs
   :config
   ;; Add prompt indicator to `completing-read-multiple'.
