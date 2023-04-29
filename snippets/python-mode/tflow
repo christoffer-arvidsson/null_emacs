@@ -1,0 +1,7 @@
+# -*- mode: snippet -*-
+# name: tflow
+# key: tlow
+# group : general
+# --
+import tensorflow as tf
+$0
