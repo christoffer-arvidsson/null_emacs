@@ -100,17 +100,13 @@ _p_rev       _u_pper              _=_: upper/lower       _r_esolve
   :config
   (setq flycheck-checker-error-threshold 1500))
 
-;; Treesitter
-(use-package tree-sitter
-  :ensure t
+(use-package treesit-auto
+  :demand t
   :config
-  (global-tree-sitter-mode)
-  (add-hook 'tree-sitter-after-on-hook #'tree-sitter-hl-mode))
-
-(use-package tree-sitter-langs
-  :ensure tree-sitter)
-
-
+  (setq python-ts-mode-hook python-mode-hook)
+  (setq rust-ts-mode-hook rust-mode-hook)
+  (setq treesit-auto-install 'prompt)
+  (global-treesit-auto-mode))
 
 (null-keybinds-leader-key-def
   :states 'normal
