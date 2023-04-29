@@ -145,11 +145,10 @@
           ("c" "To clocked task" item
            (clock)
            "- %?")
-          ("j" "Journal" entry
-           (file+datetree null/org-capture-journal-file)
-           "* %U %?" :prepend t)
-
           ("w" "Work")
+          ("wr" "Work retro item" entry
+           (file+headline null/org-capture-work-file "Retro points")
+           "* %?" :prepend t)
           ("ww" "Work inbox" entry
            (file+headline null/org-capture-work-file "Inbox")
            "* %?" :prepend t)
