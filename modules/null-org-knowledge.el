@@ -64,6 +64,7 @@
   :config (citar-embark-mode))
 
 (use-package org-roam
+  :ensure sqlite
   :after org
   :init
   (setq org-roam-v2-ack t)
