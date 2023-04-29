@@ -25,7 +25,7 @@
   (lsp-idle-delay 0.500)
   (lsp-file-watch-threshold 50000)
 
-  (lsp-completion-provider :none)
+  (lsp-completion-provider :capf)
 
   ; Rust
   (lsp-rust-server 'rust-analyzer)
