@@ -19,8 +19,8 @@
               ("TAB" . completion-at-point)
               ("M-RET" . lsp-execute-code-action))
   :custom
-  (lsp-enable-semantic-hightlighting t)
-  (lsp-semantic-tokens-enable t)
+  (lsp-enable-semantic-hightlighting nil)
+  (lsp-semantic-tokens-enable nil)
   (lsp-headerline-breadcrumb-enable nil)
   (lsp-idle-delay 0.500)
   (lsp-file-watch-threshold 50000)
