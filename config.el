@@ -43,13 +43,6 @@
   "Do work specific initialization."
   (require 'null-gerrit)
 
-  ;; madame web
-  (setq python-shell-interpreter "~/scripts/docker-python-shell.sh")
-  (setq python-shell-interpreter-args "")
-  (setq python-shell-interpreter-interactive-args "")
-  (setq python-shell-completion-native-enable nil)
-  (setq python-shell-prompt-detect-failure-warning nil)
-
   (message "using work configuration."))
 
 ;; Work
