@@ -56,6 +56,10 @@
     (with-eval-after-load 'company
       (setq company-backends (mapcar #'company-mode/backend-with-yas company-backends)))))
 
+(use-package company-flx
+  :after company
+  :config
+  (company-flx-mode +1))
 
 ;; Required for proportional font
 (use-package company-posframe
