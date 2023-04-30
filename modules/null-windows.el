@@ -71,10 +71,15 @@ the only window, use evil-window-move-* (e.g. `evil-window-move-far-left')."
   ;; Allow restoring window changes
   (winner-mode +1))
 
-
-(use-package satchel
+(use-package harpoon
   :custom
-  (satchel-directory (no-littering-expand-var-file-name "satchel/")))
+  (harpoon-separate-by-branch nil)
+  (harpoon-project-package 'project)
+  :bind
+  (("M-n" . harpoon-go-to-1)
+   ("M-e" . harpoon-go-to-2)
+   ("M-i" . harpoon-go-to-3)
+   ("M-o" . harpoon-go-to-4)))
 
 (use-package shackle
   :commands shackle-mode
@@ -119,14 +124,9 @@ the only window, use evil-window-move-* (e.g. `evil-window-move-far-left')."
   "w q" '(evil-quit :wk "Evil quit")
   "w =" '(balance-windows :wk "Balance windows")
 
-  "'" '(:ignore t :wk "satchel")
-  "' s" '(satchel-pick :wk "Pick file")
-  "' '" '(satchel-feeling-lucky :wk "Lucky swap file")
-  "' X" '(satchel-burn :wk "Burn satchel")
-  "' a" '(satchel-place :wk "Add file")
-  "' d" '(satchel-demote :wk "Demote file")
-  "' u" '(satchel-promote :wk "Demote file")
-  "' x" '(satchel-drop :wk "Drop file"))
+  "'" '(:ignore t :wk "harpoon")
+  "' a" '(harpoon-add-file :wk "Add file"))
+
 
 
 
