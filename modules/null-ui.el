@@ -26,6 +26,7 @@
 (null-ui-init)
 
 (use-package doom-themes
+  :hook (server-after-make-frame . (lambda () (load-theme 'doom-horizon t)))
   :ensure t
   :custom
   (doom-themes-enable-bold t)
@@ -61,7 +62,6 @@
   (mood-line-mode))
 
 (use-package solaire-mode
-  :defer t
   :ensure t
   :config
   (solaire-global-mode +1))
