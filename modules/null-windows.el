@@ -80,8 +80,8 @@ the only window, use evil-window-move-* (e.g. `evil-window-move-far-left')."
   :commands shackle-mode
   :config
   (setq shackle-rules
-        '(("\\*org-roam\\*" :regexp t :autoclose t :align right :size 0.4 :select t)
-          ("\\*org-roam-review\\*" :regexp t :autoclose t :align right :size 0.4 :select t)
+        '(("*org-roam*" :regexp t :autoclose t :align right :size 0.3 :select t)
+          ("*org-roam-review*" :regexp t nautoclose t :align right :size 0.3 :select t)
           (compilation-mode :noselect t)
           (messages-buffer-mode :noselect t :align below :size 0.25)
           ("*Backtrace*"        :noselect t :align below :size 0.25)
