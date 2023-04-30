@@ -83,20 +83,31 @@ the only window, use evil-window-move-* (e.g. `evil-window-move-far-left')."
 
 (use-package shackle
   :commands shackle-mode
+  :hook (after-init . shackle-mode)
   :config
-  (setq shackle-rules
-        '(("*org-roam*" :regexp t :autoclose t :align right :size 0.3 :select t)
-          ("*org-roam-review*" :regexp t nautoclose t :align right :size 0.3 :select t)
-          (compilation-mode :noselect t)
-          (messages-buffer-mode :noselect t :align below :size 0.25)
-          ("*Backtrace*"        :noselect t :align below :size 0.25)
-          ("*Warnings*"         :noselect t :align below :size 0.25)
-          (help-mode :select t :align below :size 0.25)
-          (helpful-mode :select t :align below :size 0.25))
-
-        shackle-default-rule '(:select t))
-
-  (shackle-mode))
+  (setq shackle-default-alignment 'below
+        shackle-default-size 0.4
+        shackle-rules
+        '(("*org-roam*"                   :align right  :size 0.3    :select t)
+          ("*org-roam-review*"            :align right  :size 0.3    :select t)
+          ("\\`\\*Embark Export. *\\*\\'" :regexp t     :align right :size 0.3 :select t)
+          ("\\`\\*Embark Collect.*\\*\\'" :regexp t     :align right :size 0.3 :select t)
+          ("*Org Links*"                  :noselect nil :size 0.1)
+          ("*Backtrace*"                  :noselect t   :align below :size 0.25)
+          ("*Warnings*"                   :noselect t   :align below :size 0.25)
+          ("*Error*"                      :noselect t   :size 0.25)
+          ("*Flycheck errors*"            :noselect t   :size 0.25)
+          ("*compilation*"                :noselect t   :size 0.25)
+          (compilation-mode               :noselect t   :size 0.25)
+          (messages-buffer-mode           :noselect t   :align below :size 0.25)
+          (help-mode                      :align below  :select t)
+          (helpful-mode                   :align below)
+          (magit-status-mode              :align right  :inhibit-window-quit t)
+          (magit-log-mode                 :same t       :inhibit-window-quit t)
+          (magit-commit-mode              :align below)
+          (magit-diff-mode                :select nil   :align left  :size 0.5)
+          (git-commit-mode                :align below  :same t)
+          (vc-annotate-mode               :same t))))
 
 ;;; Bindings
 
