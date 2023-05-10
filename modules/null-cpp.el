@@ -35,12 +35,16 @@
 ;; Lsp 
 (use-package ccls
   :after lsp
-  :hook ((c-mode c++-mode objc-mode cuda-mode) .
+  :hook ((c-mode c++-mode c++-ts-mode objc-mode cuda-mode) .
          (lambda () (require 'ccls) (lsp))))
 
 ;; Mode
 (use-package cc-mode
   :ensure t
+  :custom
+  (python-ts-mode-hook python-mode-hook)
+  (ff-search-directories
+   '("." "../src" "../src/*/" "../include" "../include/*/" "../../src" "../../src/*/" "../../include" "../../include/*/" "/usr/include" "$PROJECT/*/include"))
   :config 
   (setq c-tab-always-indent t)
   (setq-default c-basic-offset 4)
@@ -53,6 +57,7 @@
                                     (arglist-cont-nonempty))
             (c-cleanup-list brace-else-brace)
             (c-offsets-alist
+             (innamespace . [0])
              (knr-argdecl-intro . 0)
              (substatement-open . 0)
              (substatement-label . 0)
@@ -73,6 +78,7 @@
              (access-label . -)
              (inclass +cc-c++-lineup-inclass +)
              (label . 0))))
+   (setq c-ts-default-style "doom")
 
   (when (listp c-default-style)
     (setf (alist-get 'other c-default-style) "doom")))
@@ -87,7 +93,7 @@
 ;; Keybinds
 (null-keybinds-major-key-def
   :states '(normal visual)
-  :keymaps 'c++-mode-map
+  :keymaps '(c++-mode-map c++-ts-mode-map)
   "f" '(ff-find-other-file :wk "find other file"))
 
 (provide 'null-cpp)

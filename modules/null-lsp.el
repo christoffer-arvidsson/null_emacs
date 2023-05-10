@@ -24,6 +24,7 @@
   (lsp-headerline-breadcrumb-enable nil)
   (lsp-idle-delay 0.500)
   (lsp-file-watch-threshold 50000)
+  (lsp-lens-enable nil)
 
   (lsp-completion-provider :capf)
 
