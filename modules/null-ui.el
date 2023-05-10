@@ -25,6 +25,16 @@
 ;; initialize ui
 (null-ui-init)
 
+;; icons
+(use-package all-the-icons
+  :ensure t)
+
+(use-package all-the-icons-completion
+  :ensure all-the-icons
+  :config
+  (all-the-icons-completion-mode)
+  (add-hook 'marginalia-mode-hook #'all-the-icons-completion-marginalia-setup))
+
 (use-package doom-themes
   :hook (server-after-make-frame . (lambda () (load-theme 'doom-horizon t)))
   :ensure t
@@ -45,15 +55,6 @@
  `(org-special-keyword ((t (:foreground ,(doom-color 'magenta)))))
  `(org-property-value ((t (:foreground ,(doom-color 'magenta))))))
 
-;; icons
-(use-package all-the-icons
-  :ensure t)
-
-(use-package all-the-icons-completion
-  :ensure all-the-icons
-  :config
-  (all-the-icons-completion-mode)
-  (add-hook 'marginalia-mode-hook #'all-the-icons-completion-marginalia-setup))
 
 (use-package mood-line
   :custom
