@@ -35,53 +35,153 @@
 ;; Lsp 
 (use-package ccls
   :after lsp
-  :hook ((c-mode c++-mode c++-ts-mode objc-mode cuda-mode) .
+  :hook ((c-ts-base-mode c-mode c++-mode objc-mode cuda-mode) .
          (lambda () (require 'ccls) (lsp))))
+
+(setq c-ts-mode-indent-offset 4)
+
+(defun c-ts-mode--indent-styles (mode)
+  "Indent rules supported by `c-ts-mode'.
+MODE is either `c' or `cpp'."
+  (let ((common
+         `(((parent-is "translation_unit") column-0 0)
+           ((query "(ERROR (ERROR)) @indent") column-0 0)
+           ((node-is ")") parent 1)
+           ((node-is "]") parent-bol 0)
+           ((node-is "else") parent-bol 0)
+           ((node-is "case") parent-bol 0)
+           ((node-is "preproc_arg") no-indent)
+           ;; `c-ts-common-looking-at-star' has to come before
+           ;; `c-ts-common-comment-2nd-line-matcher'.
+           ((and (parent-is "comment") c-ts-common-looking-at-star)
+            c-ts-common-comment-start-after-first-star -1)
+           (c-ts-common-comment-2nd-line-matcher
+            c-ts-common-comment-2nd-line-anchor
+            1)
+           ((parent-is "comment") prev-adaptive-prefix 0)
+
+           ;; Labels.
+           ((node-is "labeled_statement") standalone-parent 0)
+           ((parent-is "labeled_statement")
+            c-ts-mode--standalone-grandparent c-ts-mode-indent-offset)
+
+           ;; Preproc directives
+           ((node-is "preproc") column-0 0)
+           ((node-is "#endif") column-0 0)
+           ((match "preproc_call" "compound_statement") column-0 0)
+
+           ;; Top-level things under a preproc directive.  Note that
+           ;; "preproc" matches more than one type: it matches
+           ;; preproc_if, preproc_elif, etc.
+           ((n-p-gp nil "preproc" "translation_unit") column-0 0)
+           ;; Indent rule for an empty line after a preproc directive.
+           ((and no-node (parent-is ,(rx (or "\n" "preproc"))))
+            c-ts-mode--standalone-parent-skip-preproc c-ts-mode--preproc-offset)
+           ;; Statement under a preproc directive, the first statement
+           ;; indents against parent, the rest statements indent to
+           ;; their prev-sibling.
+           ((match nil ,(rx "preproc_" (or "if" "elif")) nil 3 3)
+            c-ts-mode--standalone-parent-skip-preproc c-ts-mode-indent-offset)
+           ((match nil "preproc_ifdef" nil 2 2)
+            c-ts-mode--standalone-parent-skip-preproc c-ts-mode-indent-offset)
+           ((match nil "preproc_else" nil 1 1)
+            c-ts-mode--standalone-parent-skip-preproc c-ts-mode-indent-offset)
+           ((parent-is "preproc") c-ts-mode--anchor-prev-sibling 0)
+
+           ((parent-is "function_definition") parent-bol 0)
+           ((parent-is "conditional_expression") first-sibling 0)
+           ((parent-is "assignment_expression") parent-bol c-ts-mode-indent-offset)
+           ((parent-is "concatenated_string") first-sibling 0)
+           ((parent-is "comma_expression") first-sibling 0)
+           ((parent-is "init_declarator") parent-bol c-ts-mode-indent-offset)
+           ((parent-is "parenthesized_expression") first-sibling 1)
+           ((parent-is "argument_list") first-sibling 1)
+           ((parent-is "parameter_list") first-sibling 1)
+           ((parent-is "binary_expression") parent 0)
+           ((query "(for_statement initializer: (_) @indent)") parent-bol 5)
+           ((query "(for_statement condition: (_) @indent)") parent-bol 5)
+           ((query "(for_statement update: (_) @indent)") parent-bol 5)
+           ((query "(call_expression arguments: (_) @indent)") parent c-ts-mode-indent-offset)
+           ((parent-is "call_expression") parent 0)
+           ;; Closing bracket.  This should be before initializer_list
+           ;; (and probably others) rule because that rule (and other
+           ;; similar rules) will match the closing bracket.  (Bug#61398)
+           ((node-is "}") standalone-parent 0)
+           ,@(when (eq mode 'cpp)
+               '(((node-is "access_specifier") parent-bol 0)
+                 ;; Indent the body of namespace definitions.
+                 ((parent-is "declaration_list") parent-bol 0)))
+
+
+           ;; int[5] a = { 0, 0, 0, 0 };
+           ((match nil "initializer_list" nil 1 1) parent-bol c-ts-mode-indent-offset)
+           ((parent-is "initializer_list") c-ts-mode--anchor-prev-sibling 0)
+           ;; Statement in enum.
+           ((match nil "enumerator_list" nil 1 1) standalone-parent c-ts-mode-indent-offset)
+           ((parent-is "enumerator_list") c-ts-mode--anchor-prev-sibling 0)
+           ;; Statement in struct and union.
+           ((match nil "field_declaration_list" nil 1 1) standalone-parent c-ts-mode-indent-offset)
+           ((parent-is "field_declaration_list") c-ts-mode--anchor-prev-sibling 0)
+
+           ;; Statement in {} blocks.
+           ((or (match nil "compound_statement" nil 1 1)
+                (match null "compound_statement"))
+            standalone-parent c-ts-mode-indent-offset)
+           ((parent-is "compound_statement") c-ts-mode--anchor-prev-sibling 0)
+           ;; Opening bracket.
+           ((node-is "compound_statement") standalone-parent c-ts-mode-indent-offset)
+           ;; Bug#61291.
+           ((match "expression_statement" nil "body") standalone-parent c-ts-mode-indent-offset)
+           ;; These rules are for cases where the body is bracketless.
+           ;; Tested by the "Bracketless Simple Statement" test.
+           ((parent-is "if_statement") standalone-parent c-ts-mode-indent-offset)
+           ((parent-is "for_statement") standalone-parent c-ts-mode-indent-offset)
+           ((parent-is "while_statement") standalone-parent c-ts-mode-indent-offset)
+           ((parent-is "do_statement") standalone-parent c-ts-mode-indent-offset)
+
+           ((parent-is "case_statement") standalone-parent c-ts-mode-indent-offset)
+
+           ,@(when (eq mode 'cpp)
+               `(((node-is "field_initializer_list") parent-bol ,(* c-ts-mode-indent-offset 2)))))))
+    `((gnu
+       ;; Prepend rules to set highest priority
+       ((match "while" "do_statement") parent 0)
+       (c-ts-mode--top-level-label-matcher column-0 1)
+       ,@common)
+      (k&r ,@common)
+      (linux
+       ;; Reference:
+       ;; https://www.kernel.org/doc/html/latest/process/coding-style.html,
+       ;; and script/Lindent in Linux kernel repository.
+       ((node-is "labeled_statement") column-0 0)
+       ,@common)
+      (bsd
+       ((node-is "}") parent-bol 0)
+       ((node-is "labeled_statement") parent-bol c-ts-mode-indent-offset)
+       ((parent-is "labeled_statement") parent-bol c-ts-mode-indent-offset)
+       ((parent-is "compound_statement") parent-bol c-ts-mode-indent-offset)
+       ((parent-is "if_statement") parent-bol 0)
+       ((parent-is "for_statement") parent-bol 0)
+       ((parent-is "while_statement") parent-bol 0)
+       ((parent-is "switch_statement") parent-bol 0)
+       ((parent-is "case_statement") parent-bol 0)
+       ((parent-is "do_statement") parent-bol 0)
+       ,@common))))
+
+(setq c-ts-mode-indent-style 'gnu)
 
 ;; Mode
 (use-package cc-mode
   :ensure t
   :custom
-  (python-ts-mode-hook python-mode-hook)
   (ff-search-directories
-   '("." "../src" "../src/*/" "../include" "../include/*/" "../../src" "../../src/*/" "../../include" "../../include/*/" "/usr/include" "$PROJECT/*/include"))
-  :config 
-  (setq c-tab-always-indent t)
-  (setq-default c-basic-offset 4)
-  (c-add-style
-   "doom" '((c-comment-only-line-offset . 0)
-            (c-hanging-braces-alist (brace-list-open)
-                                    (brace-entry-open)
-                                    (substatement-open after)
-                                    (block-close . c-snug-do-while)
-                                    (arglist-cont-nonempty))
-            (c-cleanup-list brace-else-brace)
-            (c-offsets-alist
-             (innamespace . [0])
-             (knr-argdecl-intro . 0)
-             (substatement-open . 0)
-             (substatement-label . 0)
-             (statement-cont . +)
-             (case-label . +)
-             ;; align args with open brace OR don't indent at all (if open
-             ;; brace is at eolp and close brace is after arg with no trailing
-             ;; comma)
-             (brace-list-intro . 0)
-             (brace-list-close . -)
-             (arglist-intro . +)
-             (arglist-close +cc-lineup-arglist-close 0)
-             ;; don't over-indent lambda blocks
-             (inline-open . 0)
-             (inlambda . 0)
-             ;; indent access keywords +1 level, and properties beneath them
-             ;; another level
-             (access-label . -)
-             (inclass +cc-c++-lineup-inclass +)
-             (label . 0))))
-   (setq c-ts-default-style "doom")
-
-  (when (listp c-default-style)
-    (setf (alist-get 'other c-default-style) "doom")))
+   '("./base"
+     "." "../src"
+     "../src/*/"
+     "../include" "../include/*/"
+     "../../src" "../../src/*/"
+     "../../include" "../../include/*/"
+     "/usr/include" "$PROJECT/*/include")))
 
 ;; Cuda
 (use-package cuda-mode

@@ -5,6 +5,8 @@
 ;;; Code:
 
 (use-package rustic
+  :custom
+  (rust-ts-mode-hook rust-mode-hook)
   :ensure t)
 
 (null-keybinds-major-key-def

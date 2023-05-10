@@ -18,6 +18,7 @@
 ;; editor
 (require 'null-completion)
 (require 'null-editor)
+(require 'null-treesit)
 (require 'null-lsp)
 
 ;; org

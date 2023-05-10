@@ -41,8 +41,8 @@
 
 (use-package anaconda-mode
   :defer t
-  :hook ((python-mode . anaconda-mode)
-         (python-mode . anaconda-eldoc-mode))
+  :hook ((python-base-mode . anaconda-mode)
+         (python-base-mode . anaconda-eldoc-mode))
   :config
   (add-to-list 'company-backends 'company-anaconda)
   (add-to-list 'python-shell-extra-pythonpaths "~/repos/madame_web"))
@@ -50,9 +50,9 @@
 (use-package lsp-pyright
   :after lsp
   :ensure t
-  :hook (python-mode . (lambda ()
-                          (require 'lsp-pyright)
-                          (lsp-deferred))))  ; or lsp-deferred
+  :hook (python-base-mode . (lambda ()
+                              (require 'lsp-pyright)
+                              (lsp-deferred))))  ; or lsp-deferred
 
 ;; Handle different python versions
 (use-package pyenv-mode
@@ -82,7 +82,7 @@
 (use-package python-black
   :demand t
   :after python
-  :hook (python-mode . python-black-on-save-mode-enable-dwim))
+  :hook (python-base-mode . python-black-on-save-mode-enable-dwim))
 
 (null-keybinds-major-key-def
   :states '(normal visual)

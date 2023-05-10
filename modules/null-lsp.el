@@ -10,9 +10,11 @@
   :ensure t
   :commands lsp
   :hook
-  (python-mode . lsp-deferred)
+  (python-base-mode . lsp-deferred)
   (c++-mode . lsp-deferred)
+  (c++-ts-mode . lsp-deferred)
   (cc-mode . lsp-deferred)
+  (cc-ts-mode . lsp-deferred)
   (rust-mode . lsp-deferred)
   (lsp-mode . lsp-enable-which-key-integration)
   :bind (:map lsp-mode-map
@@ -22,7 +24,7 @@
   (lsp-enable-semantic-hightlighting nil)
   (lsp-semantic-tokens-enable nil)
   (lsp-headerline-breadcrumb-enable nil)
-  (lsp-idle-delay 0.500)
+  (lsp-idle-delay 0.100)
   (lsp-file-watch-threshold 50000)
   (lsp-lens-enable nil)
 
