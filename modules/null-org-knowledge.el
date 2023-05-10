@@ -101,10 +101,6 @@
            (file "~/Dropbox/org/orbit/templates/lecture_note.org")
            :target (file "%<%Y%m%d%H%M%S>-${slug}.org")
            :unnarrowed t)
-          ("r" "research note" plain
-           (file "~/Dropbox/org/orbit/templates/paper.org")
-           :target (file "%(expand-file-name (or citar-org-roam-subdir \"\") org-roam-directory)/${citekey}.org")
-           :unnarrowed t)
           ("p" "permanent note" plain
            (file "~/Dropbox/org/orbit/templates/latex.org")
            :target (file "%<%Y%m%d%H%M%S>-${slug}.org")
