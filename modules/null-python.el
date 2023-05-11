@@ -39,20 +39,17 @@
   :config
   (setenv "PYTHONPATH" "/home/s0001520/repos/madame-web"))
 
+(use-package company-anaconda
+  :after company
+  :config
+  (add-to-list 'company-backends 'company-anaconda))
+
 (use-package anaconda-mode
   :defer t
   :hook ((python-base-mode . anaconda-mode)
          (python-base-mode . anaconda-eldoc-mode))
   :config
-  (add-to-list 'company-backends 'company-anaconda)
   (add-to-list 'python-shell-extra-pythonpaths "~/repos/madame_web"))
-
-(use-package lsp-pyright
-  :after lsp
-  :ensure t
-  :hook (python-base-mode . (lambda ()
-                              (require 'lsp-pyright)
-                              (lsp-deferred))))  ; or lsp-deferred
 
 ;; Handle different python versions
 (use-package pyenv-mode

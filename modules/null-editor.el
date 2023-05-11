@@ -145,7 +145,6 @@
 ;; Snippets
 (use-package yasnippet
   :ensure t
-  :hook (lsp-mode . yas-minor-mode)
   :custom
   (yas-snippet-dirs (list (expand-file-name "snippets/" user-emacs-directory)))
   :config

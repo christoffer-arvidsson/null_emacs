@@ -6,55 +6,40 @@
 
 (require 'null-keybinds)
 
-(use-package lsp-mode
+(use-package eglot
   :ensure t
-  :commands lsp
   :hook
-  (python-base-mode . lsp-deferred)
-  (c++-mode . lsp-deferred)
-  (c++-ts-mode . lsp-deferred)
-  (cc-mode . lsp-deferred)
-  (cc-ts-mode . lsp-deferred)
-  (rust-mode . lsp-deferred)
-  (lsp-mode . lsp-enable-which-key-integration)
-  :bind (:map lsp-mode-map
-              ("TAB" . completion-at-point)
-              ("M-RET" . lsp-execute-code-action))
-  :custom
-  (lsp-enable-semantic-hightlighting nil)
-  (lsp-semantic-tokens-enable nil)
-  (lsp-headerline-breadcrumb-enable nil)
-  (lsp-idle-delay 0.100)
-  (lsp-file-watch-threshold 50000)
-  (lsp-lens-enable nil)
-
-  (lsp-completion-provider :capf)
-
-  ; Rust
-  (lsp-rust-server 'rust-analyzer)
-  (lsp-rust-analyzer-server-display-inlay-hints t))
-
-(use-package lsp-ui
-  :after lsp
-  :hook (lsp-mode . lsp-ui-mode)
-  :custom
-  (lsp-ui-sideline-enable nil)
-  (lsp-ui-sideline-show-hover t)
-  (lsp-ui-doc-position 'bottom)
+  (c-mode . eglot-ensure)
+  (cpp-ts-base-mode . eglot-ensure)
+  (python-base-mode . eglot-ensure)
+  (python-ts-mode . eglot-ensure)
+  (eglot-managed-mode . (lambda ()
+                          (add-to-list 'company-backends
+                                       '(company-capf :with company-yasnippet))))
   :config
-  (lsp-ui-doc-show))
+  (add-to-list 'eglot-server-programs
+               '((python-mode python-ts-mode python-base-mode)
+                 . ("pyright-langserver" "--stdio"))
+               '(cpp-ts-base-mode . "ccls")))
+
+(use-package eldoc-box
+  :ensure
+  :config
+  (eldoc-box-hover-mode +1))
 
 (null-keybinds-leader-key-def
-  :keymaps 'lsp-mode-map
+  :keymaps 'eglot-mode-map
   "l"  '(:ignore t :wk "lsp")
-  "l d" 'xref-find-definitions
-  "l h" 'lsp-describe-thing-at-point
-  "l r" 'lsp-rename
-  "l R" 'xref-find-references
-  "l n" 'lsp-ui-find-next-reference
-  "l p" 'lsp-ui-find-prev-reference
-  "l e" 'lsp-ui-flycheck-list
-  "l S" 'lsp-ui-sideline-mode)
+  "l a" '(eglot-code-actions :wk "code action")
+  "l R" '(eglot-rename :wk "rename")
+  "l d" '(xref-find-definitions :wk "find definitions")
+  "l r" '(xref-find-references :wk "find references")
+  "l h" '(eldoc :wk "help")
+  "l r" '(eglot-find-declaration :wk "find declaration")
+  "l i" '(eglot-find-implementation :wk "find implementation")
+  "l e" '(consult-flymake :wk "consult errors")
+  "l f" '(eglot-format-buffer :wk "format buffer")
+  "l t" '(eglot-find-typeDefinition :wk "find typeDefinition"))
 
 (provide 'null-lsp)
 ;;; null-lsp.el ends here

@@ -32,12 +32,6 @@
 
 (require 'null-keybinds)
 
-;; Lsp 
-(use-package ccls
-  :after lsp
-  :hook ((c-ts-base-mode c-mode c++-mode objc-mode cuda-mode) .
-         (lambda () (require 'ccls) (lsp))))
-
 (setq c-ts-mode-indent-offset 4)
 
 (defun c-ts-mode--indent-styles (mode)

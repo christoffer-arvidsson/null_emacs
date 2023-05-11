@@ -6,6 +6,7 @@
 
 (use-package rustic
   :custom
+  (rustic-lsp-client 'eglot)
   (rust-ts-mode-hook rust-mode-hook)
   :ensure t)
 
