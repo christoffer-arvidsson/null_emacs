@@ -132,14 +132,15 @@
                                  (substitute-key-definition 'company-complete-common
                                                             'company-yasnippet-or-completion
                                                             company-active-map))))
+(use-package prescient)
 
 (use-package company-prescient
-  :after company
+  :after (company prescient)
   :config
   (company-prescient-mode +1))
 
 (use-package vertico-prescient
-  :after vertico
+  :after (vertico prescient)
   :config
   (vertico-prescient-mode +1))
 
