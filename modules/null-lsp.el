@@ -10,22 +10,30 @@
   :ensure t
   :hook
   (c-mode . eglot-ensure)
-  (cpp-ts-base-mode . eglot-ensure)
+  (c++-ts-base-mode . eglot-ensure)
+  (c++-ts-mode . eglot-ensure)
   (python-base-mode . eglot-ensure)
   (python-ts-mode . eglot-ensure)
-  (eglot-managed-mode . (lambda ()
-                          (add-to-list 'company-backends
-                                       '(company-capf :with company-yasnippet))))
   :config
-  (add-to-list 'eglot-server-programs
-               '((python-mode python-ts-mode python-base-mode)
-                 . ("pyright-langserver" "--stdio"))
-               '(cpp-ts-base-mode . "ccls")))
+  (add-to-list 'eglot-server-programs '((python-mode python-ts-mode python-base-mode) ("pyright-langserver" "--stdio")))
+  (add-to-list 'eglot-server-programs '((cuda-mode c++-mode c-mode c++-ts-mode c++-ts-base-mode) "clangd-12")))
 
 (use-package eldoc-box
   :ensure
+  :hook (eldoc-mode . eldoc-box-hover-mode))
+
+(use-package flycheck-eglot
+  :ensure t
+  :after (flycheck eglot)
   :config
-  (eldoc-box-hover-mode +1))
+  (global-flycheck-eglot-mode 1))
+
+(use-package flycheck-posframe
+  :ensure t
+  :after flycheck
+  :hook (flycheck-mode . flycheck-posframe-mode)
+  :config
+  (flycheck-posframe-configure-pretty-defaults))
 
 (null-keybinds-leader-key-def
   :keymaps 'eglot-mode-map
