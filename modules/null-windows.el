@@ -135,11 +135,20 @@ the only window, use evil-window-move-* (e.g. `evil-window-move-far-left')."
   "w q" '(evil-quit :wk "Evil quit")
   "w =" '(balance-windows :wk "Balance windows")
 
+  ;; For standard vi bindings (incase of non-colemak kb)
+  "w h" '(evil-window-left :wk "Select window left")
+  "w j" '(evil-window-down :wk "Select window down")
+  "w k" '(evil-window-up :wk "Select window up")
+  "w l" '(evil-window-right :wk "Select window right")
+  "w H" '(+evil/window-move-left :wk "Move window left")
+  "w J" '(+evil/window-move-down :wk "Move window down")
+  "w K" '(+evil/window-move-up :wk "Move window up")
+  "w L" '(+evil/window-move-right :wk "Move window right")
+
   "'" '(:ignore t :wk "harpoon")
-  "' a" '(harpoon-add-file :wk "Add file"))
-
-
-
-
+  "' a" '(harpoon-add-file :wk "Add file")
+  "' D" '(harpoon-clear :wk "Clear files")
+  "' x" '(harpoon-delete :wk "Delete file")
+  )
 
 (provide 'null-windows)
