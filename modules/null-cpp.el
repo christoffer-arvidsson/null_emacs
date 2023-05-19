@@ -187,7 +187,7 @@ MODE is either `c' or `cpp'."
 ;; Keybinds
 (null-keybinds-major-key-def
   :states '(normal visual)
-  :keymaps '(c++-mode-map c++-ts-mode-map)
+  :keymaps '(c++-mode-map c++-ts-mode-map c++-ts-base-mode cuda-mode)
   "f" '(ff-find-other-file :wk "find other file"))
 
 (provide 'null-cpp)
