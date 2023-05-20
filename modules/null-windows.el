@@ -65,9 +65,10 @@ the only window, use evil-window-move-* (e.g. `evil-window-move-far-left')."
   (interactive)
   (null-windows-scroll-half-page t))
 
-(defun null-save-and-quit-window ()
+(defun null-harpoon-save-and-quit-window ()
   "Save and quit the current window."
   (interactive)
+  (flush-lines "^$")
   (save-buffer)
   (quit-window))
 
@@ -81,14 +82,13 @@ the only window, use evil-window-move-* (e.g. `evil-window-move-far-left')."
   :custom
   (harpoon-separate-by-branch nil)
   (harpoon-project-package 'project)
-  :bind
-  ((:map harpoon-mode-map
-         ("q" . null-save-and-quit-window)
-         ("<escape>" . null-save-and-quit-window))
-   (("M-n" . harpoon-go-to-1)
-    ("M-e" . harpoon-go-to-2)
-    ("M-i" . harpoon-go-to-3)
-    ("M-o" . harpoon-go-to-4)))
+  :bind (:map harpoon-mode-map
+              ("q" . null-harpoon-save-and-quit-window)
+              ("<escape>" . null-harpoon-save-and-quit-window))
+  :bind (("M-n" . harpoon-go-to-1)
+         ("M-e" . harpoon-go-to-2)
+         ("M-i" . harpoon-go-to-3)
+         ("M-o" . harpoon-go-to-4))
   :config
   (evil-make-overriding-map harpoon-mode-map 'normal)
   (defun harpoon-toggle-file ()
@@ -100,7 +100,9 @@ the only window, use evil-window-move-* (e.g. `evil-window-move-far-left')."
       (let ((file-name (harpoon--file-name)))
         (pop-to-buffer
          (find-file-other-window file-name))
-        (harpoon-mode)))))
+        (harpoon-mode)
+        (with-current-buffer (get-file-buffer file-name)
+          (rename-buffer "*harpoon*"))))))
 
 (use-package shackle
   :commands shackle-mode
@@ -119,7 +121,8 @@ the only window, use evil-window-move-* (e.g. `evil-window-move-far-left')."
           ("*Error*"                      :noselect t   :size 0.25)
           ("*Flycheck errors*"            :noselect t   :size 0.25)
           ("*compilation*"                :noselect t   :size 0.25)
-          ("harpoon"                      :noselect t   :size 0.15 :align below)
+          ("*harpoon*"                                  :size 0.15 :align below)
+          ("harpoon"                                    :size 0.15 :align below)
           (compilation-mode               :noselect t   :size 0.25)
           (messages-buffer-mode           :noselect t   :align below :size 0.25)
           (help-mode                      :align below  :select t)
