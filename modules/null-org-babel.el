@@ -29,11 +29,18 @@
 ;; Module for a nice org babel setup and thus notebooking.
 
 ;;; Code:
+(setenv "PYDEVD_DISABLE_FILE_VALIDATION" "1")
+
+(use-package zmq)
 
 (use-package jupyter
   :demand t
-  :after (:all org python)
+  :after (:all org python zmq)
   :config
+  (defun display-ansi-colors ()
+    (ansi-color-apply-on-region (point-min) (point-max)))
+
+  (add-hook 'org-babel-after-execute-hook #'display-ansi-colors)
   (setq org-babel-python-command "~/.pyenv/shims/python")
   (setq org-babel-default-header-args:jupyter-python '((:async . "yes")
                                                        (:kernel . "python3")
@@ -60,6 +67,8 @@
   (org-babel-jupyter-override-src-block "python"))
 
 
+
+(org-babel-lob-ingest "~/Dropbox/org/orbit/templates/lob.org")
 
 (provide 'null-org-babel)
 
