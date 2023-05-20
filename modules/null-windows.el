@@ -65,6 +65,12 @@ the only window, use evil-window-move-* (e.g. `evil-window-move-far-left')."
   (interactive)
   (null-windows-scroll-half-page t))
 
+(defun null-save-and-quit-window ()
+  "Save and quit the current window."
+  (interactive)
+  (save-buffer)
+  (quit-window))
+
 ;; Packages
 (use-package winner
   :config
@@ -76,10 +82,25 @@ the only window, use evil-window-move-* (e.g. `evil-window-move-far-left')."
   (harpoon-separate-by-branch nil)
   (harpoon-project-package 'project)
   :bind
-  (("M-n" . harpoon-go-to-1)
-   ("M-e" . harpoon-go-to-2)
-   ("M-i" . harpoon-go-to-3)
-   ("M-o" . harpoon-go-to-4)))
+  ((:map harpoon-mode-map
+         ("q" . null-save-and-quit-window)
+         ("<escape>" . null-save-and-quit-window))
+   (("M-n" . harpoon-go-to-1)
+    ("M-e" . harpoon-go-to-2)
+    ("M-i" . harpoon-go-to-3)
+    ("M-o" . harpoon-go-to-4)))
+  :config
+  (evil-make-overriding-map harpoon-mode-map 'normal)
+  (defun harpoon-toggle-file ()
+    "Open harpoon file."
+    (interactive)
+    (unless (eq major-mode 'harpoon-mode)
+      (harpoon--create-directory)
+      (setq harpoon--current-project-path (when (harpoon--has-project) (harpoon-project-root-function)))
+      (let ((file-name (harpoon--file-name)))
+        (pop-to-buffer
+         (find-file-other-window file-name))
+        (harpoon-mode)))))
 
 (use-package shackle
   :commands shackle-mode
@@ -98,6 +119,7 @@ the only window, use evil-window-move-* (e.g. `evil-window-move-far-left')."
           ("*Error*"                      :noselect t   :size 0.25)
           ("*Flycheck errors*"            :noselect t   :size 0.25)
           ("*compilation*"                :noselect t   :size 0.25)
+          ("harpoon"                      :noselect t   :size 0.15 :align below)
           (compilation-mode               :noselect t   :size 0.25)
           (messages-buffer-mode           :noselect t   :align below :size 0.25)
           (help-mode                      :align below  :select t)
@@ -149,6 +171,8 @@ the only window, use evil-window-move-* (e.g. `evil-window-move-far-left')."
   "' a" '(harpoon-add-file :wk "Add file")
   "' D" '(harpoon-clear :wk "Clear files")
   "' x" '(harpoon-delete :wk "Delete file")
+  "' '" '(harpoon-toggle-file :wk "Quick edit file")
+
   )
 
 (provide 'null-windows)
