@@ -32,11 +32,51 @@
 
 (require 'null-org)
 
+(defconst null/orbit-directory "~/Dropbox/org/orbit"
+  "Path to orbit directory.")
+
 (defconst null/citar-path (concat null/org-directory "bibliography")
   "Path to citar base directory")
 
 (defconst null/citar-bibliography-path (expand-file-name "references.bib" null/citar-path)
   "Path to file bibliography file.")
+
+(defun convert-file-path-to-relative (file-path fixed-directory)
+  "Convert FILE-PATH to a relative path based on FIXED-DIRECTORY."
+  (let* ((file-directory (file-name-directory file-path))
+         (relative-path (file-relative-name fixed-directory file-directory)))
+    (concat relative-path "/")))
+
+(defun null/orbit-org-download-screenshot ()
+  "Set `org-download-image-dir' to a relative path based on the current buffer's file path."
+  (interactive)
+  (let* ((file-path (buffer-file-name))
+         (relative-path (convert-file-path-to-relative file-path (expand-file-name "assets/images" null/orbit-directory))))
+    (setq-local org-download-image-dir relative-path)
+    (org-download-screenshot)
+    (message "org-download-image-dir set to: %s" relative-path)))
+
+(defun null/org-download-named-screenshot (fname)
+  "Download and save a region directly to FNAME."
+  (interactive "FEnter Filename:")
+  (make-directory (file-name-directory fname) t)
+  (if (functionp org-download-screenshot-method)
+      (funcall org-download-screenshot-method fname)
+    (shell-command-to-string
+     (format org-download-screenshot-method fname)))
+  (org-download-image fname))
+
+;; I only use this for saving images to my org-roam buffers. All their images will be stored in
+;; ../assets/imagse so that the links to those images will also be relative. This is important
+;; for export purposes later, since I don't want any absolute paths to images.
+(use-package org-download
+  :after org
+  :config
+  (setq org-download-screenshot-method "xfce4-screenshooter -r -o cat > %s"
+        org-download-method 'directory
+        org-download-timestamp "%Y-%m-%d_%H-%M-%S_")
+  (setq-default org-download-heading-lvl nil))
+
 
 (use-package citar
   :after org
@@ -226,6 +266,9 @@
   "n r t" '(org-roam-tag-add :wk "Add tag")
   "n r u" '(org-roam-ui-open :wk "Open org roam ui")
   "n r T" '(org-transclusion-add :wk "Transclude add")
+
+  "n a" '(:ignore t :wk "Org roam attach")
+  "n a c" '(null/orbit-org-download-screenshot :wk "Download screenshot")
 
   "n d" '(:ignore t :wk "Org roam dailies")
   "n d t" '(org-roam-dailies-capture-today :wk "find today")

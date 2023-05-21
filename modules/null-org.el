@@ -193,29 +193,6 @@
   (org-superstar-leading-bullet ?\s)
   (org-superstar-headline-bullets-list '("◉" "◈" "○" "◇")))
 
-;; Screenshotting
-(defun org-download-named-screenshot (fname)
-  "Download and save a region directly to FNAME."
-  (interactive "FEnter Filename:")
-  (make-directory (file-name-directory fname) t)
-  (if (functionp org-download-screenshot-method)
-      (funcall org-download-screenshot-method fname)
-    (shell-command-to-string
-     (format org-download-screenshot-method fname)))
-  (org-download-image fname))
-
-;; I only use this for saving images to my org-roam buffers. All their images will be stored in
-;; ../assets/imagse so that the links to those images will also be relative. This is important
-;; for export purposes later, since I don't want any absolute paths to images.
-(use-package org-download
-  :after org
-  :config
-  (setq org-download-screenshot-method "xfce4-screenshooter -r -o cat > %s"
-        org-download-method 'directory
-        org-download-timestamp "%Y-%m-%d_%H-%M-%S_")
-  (setq-default org-download-image-dir "../assets/images"
-                org-download-heading-lvl nil))
-
 ;; Autotangle files marked #+auto_tangle: t
 (use-package org-auto-tangle
   :after org
@@ -256,8 +233,6 @@
 (null-keybinds-major-key-def
   :states 'normal
   :keymaps 'org-mode-map
-  "a c" 'org-download-screenshot
-  "a C" 'org-download-named-screenshot
   "k s" 'org-babel-demarcate-block
   "i l" 'org-cdlatex-environment-indent
   "i c" 'org-cite-insert
