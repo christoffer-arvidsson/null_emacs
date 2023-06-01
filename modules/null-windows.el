@@ -70,7 +70,7 @@ the only window, use evil-window-move-* (e.g. `evil-window-move-far-left')."
   (interactive)
   (flush-lines "^$")
   (save-buffer)
-  (quit-window))
+  (kill-buffer-and-window))
 
 ;; Packages
 (use-package winner
@@ -80,8 +80,9 @@ the only window, use evil-window-move-* (e.g. `evil-window-move-far-left')."
 
 (use-package harpoon
   :custom
-  (harpoon-separate-by-branch nil)
+  (harpoon-separate-by-branch t)
   (harpoon-project-package 'project)
+  (harpoon-without-project-function '(lambda () (project-root (project-current))))
   :bind (:map harpoon-mode-map
               ("q" . null-harpoon-save-and-quit-window)
               ("<escape>" . null-harpoon-save-and-quit-window))
@@ -100,9 +101,7 @@ the only window, use evil-window-move-* (e.g. `evil-window-move-far-left')."
       (let ((file-name (harpoon--file-name)))
         (pop-to-buffer
          (find-file-other-window file-name))
-        (harpoon-mode)
-        (with-current-buffer (get-file-buffer file-name)
-          (rename-buffer "*harpoon*"))))))
+        (harpoon-mode)))))
 
 (use-package shackle
   :commands shackle-mode
@@ -122,7 +121,7 @@ the only window, use evil-window-move-* (e.g. `evil-window-move-far-left')."
           ("*Flycheck errors*"            :noselect t   :size 0.25)
           ("*compilation*"                :noselect t   :size 0.25)
           ("*harpoon*"                                  :size 0.15 :align below)
-          ("harpoon"                                    :size 0.15 :align below)
+          ("\\~.*"                        :regexp t     :size 0.15 :align below)
           (compilation-mode               :noselect t   :size 0.25)
           (messages-buffer-mode           :noselect t   :align below :size 0.25)
           (help-mode                      :align below  :select t)
