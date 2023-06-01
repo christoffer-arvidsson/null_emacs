@@ -38,6 +38,15 @@
 (use-package vterm
   :ensure t)
 
+(defun null/open-ranger-in-project-root ()
+  "Open Ranger in the root directory of the current project."
+  (interactive)
+  (let* ((project (project-current))
+         (project-root (and project (project-root project))))
+    (if project-root
+        (ranger project-root)
+      (message "No project found."))))
+
 (use-package ranger
   :ensure t)
 
@@ -47,7 +56,7 @@
   "." '(dired :wk "Open dired")
   "o c" '(quick-calc :wk "Quick calculator")
   "o t" '(vterm :wk "Open vterm")
-  "o r" '(ranger :wk "Open ranger")
+  "o r" '(null/open-ranger-in-project-root :wk "Open ranger")
   "o C" '(calc :wk "Calculator"))
 
 
