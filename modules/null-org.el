@@ -134,15 +134,18 @@
   (org-babel-after-execute . org-redisplay-inline-images)
   (org-capture-mode . evil-insert-state)
   :custom
+  (org-confirm-babel-evaluate nil)
   (org-directory null/org-directory)
   (org-hide-leading-stars nil) ; superstar needs this to be nil
   (org-startup-indented t) ; indent mode on startup
   (org-startup-folded 'showeverythin)
   (org-indent-mode-turns-on-hiding-stars nil) ; superstar needs this to be nil
+  (org-edit-src-content-indentation 4)
+
 
   ;; Visuals
   (org-highlight-latex-and-related '(native))
-  (org-image-actual-width 750)
+  (org-image-actual-width nil)
   (org-fontify-done-headline t)
   (org-fontify-quote-and-verse-blocks t)
   (org-fontify-whole-heading-line t)
@@ -152,7 +155,7 @@
   (org-startup-with-inline-images "inlineimages")
 
   (org-imenu-depth 3) ; See more levels with imenu
-  (org-return-follows-link t) ; use ret to follow link
+  (org-return-follows-link nil) ; use ret to follow link
 
   ;; Export settings
   (org-export-use-babel t) ; eval code on export
