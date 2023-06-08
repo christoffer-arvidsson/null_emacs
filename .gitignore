@@ -7,4 +7,5 @@ straight/repos/*
 var/
 etc/
 elpy/
+tree-sitter/
 /.local/
