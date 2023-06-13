@@ -100,6 +100,13 @@ _p_rev       _u_pper              _=_: upper/lower       _r_esolve
   :config
   (setq flycheck-checker-error-threshold 1500))
 
+(use-package deadgrep)
+
+;; Use ripgrep over grep
+(grep-apply-setting
+ 'grep-find-command
+ '("rg -n -H --no-heading -e '' $(git rev-parse --show-toplevel || pwd)" . 27))
+
 (null-keybinds-leader-key-def
   :states 'normal
   "p" '(:ignore t :wk "project")
@@ -107,8 +114,8 @@ _p_rev       _u_pper              _=_: upper/lower       _r_esolve
   "p f" '(project-find-file :wk "Find file in project")
   "p p" '(project-switch-project :wk "Switch project")
   "p b" '(project-switch-to-buffer :wk "Switch to project buffer")
-  "p s" '(consult-ripgrep :wk "Search project")
   "p ." '(project-dired :wk "Open dired in projcet")
+  "p s" '(deadgrep :wk "Search project with deadgrep")
   "/" '(consult-ripgrep :wk "Search project")
 
   "g" '(:ignore t :wk "git")
