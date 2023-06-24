@@ -78,18 +78,6 @@ buffer's text scale."
   :bind (:map cdlatex-mode-map 
               ("<tab>" . cdlatex-tab)))
 
-(use-package company-math
-    :after (org-mode TeX-mode company)
-    :config
-    (add-to-list 'company-backends 
-     '(company-math-symbols-latex company-math-latex-commands)))
-
-(use-package company-auctex
-  :after (org-mode TeX-mode, company, auctex)
-  :init
-  (add-to-list 'company-backends #'company-auctex-environments nil #'eq)
-  (add-to-list 'company-backends #'company-auctex-macros nil #'eq))
-
 ;; Numbered equations all have (1) as the number for fragments with vanilla
 ;; org-mode. This code injects the correct numbers into the previews so they
 ;; look good.

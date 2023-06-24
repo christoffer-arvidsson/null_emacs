@@ -36,7 +36,6 @@
   ("\\.tex\\'" . latex-mode) ; Must first activate the inferior Emacs latex mode
   :hook
   (LaTeX-mode . TeX-PDF-mode)
-  (LaTeX-mode . company-mode)
   (LaTeX-mode . flyspell-mode)
   (LaTeX-mode . flycheck-mode)
   (LaTeX-mode . LaTeX-math-mode)
