@@ -1,5 +1,7 @@
 ;;; null-ui.el -*- lexical-binding: t; -*-
 
+(require 'null-keybinds)
+
 (defun null-ui-disable-scroll-bars (frame)
   (modify-frame-parameters frame
                            '((vertical-scroll-bars . nil)
@@ -90,6 +92,11 @@
                 (with-selected-frame frame
                   (null-ui-set-font-faces))))
   (null-ui-set-font-faces))
+
+(null-keybinds-leader-key-def
+  :states 'normal
+  "h" '(nil :wk "ui")
+  "h t" '(consult-theme :wk "Switch theme"))
 
 (provide 'null-ui)
 
