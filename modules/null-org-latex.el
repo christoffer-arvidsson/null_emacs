@@ -38,11 +38,11 @@
   (plist-put org-format-latex-options :scale 1.0))
 
 ;; Latex
-;; (use-package org-fragtog
-;;   :ensure t
-;;   :config
-;;   (add-hook 'org-mode-hook 'org-fragtog-mode)
-;;   (setq org-fragtog-ignore-predicates '(org-at-table-p)))
+(use-package org-fragtog
+  :ensure t
+  :config
+  (add-hook 'org-mode-hook 'org-fragtog-mode)
+  (setq org-fragtog-ignore-predicates '(org-at-table-p)))
 
 (setq org-preview-latex-default-process 'dvisvgm) ;No blur when scaling
 
@@ -75,7 +75,7 @@ buffer's text scale."
   :custom
   (cdlatex-use-dollar-to-ensure-math nil)
   :hook (org-mode . org-cdlatex-mode)
-  :bind (:map cdlatex-mode-map 
+  :bind (:map cdlatex-mode-map
               ("<tab>" . cdlatex-tab)))
 
 ;; Numbered equations all have (1) as the number for fragments with vanilla
