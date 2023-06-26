@@ -78,7 +78,7 @@
 
 (null-keybinds-major-key-def
   :states '(normal visual)
-  :keymaps 'python-mode-map
+  :keymaps 'python-base-mode-map
   "e" '(:ignore t :wk "eval")
   "e r" 'run-python
   "e e" 'python-shell-send-statement
