@@ -17,6 +17,25 @@
   :config
   (global-corfu-mode))
 
+(use-package cape
+  :ensure t)
+
+;; delete me once yas has a good cape adapter
+(use-package company
+  :after cape corfu
+  :ensure t
+  :config
+  ;; for corfu
+  (straight-use-package 'cape)
+
+  (defun my/eglot-capf ()
+    (setq-local completion-at-point-functions
+                (list (cape-super-capf
+                       #'eglot-completion-at-point
+                       (cape-company-to-capf #'company-yasnippet)))))
+
+  (add-hook 'eglot-managed-mode-hook #'my/eglot-capf))
+
 (use-package emacs
   :init
   ;; TAB cycle if there are only few candidates
