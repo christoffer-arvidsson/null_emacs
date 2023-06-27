@@ -64,7 +64,7 @@
 
 (use-package orderless
   :custom
-  (completion-styles '(orderless flex))
+  (completion-styles '(orderless basic))
   (completion-category-defaults nil)
   (completion-category-overrides '((eglot (styles basic partial-completion))))
   (orderless-component-separator "[ &]"))
