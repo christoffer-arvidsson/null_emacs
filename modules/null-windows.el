@@ -138,10 +138,6 @@ the only window, use evil-window-move-* (e.g. `evil-window-move-far-left')."
 
 (general-define-key
  :states 'normal
- "C-m" 'evil-window-left
- "C-n" 'evil-window-down
- "C-e" 'evil-window-up
- "C-i" 'evil-window-right
  "<prior>" 'evil-scroll-up
  "<next>" 'evil-scroll-down)
 
