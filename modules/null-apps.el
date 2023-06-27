@@ -38,6 +38,9 @@
 (use-package vterm
   :ensure t)
 
+(use-package fish-mode
+  :ensure t)
+
 (defun null/open-ranger-in-project-root ()
   "Open Ranger in the root directory of the current project."
   (interactive)
