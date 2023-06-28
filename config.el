@@ -1,9 +1,5 @@
 ;;; Code:
 
-;; Personal information
-(setq user-full-name "Christoffer Arvidsson"
-      user-mail-address "christoffer@arvidson.nu")
-
 ;; core
 (require 'null-defaults)
 (require 'null-keybinds)
@@ -39,6 +35,13 @@
 
 ;; other
 (require 'null-apps)
+
+;; Personal information
+(setq user-full-name "Christoffer Arvidsson"
+      user-mail-address "christoffer@arvidson.nu")
+
+;; Theme
+(setq null-theme 'ef-winter)
 
 (defun null/init-work-packages ()
   "Do work specific initialization."

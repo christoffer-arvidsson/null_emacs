@@ -2,6 +2,9 @@
 
 (require 'null-keybinds)
 
+(defvar null-theme 'doom-horizon
+  "The default theme.")
+
 (defun null-ui-disable-scroll-bars (frame)
   (modify-frame-parameters frame
                            '((vertical-scroll-bars . nil)
@@ -27,6 +30,9 @@
 ;; initialize ui
 (null-ui-init)
 
+(use-package ef-themes
+  :ensure t)
+
 ;; icons
 (use-package all-the-icons
   :ensure t)
@@ -38,7 +44,6 @@
   (add-hook 'marginalia-mode-hook #'all-the-icons-completion-marginalia-setup))
 
 (use-package doom-themes
-  :hook (server-after-make-frame . (lambda () (load-theme 'doom-horizon t)))
   :ensure t
   :custom
   (doom-themes-enable-bold t)
@@ -47,8 +52,6 @@
   (doom-horizon-comment-bg nil)
   (doom-themes-padded-modeline t)
   :config
-
-  (load-theme 'doom-horizon t)
   (doom-themes-org-config))
 
 ;; brighter line numbers
@@ -84,6 +87,8 @@
                       :font "Vollkorn"
                       :weight 'normal
                       :height 150))
+
+(add-hook 'after-init-hook (lambda () (load-theme null-theme t)))
 
 ;; Required so that emacs client changes font
 (if (daemonp)
