@@ -119,7 +119,7 @@ the only window, use evil-window-move-* (e.g. `evil-window-move-far-left')."
           ("*Warnings*"                   :noselect t   :align below :size 0.25)
           ("*Error*"                      :noselect t   :size 0.25)
           ("*Flycheck errors*"            :noselect t   :size 0.25)
-          ("*compilation*"                :noselect t   :size 0.25)
+          ("*compilation*"                :noselect t   :size 0.25 :align below)
           ("*harpoon*"                                  :size 0.15 :align below)
           ("^~---.*---"                          :regexp t     :size 0.15 :align below)
           (deadgrep-mode                  :select t :size 0.5 :align right)
@@ -132,6 +132,7 @@ the only window, use evil-window-move-* (e.g. `evil-window-move-far-left')."
           (magit-commit-mode              :align below)
           (magit-diff-mode                :select nil   :align left  :size 0.5)
           (git-commit-mode                :align below  :same t)
+          (inferior-python-mode            :noselect t  :size 0.25, :align below)
           (vc-annotate-mode               :same t))))
 
 ;;; Bindings
