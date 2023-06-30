@@ -79,10 +79,10 @@ the only window, use evil-window-move-* (e.g. `evil-window-move-far-left')."
   (winner-mode +1))
 
 (use-package harpoon
+  :straight (:type git :host github :repo "joncol/harpoon.el" :branch "fix-project-root-bug")
   :custom
   (harpoon-separate-by-branch t)
   (harpoon-project-package 'project)
-  (harpoon-without-project-function '(lambda () (project-root (project-current))))
   :bind (:map harpoon-mode-map
               ("q" . null-harpoon-save-and-quit-window)
               ("<escape>" . null-harpoon-save-and-quit-window))
@@ -98,10 +98,13 @@ the only window, use evil-window-move-* (e.g. `evil-window-move-far-left')."
     (unless (eq major-mode 'harpoon-mode)
       (harpoon--create-directory)
       (setq harpoon--current-project-path (when (harpoon--has-project) (harpoon-project-root-function)))
-      (let ((file-name (harpoon--file-name)))
-        (pop-to-buffer
-         (find-file-other-window file-name))
-        (harpoon-mode)))))
+      (let* ((file-name (harpoon--file-name))
+             (buffer (find-file-noselect file-name)))
+        (with-current-buffer buffer
+          (harpoon-mode)
+          (rename-buffer (harpoon--cache-key)))
+        (display-buffer buffer)))))
+
 
 (use-package shackle
   :commands shackle-mode
@@ -110,33 +113,31 @@ the only window, use evil-window-move-* (e.g. `evil-window-move-far-left')."
   (setq shackle-default-alignment 'below
         shackle-default-size 0.4
         shackle-rules
-        '(("*org-roam*"                   :align right  :size 0.3    :select t)
-          ("*org-roam-review*"            :align right  :size 0.3    :select t)
-          ("\\*Embark Export:" :regexp t     :align right :size 100 :select t)
-          (embark-collect-mode :regexp nil     :align right :size 100 :select t)
-          ("*Org Links*"                  :noselect nil :size 0.1)
-          ("*Backtrace*"                  :noselect t   :align below :size 0.25)
-          ("*Warnings*"                   :noselect t   :align below :size 0.25)
-          ("*Error*"                      :noselect t   :size 0.25)
-          ("*Flycheck errors*"            :noselect t   :size 0.25)
-          ("*compilation*"                :noselect t   :size 0.25 :align below)
-          ("*harpoon*"                                  :size 0.15 :align below)
-          ("^~---.*---"                          :regexp t     :size 0.15 :align below)
-          (deadgrep-mode                  :select t :size 0.5 :align right)
-          (compilation-mode               :noselect t   :size 0.25)
-          (messages-buffer-mode           :noselect t   :align below :size 0.25)
-          (help-mode                      :align below  :select t)
-          (helpful-mode                   :align below)
-          (magit-status-mode              :align right  :inhibit-window-quit t)
-          (magit-log-mode                 :same t       :inhibit-window-quit t)
-          (magit-commit-mode              :align below)
-          (magit-diff-mode                :select nil   :align left  :size 0.5)
-          (git-commit-mode                :align below  :same t)
+        '(("*org-roam*"                    :align right  :size 0.3    :select t)
+          ("*org-roam-review*"             :align right  :size 0.3    :select t)
+          ("\\*Embark Export:"             :regexp t   :align right :size 100 :select t)
+          (embark-collect-mode             :regexp nil :align right :size 100 :select t)
+          ("*Org Links*"                   :noselect nil :size 0.1)
+          ("*Backtrace*"                   :noselect t   :align below :size 0.25)
+          ("*Warnings*"                    :noselect t   :align below :size 0.25)
+          ("*Error*"                       :noselect t   :size 0.25)
+          ("*Flycheck errors*"             :noselect t   :size 0.25)
+          ("*compilation*"                 :noselect t   :size 0.25 :align below)
+          (harpoon-mode                    :select t :size 0.15 :align below)
+          (deadgrep-mode                   :select t :size 0.5 :align right)
+          (compilation-mode                :noselect t   :size 0.25)
+          (messages-buffer-mode            :noselect t   :align below :size 0.25)
+          (help-mode                       :align below  :select t)
+          (helpful-mode                    :align below)
+          (magit-status-mode               :align right  :inhibit-window-quit t)
+          (magit-log-mode                  :same t       :inhibit-window-quit t)
+          (magit-commit-mode               :align below)
+          (magit-diff-mode                 :select nil   :align left  :size 0.5)
+          (git-commit-mode                 :align below  :same t)
           (inferior-python-mode            :noselect t  :size 0.25, :align below)
-          (vc-annotate-mode               :same t))))
+          (vc-annotate-mode                :same t))))
 
 ;;; Bindings
-
 (general-define-key
  :states 'normal
  "<prior>" 'evil-scroll-up
@@ -175,8 +176,6 @@ the only window, use evil-window-move-* (e.g. `evil-window-move-far-left')."
   "' a" '(harpoon-add-file :wk "Add file")
   "' D" '(harpoon-clear :wk "Clear files")
   "' x" '(harpoon-delete :wk "Delete file")
-  "' '" '(harpoon-toggle-file :wk "Quick edit file")
-
-  )
+  "' '" '(harpoon-toggle-file :wk "Quick edit file"))
 
 (provide 'null-windows)
