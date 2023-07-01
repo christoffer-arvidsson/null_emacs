@@ -21,9 +21,7 @@
   (setq recentf-save-file (no-littering-expand-etc-file-name "recentf"))
   (add-to-list 'recentf-exclude no-littering-var-directory)
   (add-to-list 'recentf-exclude no-littering-etc-directory)
-  (setq auto-save-file-name-transforms
-        `((".*" ,(no-littering-expand-var-file-name "auto-save/") t)))
-
+  (no-littering-theme-backups)
   (setq custom-file (no-littering-expand-etc-file-name "custom.el")))
 
 ;; Load the user configuration file if it exists
