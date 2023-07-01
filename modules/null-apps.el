@@ -58,7 +58,8 @@
   :states 'normal
   "." '(dired :wk "Open dired")
   "o c" '(quick-calc :wk "Quick calculator")
-  "o t" '(vterm :wk "Open vterm")
+  "o t" '(vterm-other-window :wk "Open vterm popup")
+  "o T" '(vterm :wk "Open vterm")
   "o r" '(null/open-ranger-in-project-root :wk "Open ranger")
   "o C" '(calc :wk "Calculator"))
 
