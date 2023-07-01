@@ -100,8 +100,6 @@
 
 (null-keybinds-leader-key-def
   :states 'normal
-  "h" '(nil :wk "ui")
-  "h t" '(consult-theme :wk "Switch theme"))
+  "q t" '(consult-theme :wk "Switch theme"))
 
 (provide 'null-ui)
-

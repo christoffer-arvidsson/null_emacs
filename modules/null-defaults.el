@@ -78,8 +78,8 @@
   "h" '(:ignore t :wk "help")
   "h f" 'helpful-callable
   "h v" 'helpful-variable
-  "h k" 'helpful-key)
+  "h k" 'helpful-key
+  "h d" 'helpful-at-point
+  "h M" 'consult-man)
 
 (provide 'null-defaults)
-
-
