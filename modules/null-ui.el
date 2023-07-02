@@ -5,6 +5,9 @@
 (defvar null-theme 'doom-horizon
   "The default theme.")
 
+(defvar null-font-preset 'default
+  "Fontaine preset to use.")
+
 (defun null-ui-disable-scroll-bars (frame)
   (modify-frame-parameters frame
                            '((vertical-scroll-bars . nil)
@@ -72,21 +75,24 @@
   :config
   (solaire-global-mode +1))
 
-(defun null-ui-set-font-faces ()
-  (set-face-attribute 'default nil
-                      :font "Iosevka"
-                      :weight 'normal
-                      :height 100)
-
-  (set-face-attribute 'fixed-pitch nil
-                      :font "Vollkorn"
-                      :weight 'normal
-                      :height 150)
-
-  (set-face-attribute 'variable-pitch nil
-                      :font "Vollkorn"
-                      :weight 'normal
-                      :height 150))
+(use-package fontaine
+  :ensure t
+  :custom
+  (fontaine-presets
+   '(
+     (default
+      :default-family "Monospace")
+     (desktop
+      :default-family "Iosevka"
+      :default-weight normal
+      :default-height 100
+      :variable-pitch-family "Vollkorn"
+      :variable-pitch-weight normal
+      :variable-pitch-height 1.05
+      :line-spacing nil)
+     (laptop
+      :inherit desktop
+      :default-height 110))))
 
 (add-hook 'after-init-hook (lambda () (load-theme null-theme t)))
 
@@ -95,8 +101,8 @@
     (add-hook 'after-make-frame-functions
               (lambda (frame)
                 (with-selected-frame frame
-                  (null-ui-set-font-faces))))
-  (null-ui-set-font-faces))
+                  (fontaine-set-preset null-font-preset))))
+  (fontaine-set-preset null-font-preset))
 
 (null-keybinds-leader-key-def
   :states 'normal

@@ -42,13 +42,19 @@
 
 ;; Theme
 (setq null-theme 'ef-winter)
+;; Font
+(setq null-font-preset 'desktop)
 
 (defun null/init-work-packages ()
   "Do work specific initialization."
-  (message "using work configuration."))
+  (message "using work configuration.")
+  (setq null-font-preset 'laptop))
+
 
 ;; Work
 (if (string-equal (system-name) "ucnd1387l61") (null/init-work-packages))
+
+(fontaine-set-preset null-font-preset)
 
 (provide 'config)
 ;;; config.el ends here
