@@ -173,6 +173,9 @@ the only window, use evil-window-move-* (e.g. `evil-window-move-far-left')."
   "w K" '(+evil/window-move-up :wk "Move window up")
   "w L" '(+evil/window-move-right :wk "Move window right")
 
+  "w +" '(lambda () (interactive) (text-scale-increase 1))
+  "w -" '(lambda () (interactive) (text-scale-increase -1))
+
   "'" '(:ignore t :wk "harpoon")
   "' a" '(harpoon-add-file :wk "Add file")
   "' D" '(harpoon-clear :wk "Clear files")
