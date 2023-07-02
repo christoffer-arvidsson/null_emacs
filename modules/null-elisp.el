@@ -6,6 +6,11 @@
 
 (require 'null-keybinds)
 
+(use-package parinfer-rust-mode
+    :hook emacs-lisp-mode
+    :init
+    (setq parinfer-rust-auto-download t))
+
 (null-keybinds-major-key-def
   :states '(normal visual)
   :keymaps 'emacs-lisp-mode-map
