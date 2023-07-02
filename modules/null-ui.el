@@ -90,11 +90,27 @@
       :variable-pitch-weight normal
       :variable-pitch-height 1.05
       :line-spacing nil)
+     (big
+      :inherit desktop
+      :default-height 150)
      (laptop
       :inherit desktop
       :default-height 110))))
 
 (add-hook 'after-init-hook (lambda () (load-theme null-theme t)))
+
+(define-minor-mode null-global-big-text-mode
+  "Toggle big text mode."
+  :init-value nil
+  :global t
+  :group 'null
+  :lighter " big-text"
+  (if null-global-big-text-mode
+      (progn
+        (message "big-text-mode activated!")
+        (fontaine-set-preset 'big))
+    (progn (message "big-text-mode deactivated!")
+           (fontaine-set-preset null-font-preset))))
 
 ;; Required so that emacs client changes font
 (if (daemonp)
@@ -106,6 +122,7 @@
 
 (null-keybinds-leader-key-def
   :states 'normal
-  "q t" '(consult-theme :wk "Switch theme"))
+  "q t" '(consult-theme :wk "Switch theme")
+  "t b" '(lambda () (interactive) (null-global-big-text-mode 'toggle)))
 
 (provide 'null-ui)
