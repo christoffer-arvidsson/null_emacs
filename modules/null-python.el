@@ -85,7 +85,12 @@
   "e b" 'python-shell-send-buffer
   "e B" '(lambda () (interactive )(python-shell-send-buffer t))
   "e f" 'python-shell-send-defun
-  "e v" 'python-shell-send-region)
+  "e v" 'python-shell-send-region
+
+  "f r" 'python-black-region
+  "f b" 'python-black-buffer)
+
+
 
 (provide 'null-python)
 
