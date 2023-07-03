@@ -38,8 +38,8 @@
   "Copy the current buffer's path to the kill ring."
   (interactive)
   (let ((filename (abbreviate-file-name (if (equal major-mode 'dired-mode)
-                      default-directory
-                    (buffer-file-name)))))
+                                         default-directory
+                                         (buffer-file-name)))))
     (when filename
       (let ((x-select-enable-clipboard t)) (kill-new filename))
       (message filename))))
@@ -48,8 +48,8 @@
   "Copy the current buffer's path relative to current projects root, to the kill ring."
   (interactive)
   (let ((filename (abbreviate-file-name (file-relative-name (if (equal major-mode 'dired-mode)
-                      default-directory
-                    (buffer-file-name)) (project-root (project-current))))))
+                                                             default-directory
+                                                             (buffer-file-name)) (project-root (project-current))))))
     (when filename
       (let ((x-select-enable-clipboard t)) (kill-new filename))
       (message filename))))
@@ -94,9 +94,9 @@
   "b b" '(consult-buffer :wk "Switch buffer")
   "b s" '(save-buffer :wk "Save buffer")
   "b r" '(revert-buffer :wk "Revert buffer")
-  "b d" '(kill-this-buffer :wk "Kill current buffer")
+  "b d" '(kill-this-buffer :wk "Kill current buffer"))
   ;; "o r" '(ranger :wk "Open ranger")
   ;; "o ." '(dirvish :wk "Open dirvish")
-  )
+
 
 (provide 'null-files)

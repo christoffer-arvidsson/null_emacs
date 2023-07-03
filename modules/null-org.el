@@ -103,7 +103,6 @@
   (auto-fill-mode t)
   (visual-line-mode 1)
 
-  ;; (set-face-attribute 'org-document-title nil :font "Iosevka Aile" :weight 'bold :height 1.0))
   (dolist (face '((org-level-1 . 1.0)
                   (org-level-2 . 1.0)
                   (org-level-3 . 1.0)
@@ -113,19 +112,6 @@
                   (org-level-7 . 1.0)
                   (org-level-8 . 1.0)))
     (set-face-attribute (car face) nil :font "Iosevka" :weight 'bold :height (cdr face))))
-
-  ;; ;; (require 'org-indent)
-  ;; (set-face-attribute 'org-block nil :foreground nil :inherit 'fixed-pitch)
-  ;; (set-face-attribute 'org-table nil  :inherit 'fixed-pitch)
-  ;; (set-face-attribute 'org-formula nil  :inherit 'fixed-pitch)
-  ;; (set-face-attribute 'org-code nil   :inherit '(shadow fixed-pitch))
-  ;; (set-face-attribute 'org-indent nil :inherit '(org-hide fixed-pitch))
-  ;; (set-face-attribute 'org-verbatim nil :inherit '(shadow fixed-pitch))
-  ;; (set-face-attribute 'org-special-keyword nil :inherit '(font-lock-comment-face fixed-pitch))
-  ;; (set-face-attribute 'org-meta-line nil :inherit '(font-lock-comment-face fixed-pitch))
-  ;; (set-face-attribute 'org-checkbox nil :inherit 'fixed-pitch)
-  ;; (set-face-attribute 'org-column nil :background nil)
-  ;; (set-face-attribute 'org-column-title nil :background nil))
 
 (use-package org
   :ensure t
@@ -161,15 +147,15 @@
   (org-export-use-babel t) ; eval code on export
   (org-src-preserve-indentation t) ; keep leading whitespace in src blocks on export
 
-   ;; Default apps
+  ;; Default apps
   (org-file-apps
-        '((auto-mode . emacs)
-          ("\\.mm\\'" . default)
-          ("\\.x?html?\\'" . default)
-          ("\\.pdf\\'" . "zathura %s")
-          ("\\.png\\'" . viewnior)
-          ("\\.jpg\\'" . viewnior)
-          ("\\.svg\\'" . viewnior)))
+   '((auto-mode . emacs)
+     ("\\.mm\\'" . default)
+     ("\\.x?html?\\'" . default)
+     ("\\.pdf\\'" . "zathura %s")
+     ("\\.png\\'" . viewnior)
+     ("\\.jpg\\'" . viewnior)
+     ("\\.svg\\'" . viewnior)))
 
   :config
   ;; Tempo
@@ -240,11 +226,8 @@
   "i l" 'org-cdlatex-environment-indent
   "i c" 'org-cite-insert
   "i f" 'org-footnote-new
-  ;; "i p" 'academic-phrases
   "i s" 'org-insert-structure-template
-  ;; "i P" 'academic-phrases-by-section
   "s n" 'org-toggle-narrow-to-subtree
-
   "o" 'org-open-at-point
   "t" 'org-todo
   "e" 'org-export-dispatch)

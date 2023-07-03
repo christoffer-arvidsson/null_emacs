@@ -44,8 +44,8 @@
 (use-package openwith
   :custom
   (openwith-associations '((
-                            "\\.pdf\\'" "zathura" (file)
-                            )))
+                            "\\.pdf\\'" "zathura" (file))))
+
   :config
   (openwith-mode t))
 
