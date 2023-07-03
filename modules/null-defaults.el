@@ -5,6 +5,7 @@
 (setq-default tab-width 4)
 (setq-default evil-shift-width tab-width)
 (setq-default indent-tabs-mode nil)
+(setq tramp-default-method "ssh")
 (setq display-line-numbers-type 'relative)
 
 ;; bookmarks
