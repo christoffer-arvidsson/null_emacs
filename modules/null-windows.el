@@ -99,10 +99,11 @@ the only window, use evil-window-move-* (e.g. `evil-window-move-far-left')."
       (harpoon--create-directory)
       (setq harpoon--current-project-path (when (harpoon--has-project) (harpoon-project-root-function)))
       (let* ((file-name (harpoon--file-name))
+             (buffer-name (harpoon--cache-key))
              (buffer (find-file-noselect file-name)))
         (with-current-buffer buffer
           (harpoon-mode)
-          (rename-buffer (harpoon--cache-key)))
+          (rename-buffer buffer-name))
         (display-buffer buffer)))))
 
 
