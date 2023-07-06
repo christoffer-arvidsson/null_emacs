@@ -95,7 +95,7 @@
       :default-height 150)
      (laptop
       :inherit desktop
-      :default-height 110))))
+      :default-height 95))))
 
 (add-hook 'after-init-hook (lambda () (load-theme null-theme t)))
 

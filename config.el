@@ -42,8 +42,6 @@
 
 ;; Theme
 (setq null-theme 'ef-winter)
-;; Font
-(setq null-font-preset 'desktop)
 
 (defun null/init-work-packages ()
   "Do work specific initialization."
