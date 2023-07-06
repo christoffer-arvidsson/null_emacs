@@ -145,6 +145,15 @@ the only window, use evil-window-move-* (e.g. `evil-window-move-far-left')."
  "<prior>" 'evil-scroll-up
  "<next>" 'evil-scroll-down)
 
+(defun null/text-scale-increase ()
+  """Increase text scale by 1."""
+  (text-scale-increase 1))
+
+(defun null/text-scale-decrease ()
+  """Decrease text scale by 1."""
+  (text-scale-increase 1))
+
+
 (null-keybinds-leader-key-def
   :states 'normal
   "TAB" '(evil-switch-to-windows-last-buffer :wk "Previous buffer")
@@ -163,6 +172,8 @@ the only window, use evil-window-move-* (e.g. `evil-window-move-far-left')."
   "w r" '(winner-redo :wk "Redo layout change")
   "w q" '(evil-quit :wk "Evil quit")
   "w =" '(balance-windows :wk "Balance windows")
+  "w +" '(null/text-scale-increase)
+  "w -" '(null/text-scale-decrease)
 
   ;; For standard vi bindings (incase of non-colemak kb)
   "w h" '(evil-window-left :wk "Select window left")
