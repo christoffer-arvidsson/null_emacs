@@ -100,12 +100,16 @@ _p_rev       _u_pper              _=_: upper/lower       _r_esolve
   :config
   (setq flycheck-checker-error-threshold 1500))
 
-(use-package deadgrep)
-
 ;; Use ripgrep over grep
 (grep-apply-setting
  'grep-find-command
  '("rg -n -H --no-heading -e '' $(git rev-parse --show-toplevel || pwd)" . 27))
+
+(defun null/consult-ripgrep-thing-at-point  ()
+  "Run `consult-ripgrep` on the thing at point in project root."
+  (interactive)
+  (let ((directory (project-root (project-current))))
+    (consult-ripgrep directory (thing-at-point 'symbol))))
 
 (null-keybinds-leader-key-def
   :states 'normal
@@ -115,7 +119,7 @@ _p_rev       _u_pper              _=_: upper/lower       _r_esolve
   "p p" '(project-switch-project :wk "Switch project")
   "p b" '(project-switch-to-buffer :wk "Switch to project buffer")
   "p ." '(project-dired :wk "Open dired in projcet")
-  "p s" '(deadgrep :wk "Search project with deadgrep")
+  "p s" '(null/consult-ripgrep-thing-at-point :wk "Search project at point")
   "/" '(consult-ripgrep :wk "Search project")
 
   "g" '(:ignore t :wk "git")
