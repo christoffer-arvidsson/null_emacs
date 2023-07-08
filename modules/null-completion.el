@@ -12,29 +12,26 @@
 (use-package corfu
   :after orderless
   :custom
+  (corfu-cycle t)
+  (corfu-auto-prefix 3)
+  (corfu-auto-delay 0.1)
+  (corfu-echo-documentation 0.25)
   (corfu-auto t)
+  (corfu-preview-current 'insert)
   (corfu-quit-no-match 'separator)
   :config
   (global-corfu-mode))
 
 (use-package cape
-  :ensure t)
+  :ensure t
+  :init
+  (add-to-list 'completion-at-point-functions #'cape-file)
+  (add-to-list 'completion-at-point-functions #'cape-dabbrev))
 
 ;; delete me once yas has a good cape adapter
 (use-package company
   :after cape corfu
-  :ensure t
-  :config
-  ;; for corfu
-  (straight-use-package 'cape)
-
-  (defun my/eglot-capf ()
-    (setq-local completion-at-point-functions
-                (list (cape-super-capf
-                       #'eglot-completion-at-point
-                       (cape-company-to-capf #'company-yasnippet)))))
-
-  (add-hook 'eglot-managed-mode-hook #'my/eglot-capf))
+  :ensure t)
 
 (use-package emacs
   :init
@@ -102,6 +99,11 @@
 
 
 (use-package prescient)
+
+(use-package corfu-prescient
+  :ensure t
+  :config
+  (corfu-prescient-mode +1))
 
 (use-package vertico-prescient
   :after (vertico prescient)
