@@ -75,7 +75,7 @@
   "RET" '(consult-bookmark :wk "Jump bookmark")
 
   "s" '(:ignore t :wk "search")
-  "s i" '(consult-imenu :wk "Jump to symbol")
+  "s i" '(consult-outline :wk "Consult outline")
   "s b" '(consult-line :wk "Search lines")
   "s s" '(null/search-symbol-at-point :wk "Search symbol at point")
 

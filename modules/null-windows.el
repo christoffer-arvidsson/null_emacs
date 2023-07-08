@@ -145,14 +145,6 @@ the only window, use evil-window-move-* (e.g. `evil-window-move-far-left')."
  "<prior>" 'evil-scroll-up
  "<next>" 'evil-scroll-down)
 
-(defun null/text-scale-increase ()
-  """Increase text scale by 1."""
-  (text-scale-increase 1))
-
-(defun null/text-scale-decrease ()
-  """Decrease text scale by 1."""
-  (text-scale-increase 1))
-
 
 (null-keybinds-leader-key-def
   :states 'normal
