@@ -166,11 +166,15 @@
   :config
   (yasnippet-radical-snippets-initialize))
 
+(use-package consult-yasnippet
+  :after consult yasnippet
+  :ensure t)
 
 (null-keybinds-leader-key-def
   :states 'normal
   "i" '(:ignore t :wk "insert")
-  "i s" '(yas-insert-snippet :wk "yas-insert-snippet"))
+  "i s" '(consult-yasnippet :wk "yasnippet insert snippet")
+  "i S" '(consult-yasnippet-visit-snippet-file :wk "yasnippet visit snippet"))
 
 
 (provide 'null-editor)
