@@ -1,4 +1,3 @@
-
 (defun setup-tide-mode ()
   (interactive)
   (tide-setup)
@@ -6,7 +5,6 @@
   (setq flycheck-check-syntax-automatically '(save mode-enabled))
   (eldoc-mode +1)
   (tide-hl-identifier-mode +1))
-
 
 (use-package web-mode
   :ensure t
@@ -28,21 +26,22 @@
   (add-hook 'web-mode-hook
             (lambda ()
               (when (string-equal "tsx" (file-name-extension buffer-file-name))
-		(setup-tide-mode))))
+        (setup-tide-mode))))
   (flycheck-add-mode 'typescript-tslint 'web-mode))
- 
+
 (use-package typescript-mode
   :ensure t
+  :hook (typescript-mode . subword-mode))
   :config
   (setq typescript-indent-level 2)
-  (add-hook 'typescript-mode #'subword-mode))
 
 (use-package tide
   :init
   :ensure t
   :after (typescript-mode flycheck)
-  :hook ((typescript-mode . tide-setup)
-         (typescript-mode . tide-hl-identifier-mode)
-         (before-save . tide-format-before-save)))
+  :hook
+  (typescript-mode . tide-setup)
+  (typescript-mode . tide-hl-identifier-mode)
+  (before-save . tide-format-before-save))
 
 (provide 'null-web)

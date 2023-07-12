@@ -40,8 +40,8 @@
 ;; Latex
 (use-package org-fragtog
   :ensure t
+  :hook (org-mode . org-fragtog-mode)
   :config
-  (add-hook 'org-mode-hook 'org-fragtog-mode)
   (setq org-fragtog-ignore-predicates '(org-at-table-p)))
 
 (setq org-preview-latex-default-process 'dvisvgm) ;No blur when scaling

@@ -9,10 +9,9 @@
 ;; Dumb jump for jumping to symbol
 (use-package dumb-jump
     :ensure t
+    :hook (xref-backend-functions . #'dumb-jump-xref-activate)
     :custom
-    (dumb-jump-prefer-searcher 'rg)
-    :config
-    (add-hook 'xref-backend-functions #'dumb-jump-xref-activate))
+    (dumb-jump-prefer-searcher 'rg))
 
 ;; Use projcet.el
 ;; Defines a "m" option to open magit

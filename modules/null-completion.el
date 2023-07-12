@@ -99,9 +99,7 @@
   :demand t ; only necessary if you have the hook below
   ;; if you want to have consult previews as you move around an
   ;; auto-updating embark collect buffer
-  :hook
-  (embark-collect-mode . consult-preview-at-point-mode))
-
+  :hook (embark-collect-mode . consult-preview-at-point-mode))
 
 (use-package prescient)
 
@@ -116,6 +114,7 @@
   (vertico-prescient-mode +1))
 
 (use-package emacs
+  :hook (minibuffer-setup-hook #'cursor-intangible-mode)
   :config
   ;; Add prompt indicator to `completing-read-multiple'.
   ;; Alternatively try `consult-completing-read-multiple'.
@@ -126,7 +125,6 @@
   ;; Do not allow the cursor in the minibuffer prompt
   (setq minibuffer-prompt-properties
         '(read-only t cursor-intangible t face minibuffer-prompt))
-  (add-hook 'minibuffer-setup-hook #'cursor-intangible-mode)
 
   ;; Emacs 28: Hide commands in M-x which do not work in the current mode.
   ;; Vertico commands are hidden in normal buffers.

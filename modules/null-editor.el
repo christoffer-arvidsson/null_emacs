@@ -9,8 +9,9 @@
   :ghook 'prog-mode-hook)
 
 (use-package rainbow-mode
-  :hook ((prog-mode . rainbow-mode)
-         (conf-mode . rainbow-mode)))
+  :hook
+  (prog-mode . rainbow-mode)
+  (conf-mode . rainbow-mode))
 
 (use-package smartparens
   :config
@@ -18,9 +19,9 @@
 
 (use-package evil-snipe
   :ensure t
+  :hook (magit-mode . turn-off-evil-snipe-override-mode)
   :config
   (evil-snipe-mode +1)
-  (add-hook 'magit-mode-hook 'turn-off-evil-snipe-override-mode)
   (evil-snipe-override-mode +1))
 
 (use-package evil-surround

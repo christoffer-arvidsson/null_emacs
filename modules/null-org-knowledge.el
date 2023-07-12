@@ -108,8 +108,9 @@
   :after org
   :init
   (setq org-roam-v2-ack t)
-  :hook (org-roam-find-file . balance-windows)
-  :hook (org-follow-link . balance-windows)
+  :hook
+  (org-roam-find-file . balance-windows)
+  (org-follow-link . balance-windows)
   :custom
   (org-roam-directory (file-truename "~/Dropbox/org/orbit/articles"))
   (+org-roam-open-buffer-on-find-file nil)
@@ -200,6 +201,7 @@
 (use-package org-roam-review
   :straight (:type git :host github :repo "chrisbarrett/nursery" :files (:defaults "list/*.el"))
   :after (org-roam org-drill)
+  :hook (org-roam-capture-new-node . org-roam-review-set-seedling)
   :commands (org-roam-review
              org-roam-review-list-by-maturity
              org-roam-review-list-recently-added)
@@ -208,8 +210,6 @@
            "TAB" 'magit-section-cycle
            "g r" 'org-roam-review-refresh))
 
-(add-hook 'org-roam-capture-new-node-hook
-        (lambda () (org-roam-review-set-seedling)))
 
 (use-package org-roam-ui
   :after org-roam
@@ -224,6 +224,9 @@
 
 (use-package writeroom-mode
   :after visual-fill-column
+  :hook
+  (writeroom-mode-enable . (lambda () (text-scale-increase writeroom-text-scale)))
+  (writeroom-mode-disable . (lambda () (text-scale-decrease writeroom-text-scale)))
   :custom
   (writeroom-width 60)
   (writeroom-fullscreen-effect 'maximized)
@@ -235,16 +238,10 @@
   (advice-add 'mouse-wheel-text-scale :after
               #'visual-fill-column-adjust)
   (advice-add 'mouse-wheel-global-text-scale :after
-              #'visual-fill-column-adjust)
-
-  ;; big mode
-  (add-hook 'writeroom-mode-enable-hook #'(lambda () (text-scale-increase writeroom-text-scale)))
-  (add-hook 'writeroom-mode-disable-hook #'(lambda () (text-scale-decrease writeroom-text-scale))))
-
+              #'visual-fill-column-adjust))
 
 (use-package mixed-pitch
-  :hook
-  (org-mode . mixed-pitch-mode))
+  :hook (org-mode . mixed-pitch-mode))
 
 (null-keybinds-leader-key-def
   :states 'normal

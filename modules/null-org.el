@@ -193,8 +193,9 @@
 ;; Convenient evil bindings
 (use-package evil-org
   :after '(org evil)
-  :hook ((org-mode . evil-org-mode)
-         (org-agenda-mode . evil-org-mode)))
+  :hook
+  (org-mode . evil-org-mode)
+  (org-agenda-mode . evil-org-mode))
 
 (use-package org-appear
   :after org

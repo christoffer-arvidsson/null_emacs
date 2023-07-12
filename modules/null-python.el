@@ -41,8 +41,9 @@
 
 (use-package anaconda-mode
   :defer t
-  :hook ((python-base-mode . anaconda-mode)
-         (python-base-mode . anaconda-eldoc-mode))
+  :hook
+  (python-base-mode . anaconda-mode)
+  (python-base-mode . anaconda-eldoc-mode)
   :config
   (add-to-list 'python-shell-extra-pythonpaths "~/repos/madame_web"))
 
@@ -56,14 +57,12 @@
 ;; Remove unused imports on save
 (use-package pyimport
   :ensure t
-  :config
-  (add-hook 'before-save-hook 'pyimport-remove-unused))
+  :hook (before-save . pyimport-remove-unused))
 
 ;; Sort imports on save
 (use-package py-isort
   :ensure t
-  :config
-  (add-hook 'before-save-hook 'py-isort-before-save))
+  :hook (before-save . py-isort-before-save))
 
 ;; Handle venvs
 (use-package pyvenv

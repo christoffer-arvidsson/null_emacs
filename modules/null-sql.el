@@ -39,9 +39,9 @@
 
 (use-package sqlup-mode
   :ensure t
-  :config
-  (add-hook 'sql-mode-hook 'sqlup-mode)
-  (add-hook 'sql-interactive-mode-hook 'sqlup-mode))
+  :hook
+  (sql-mode . sqlup-mode)
+  (sql-interactive-mode . sqlup-mode))
 
 (null-keybinds-major-key-def
   :states '(normal visual)
