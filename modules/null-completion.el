@@ -10,16 +10,21 @@
   (add-to-list 'corfu-margin-formatters #'kind-icon-margin-formatter))
 
 (use-package corfu
+  :straight (:files (:defaults "extensions/*"))
   :after orderless
   :custom
   (corfu-cycle t)
   (corfu-auto-prefix 3)
-  (corfu-auto-delay 0.1)
   (corfu-echo-documentation 0.25)
   (corfu-auto t)
-  (corfu-preview-current 'insert)
   (corfu-quit-no-match 'separator)
+  (corfu-on-exact-match nil)
+
+  ;; popupinfo
+  (corfu-popupinfo-delay 0.5)
   :config
+
+  (corfu-popupinfo-mode +1)
   (global-corfu-mode))
 
 (use-package cape
