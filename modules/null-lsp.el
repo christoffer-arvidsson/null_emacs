@@ -32,6 +32,8 @@
   :ensure t
   :after flycheck
   :hook (flycheck-mode . flycheck-posframe-mode)
+  :custom
+  (flycheck-posframe-position 'window-top-right-corner)
   :config
   (flycheck-posframe-configure-pretty-defaults))
 
