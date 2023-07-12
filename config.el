@@ -43,15 +43,23 @@
 ;; Theme
 (setq null-theme 'ef-winter)
 
-(defun null/init-work-packages ()
+(defun null/init-work-config ()
   "Do work specific initialization."
   (message "using work configuration.")
   (setq null-font-preset 'laptop))
 
+(defun null/init-home-config ()
+  "Do home specific initialization."
+  (message "using home configuration.")
+  (setq null-font-preset 'desktop))
 
-;; Work
-(if (string-equal (system-name) "ucnd1387l61") (null/init-work-packages))
+(let ((name (system-name)))
+  (pcase name
+    ("ucnd1387l61" (null/init-work-config))
+    ("station" (null/init-home-config))
+    (_ (message "No matching system configuration"))))
 
+;; Reload the font
 (fontaine-set-preset null-font-preset)
 
 (provide 'config)
