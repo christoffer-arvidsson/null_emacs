@@ -223,6 +223,9 @@
   :config
   (global-org-modern-mode))
 
+(use-package htmlize
+  :ensure t)
+
 (null-keybinds-major-key-def
   :states 'normal
   :keymaps 'org-mode-map
