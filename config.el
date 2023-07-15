@@ -34,6 +34,7 @@
 (require 'null-org-babel)
 
 ;; other
+(require 'null-docker)
 (require 'null-apps)
 (require 'null-rss)
 
