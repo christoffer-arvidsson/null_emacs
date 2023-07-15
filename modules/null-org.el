@@ -143,6 +143,9 @@
   (org-imenu-depth 3) ; See more levels with imenu
   (org-return-follows-link nil) ; use ret to follow link
 
+  ;; TODO: see https://github.com/syl20bnr/spacemacs/issues/13465
+  (org-src-tab-acts-natively nil)
+
   ;; Export settings
   (org-export-use-babel t) ; eval code on export
   (org-src-preserve-indentation t) ; keep leading whitespace in src blocks on export
