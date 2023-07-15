@@ -35,6 +35,7 @@
 
 ;; other
 (require 'null-apps)
+(require 'null-rss)
 
 ;; Personal information
 (setq user-full-name "Christoffer Arvidsson"
