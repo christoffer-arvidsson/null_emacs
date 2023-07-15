@@ -85,7 +85,7 @@
      (desktop
       :default-family "Iosevka"
       :default-weight normal
-      :default-height 100
+      :default-height 110
       :variable-pitch-family "Vollkorn"
       :variable-pitch-weight normal
       :variable-pitch-height 1.05
