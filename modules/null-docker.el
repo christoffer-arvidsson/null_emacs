@@ -36,6 +36,9 @@
 (use-package docker-compose-mode
   :ensure t)
 
+(use-package docker
+  :ensure t)
+
 (defun null/capitalize-dockerfile-keywords ()
   "Capitalize Dockerfile keywords."
   (interactive)
@@ -51,6 +54,10 @@
     (null/capitalize-dockerfile-keywords)))
 
 (add-hook 'before-save-hook 'null/capitalize-dockerfile-keywords-on-save)
+
+(null-keybinds-leader-key-def
+  :states 'normal
+  "o d" '(docker :wk "Open docker"))
 
 (provide 'null-docker)
 
