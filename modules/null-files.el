@@ -69,6 +69,14 @@
   (interactive)
   (consult-line (thing-at-point 'symbol)))
 
+(defun null/new-buffer (&optional force)
+  "Edit a new unnamed buffer."
+  (interactive)
+  (let ((buffer (if force (generate-new-buffer "*new*")
+                  (get-buffer-create "*new*"))))
+    (set-buffer-major-mode buffer)
+    (set-window-buffer nil buffer)))
+
 ;; bookmarks
 (null-keybinds-leader-key-def
   :states 'normal
@@ -94,9 +102,8 @@
   "b b" '(consult-buffer :wk "Switch buffer")
   "b s" '(save-buffer :wk "Save buffer")
   "b r" '(revert-buffer :wk "Revert buffer")
-  "b d" '(kill-this-buffer :wk "Kill current buffer"))
-  ;; "o r" '(ranger :wk "Open ranger")
-  ;; "o ." '(dirvish :wk "Open dirvish")
-
+  "b d" '(kill-this-buffer :wk "Kill current buffer")
+  "b n" '(null/new-buffer :wk "Edit new unnamed buffer")
+  "b N" '(lambda () (interactive)(null/new-buffer t) :wk "Create new unnamed buffer"))
 
 (provide 'null-files)
