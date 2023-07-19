@@ -21,6 +21,9 @@
   :init
   (savehist-mode))
 
+;; Repeat mode
+(repeat-mode 1)
+
 (use-package super-save
   :ensure t
   :custom

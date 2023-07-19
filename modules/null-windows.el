@@ -113,6 +113,21 @@ the only window, use evil-window-move-* (e.g. `evil-window-move-far-left')."
           (rename-buffer buffer-name))
         (display-buffer buffer)))))
 
+(defun null/text-scale-increase ()
+  "Increase text scale by 1 step."
+  (interactive)
+  (text-scale-increase 1))
+
+(defun null/text-scale-decrease ()
+  "Decrease text scale by N step."
+  (interactive)
+  (text-scale-increase -1))
+
+(defvar-keymap null/fontsize-repeat-map
+  :doc "Keymap to repeat `null/text-scale-increase` and `null/text-scale-decrease`."
+  :repeat t
+  "+" #'null/text-scale-increase
+  "-" #'null/text-scale-decrease)
 
 (use-package shackle
   :commands shackle-mode
@@ -183,8 +198,8 @@ the only window, use evil-window-move-* (e.g. `evil-window-move-far-left')."
   "w K" '(null/evil-window-move-up :wk "Move window up")
   "w L" '(null/evil-window-move-right :wk "Move window right")
 
-  "w +" '(lambda () (interactive) (text-scale-increase 1) :wk "Fontsize increase")
-  "w -" '(lambda () (interactive) (text-scale-increase -1) :wk "Fontsize decrease")
+  "w +" '(null/text-scale-increase :wk "Fontsize increase")
+  "w -" '(null/text-scale-decrease :wk "Fontsize decrease")
 
   "'" '(:ignore t :wk "harpoon")
   "' a" '(harpoon-add-file :wk "Add file")
