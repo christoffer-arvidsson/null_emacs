@@ -171,8 +171,6 @@ the only window, use evil-window-move-* (e.g. `evil-window-move-far-left')."
   "w r" '(winner-redo :wk "Redo layout change")
   "w q" '(evil-quit :wk "Evil quit")
   "w =" '(balance-windows :wk "Balance windows")
-  "w +" '(null/text-scale-increase)
-  "w -" '(null/text-scale-decrease)
   "w o" '(null/toggle-maximize-window :wk "Toggle maximize window")
 
   ;; For standard vi bindings (incase of non-colemak kb)
@@ -185,8 +183,8 @@ the only window, use evil-window-move-* (e.g. `evil-window-move-far-left')."
   "w K" '(+evil/window-move-up :wk "Move window up")
   "w L" '(+evil/window-move-right :wk "Move window right")
 
-  "w +" '(lambda () (interactive) (text-scale-increase 1))
-  "w -" '(lambda () (interactive) (text-scale-increase -1))
+  "w +" '(lambda () (interactive) (text-scale-increase 1) :wk "Fontsize increase")
+  "w -" '(lambda () (interactive) (text-scale-increase -1) :wk "Fontsize decrease")
 
   "'" '(:ignore t :wk "harpoon")
   "' a" '(harpoon-add-file :wk "Add file")
