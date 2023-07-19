@@ -33,9 +33,95 @@
 
 (require 'null-org)
 
+;; (defun my-latex-export-example-blocks (text backend info)
+;;   "Export example blocks as listings env."
+;;   (when (org-export-derived-backend-p backend 'latex)
+;;     (with-temp-buffer
+;;       (insert text)
+;;       ;; replace verbatim env by listings
+;;       (goto-char (point-min))
+;;       (replace-string "\\begin{verbatim}" "\\begin{lstlisting}")
+;;       (replace-string "\\end{verbatim}" "\\end{lstlisting}")
+;;       (buffer-substring-no-properties (point-min) (point-max)))))
+
+;; (add-to-list 'org-export-filter-example-block-functions
+;;          'my-latex-export-example-blocks)
+
+(defun null/setup-minted ()
+  (setq org-latex-listings 'minted
+        org-latex-custom-lang-environments '((emacs-lisp "common-lispcode"))
+        org-latex-minted-options
+        '(("bgcolor" "bgcode")
+          ("fontsize" "\\scriptsize")
+          ("baselinestretch" "0.9")
+          ("framesep" "3mm")
+          ("breaklines" "true")
+          ("linenos" "true")
+          ("numbersep" "2mm")
+          ("xleftmargin" "6mm"))))
+
 ;; Scale up latex fragments
 (with-eval-after-load 'org
+  (null/setup-minted)
+  (setq org-latex-default-class "orbit"
+        org-latex-packages-alist '(("" "minted"))
+        org-cite-export-processors '((t csl))
+        org-latex-tables-booktabs t
+        org-latex-pdf-process '("LC_ALL=en_US.UTF-8 latexmk -f -pdf -%latex -shell-escape -interaction=nonstopmode -output-directory=%o %f"))
+
   (plist-put org-format-latex-options :scale 1.0))
+
+(with-eval-after-load 'ox-latex
+  (add-to-list 'org-latex-classes
+               '("orbit"
+                 "\\documentclass[a4paper,11pt]{article}
+\\usepackage[a4paper, margin=3cm]{geometry}
+\\usepackage[dvipsnames]{xcolor}
+\\definecolor{bgcode}{rgb}{0.95,0.95,0.95}
+
+\\usepackage{booktabs}
+\\usepackage{gentium}
+\\usepackage{fancyhdr}
+\\usepackage{microtype}
+\\usepackage{mathtools}
+\\usepackage{optidef}
+\\usepackage{bm}
+\\usepackage[ruled,vlined]{algorithm2e}
+\\usepackage{esvect}
+\\usepackage{esdiff}
+\\usepackage[parfill]{parskip}
+\\usepackage{pgf}
+\\usepackage{minted}
+\\usemintedstyle{trac}
+\\usepackage{fancyvrb}
+\\usepackage{fvextra}
+
+\\usepackage{etoolbox}
+\\AtBeginEnvironment{tabular}{\\scriptsize}
+
+\\DefineVerbatimEnvironment{wideverbatim}{Verbatim}{%
+  gobble=0,
+  numbers=left,
+  numbersep=1mm,
+  fontsize=\\scriptsize,
+  rulecolor=\color{gray},
+  xleftmargin=10mm,
+  breaklines=true,
+}
+
+\\RecustomVerbatimEnvironment{verbatim}{Verbatim}{%
+  gobble=0,
+  fontsize=\\scriptsize,
+  rulecolor=\color{gray},
+  xleftmargin=5mm,
+  breaklines=true,
+  breakanywhere=true,
+}"
+                 ("\\section{%s}" . "\\section*{%s}")
+                 ("\\subsection{%s}" . "\\subsection*{%s}")
+                 ("\\subsubsection{%s}" . "\\subsubsection*{%s}")
+                 ("\\paragraph{%s}" . "\\paragraph*{%s}")
+                 ("\\subparagraph{%s}" . "\\subparagraph*{%s}"))))
 
 ;; Latex
 (use-package org-fragtog
