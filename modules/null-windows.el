@@ -6,7 +6,7 @@
 
 ;;; Functions
 
-(defun +evil--window-swap (direction)
+(defun null/evil-window-swap (direction)
   "Move current window to the next window in DIRECTION.
 If there are no windows there and there is only one window, split in that
 direction and place this window there. If there are no windows and this isn't
@@ -42,28 +42,28 @@ the only window, use evil-window-move-* (e.g. `evil-window-move-far-left')."
         (switch-to-buffer this-buffer))
       (select-window that-window))))
 
-(defun +evil/window-move-left ()
+(defun nell/evil-window-move-left ()
   "Swap windows to the left."
-  (interactive) (+evil--window-swap 'left))
-(defun +evil/window-move-right ()
-  "Swap windows to the right"
-  (interactive) (+evil--window-swap 'right))
-(defun +evil/window-move-up ()
+  (interactive) (null/evil-window-swap 'left))
+(defun null/evil-window-move-right ()
+  "Swap windows to the right."
+  (interactive) (null/evil-window-swap 'right))
+(defun null/evil-window-move-up ()
   "Swap windows upward."
-  (interactive) (+evil--window-swap 'up))
-(defun +evil/window-move-down ()
+  (interactive) (null/evil-window-swap 'up))
+(defun null/evil-window-move-down ()
   "Swap windows downward."
-  (interactive) (+evil--window-swap 'down))
+  (interactive) (null/evil-window-swap 'down))
 
-(defun null-windows-scroll-half-page-down ()
+(defun null/windows-scroll-half-page-down ()
   "Scrolls exactly half page down keeping cursor/point position."
   (interactive)
-  (null-windows-scroll-half-page nil))
+  (null/windows-scroll-half-page nil))
 
-(defun null-windows-scroll-half-page-up ()
+(defun null/windows-scroll-half-page-up ()
   "Scrolls exactly half page up keeping cursor/point position."
   (interactive)
-  (null-windows-scroll-half-page t))
+  (null/windows-scroll-half-page t))
 
 (defun null/toggle-maximize-window ()
   "Toggle full view of selected window."
@@ -72,7 +72,7 @@ the only window, use evil-window-move-* (e.g. `evil-window-move-far-left')."
       (delete-other-windows)
     (winner-undo)))
 
-(defun null-harpoon-save-and-quit-window ()
+(defun null/harpoon-save-and-quit-window ()
   "Save and quit the current window."
   (interactive)
   (flush-lines "^$")
@@ -91,8 +91,8 @@ the only window, use evil-window-move-* (e.g. `evil-window-move-far-left')."
   (harpoon-separate-by-branch t)
   (harpoon-project-package 'project)
   :bind (:map harpoon-mode-map
-              ("q" . null-harpoon-save-and-quit-window)
-              ("<escape>" . null-harpoon-save-and-quit-window))
+              ("q" . null/harpoon-save-and-quit-window)
+              ("<escape>" . null/harpoon-save-and-quit-window))
   :bind (("M-n" . harpoon-go-to-1)
          ("M-e" . harpoon-go-to-2)
          ("M-i" . harpoon-go-to-3)
@@ -161,10 +161,10 @@ the only window, use evil-window-move-* (e.g. `evil-window-move-far-left')."
   "w n" '(evil-window-down :wk "Select window down")
   "w e" '(evil-window-up :wk "Select window up")
   "w i" '(evil-window-right :wk "Select window right")
-  "w M" '(+evil/window-move-left :wk "Move window left")
-  "w N" '(+evil/window-move-down :wk "Move window down")
-  "w E" '(+evil/window-move-up :wk "Move window up")
-  "w I" '(+evil/window-move-right :wk "Move window right")
+  "w M" '(nell/evil-window-move-left :wk "Move window left")
+  "w N" '(null/evil-window-move-down :wk "Move window down")
+  "w E" '(null/evil-window-move-up :wk "Move window up")
+  "w I" '(null/evil-window-move-right :wk "Move window right")
   "w v" '(evil-window-vsplit :wk "Vertical window split")
   "w s" '(evil-window-split :wk "Horizontal window split")
   "w u" '(winner-undo :wk "Undo layout change")
@@ -178,10 +178,10 @@ the only window, use evil-window-move-* (e.g. `evil-window-move-far-left')."
   "w j" '(evil-window-down :wk "Select window down")
   "w k" '(evil-window-up :wk "Select window up")
   "w l" '(evil-window-right :wk "Select window right")
-  "w H" '(+evil/window-move-left :wk "Move window left")
-  "w J" '(+evil/window-move-down :wk "Move window down")
-  "w K" '(+evil/window-move-up :wk "Move window up")
-  "w L" '(+evil/window-move-right :wk "Move window right")
+  "w H" '(nell/evil-window-move-left :wk "Move window left")
+  "w J" '(null/evil-window-move-down :wk "Move window down")
+  "w K" '(null/evil-window-move-up :wk "Move window up")
+  "w L" '(null/evil-window-move-right :wk "Move window right")
 
   "w +" '(lambda () (interactive) (text-scale-increase 1) :wk "Fontsize increase")
   "w -" '(lambda () (interactive) (text-scale-increase -1) :wk "Fontsize decrease")
