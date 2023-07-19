@@ -65,6 +65,13 @@ the only window, use evil-window-move-* (e.g. `evil-window-move-far-left')."
   (interactive)
   (null-windows-scroll-half-page t))
 
+(defun null/toggle-maximize-window ()
+  "Toggle full view of selected window."
+  (interactive)
+  (if (window-parent)
+      (delete-other-windows)
+    (winner-undo)))
+
 (defun null-harpoon-save-and-quit-window ()
   "Save and quit the current window."
   (interactive)
@@ -166,6 +173,7 @@ the only window, use evil-window-move-* (e.g. `evil-window-move-far-left')."
   "w =" '(balance-windows :wk "Balance windows")
   "w +" '(null/text-scale-increase)
   "w -" '(null/text-scale-decrease)
+  "w o" '(null/toggle-maximize-window :wk "Toggle maximize window")
 
   ;; For standard vi bindings (incase of non-colemak kb)
   "w h" '(evil-window-left :wk "Select window left")
