@@ -32,6 +32,7 @@
 (require 'null-keybinds)
 (require 'org-tempo)
 (require 'org-indent)
+(require 'ox-md)
 
 (defconst null/org-directory (file-truename "~/Dropbox/org/")
   "Path to org directory.")
