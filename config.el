@@ -23,6 +23,7 @@
 (require 'null-org-agenda)
 (require 'null-org-knowledge)
 (require 'null-org-latex)
+(require 'null-org-html)
 
 ;; languages
 (require 'null-cpp)
