@@ -7,6 +7,7 @@
 (setq-default indent-tabs-mode nil)
 (setq tramp-default-method "ssh")
 (setq display-line-numbers-type 'relative)
+(setq load-prefer-newer t)
 
 ;; bookmarks
 (setq bookmark-default-file "~/.config/null_emacs/var/bookmarks")  ;;define file to use.
@@ -46,8 +47,7 @@
 ;; Open pdfs with zathura
 (use-package openwith
   :custom
-  (openwith-associations '((
-                            "\\.pdf\\'" "zathura" (file))))
+  (openwith-associations '(("\\.pdf\\'" "zathura" (file))))
 
   :config
   (openwith-mode t))

@@ -155,7 +155,7 @@
   (org-file-apps
    '((auto-mode . emacs)
      ("\\.mm\\'" . default)
-     ("\\.x?html?\\'" . default)
+     ("\\.x?html?\\'" . "firefox-nightly %s")
      ("\\.pdf\\'" . "zathura %s")
      ("\\.png\\'" . viewnior)
      ("\\.jpg\\'" . viewnior)

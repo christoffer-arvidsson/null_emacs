@@ -89,6 +89,7 @@
 
   "f" '(:ignore t :wk "file")
   "f r" '(consult-recent-file :wk "Recent files")
+  "f d" '(mkdir :wk "mkdir")
   "f f" '(find-file :wk "Find file")
   "f s" '(save-buffer :wk "Save buffer")
   "f p" '(null/find-config-file :wk "Find emacs config file")
