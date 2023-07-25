@@ -1,4 +1,4 @@
-;;; null-org-header.el --- html export for org -*- lexical-binding: t -*-
+;;; null-org-html.el --- html export for org -*- lexical-binding: t -*-
 
 ;; Author: Christoffer Arvidsson
 ;; Maintainer: Christoffer Arvidsson
@@ -29,10 +29,11 @@
 ;;; Code:
 
 (with-eval-after-load 'org
-  (setq org-html-head
-        "<link rel='stylesheet' type='text/css' href='/home/eethern/Dropbox/org/orbit/assets/style.css'"
-        org-html-postamble nil))
+  (setq org-html-head-extra "<link rel=\"stylesheet\" href=\"/home/eethern/Dropbox/org/orbit/assets/style.css\" type=\"text/css\"/>"
+        org-html-postamble nil
+        org-html-head-include-scripts nil
+        org-html-with-latex 'mathjax))
 
-(provide 'null-org-header)
+(provide 'null-org-html)
 
-;;; null-org-header.el ends here
+;;; null-org-html.el ends here
