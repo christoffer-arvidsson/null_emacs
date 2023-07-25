@@ -58,7 +58,11 @@
  'org-babel-load-languages
  '((emacs-lisp . t)
    (python . t)
-   (jupyter . t)))
+   (jupyter . t)
+   (shell . t)
+   (C . t)
+   (gnuplot . t)))
+
 
 ;; Had to to this to properly use this function.
 ;; This is nice to have as it makes github recognize the code blocks as python.
