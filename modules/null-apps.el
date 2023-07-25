@@ -41,17 +41,20 @@
 (use-package fish-mode
   :ensure t)
 
-(defun null/open-ranger-in-project-root ()
-  "Open Ranger in the root directory of the current project."
-  (interactive)
-  (let* ((project (project-current))
-         (project-root (and project (project-root project))))
-    (if project-root
-        (ranger project-root)
-      (message "No project found."))))
-
 (use-package ranger
-  :ensure t)
+  :ensure t
+  :config
+  (defun null/open-ranger-in-project-root ()
+    "Open Ranger in the root directory of the current project."
+    (interactive)
+    (let* ((project (project-current))
+           (project-root (and project (project-root project))))
+      (if project-root
+          (ranger project-root)
+        (message "No project found.")))))
+
+(use-package tmr
+   :ensure t)
 
 ;; Non-package keys
 (null-keybinds-leader-key-def
