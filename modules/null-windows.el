@@ -135,7 +135,7 @@ the only window, use evil-window-move-* (e.g. `evil-window-move-far-left')."
         shackle-default-size 0.4
         shackle-rules
         '(("*org-roam*"                    :align right  :size 0.3    :select t)
-          ("*org-roam-review*"             :align right  :size 0.3    :select t)
+          ("*org-roam-review*"             :align right  :size 0.5    :select t)
           ("\\*Embark Export:"             :regexp t   :align below :size 0.25 :select t)
           (embark-collect-mode             :regexp nil :align below :size 0.25 :select t)
           ("*Org Links*"                   :noselect nil :size 0.1)
