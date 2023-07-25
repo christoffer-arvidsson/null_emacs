@@ -51,7 +51,7 @@
   "Set `org-download-image-dir' to a relative path based on the current buffer's file path."
   (interactive)
   (let* ((file-path (buffer-file-name))
-         (relative-path (convert-file-path-to-relative file-path (expand-file-name "assets/images" null/orbit-directory))))
+         (relative-path (convert-file-path-to-relative file-path (expand-file-name "articles/assets/images" null/orbit-directory))))
     (setq-local org-download-image-dir relative-path)
     (org-download-screenshot)
     (message "org-download-image-dir set to: %s" relative-path)))
@@ -65,6 +65,45 @@
     (shell-command-to-string
      (format org-download-screenshot-method fname)))
   (org-download-image fname))
+
+(defun null/org-roam-create-note-from-headline ()
+  "Create an Org-roam note from the current headline if it doesn't
+exist without jumping to it"
+  (let* ((title (nth 4 (org-heading-components)))
+         ;; Read in the name of the node, with the title filled in
+         ;; TODO: How can I just use the title without user input?
+         (node (org-roam-node-read title)))
+    ;; Skip the node if it already exists
+    (if (org-roam-node-file node)
+        (message "Skipping %s, node already exists" title)
+      ;; Without this the subsequent kills seem to be grouped together, not
+      ;; sure why
+      (kill-new "")
+      ;; Cut the subtree from the original file
+      (org-cut-subtree)
+      ;; Create the new capture file
+      (org-roam-capture- :node node)
+      ;; Paste in the subtree
+      (org-paste-subtree)
+      ;; Removing the heading from new node
+      (kill-whole-line)
+      ;; Finalizing the capture will save and close the capture buffer
+      (org-capture-finalize nil)
+      ;; Because we've deleted a subtree, we need the following line to make the
+      ;; `org-map-entries' call continue from the right place
+      (setq org-map-continue-from
+            (org-element-property :begin (org-element-at-point))))))
+
+(defun null/org-roam-create-note-from-headlines ()
+  (interactive)
+  (if (region-active-p)
+      ;; `region-start-level' means we'll map over only headlines that are at
+      ;; the same level as the first headline in the region. This may or may not
+      ;; be what you want
+      (org-map-entries
+       'null/org-roam-create-note-from-headline t 'region-start-level)
+    ;; If no region was selected, just create the note from the current headline
+    (null/org-roam-create-note-from-headline)))
 
 ;; I only use this for saving images to my org-roam buffers. All their images will be stored in
 ;; ../assets/imagse so that the links to those images will also be relative. This is important
@@ -146,14 +185,23 @@
            (file "~/Dropbox/org/orbit/templates/latex.org")
            :target (file "%<%Y%m%d%H%M%S>-${slug}.org")
            :unnarrowed t)
+          ("m" "metanote" plain
+           (file "~/Dropbox/org/orbit/templates/metanote.org")
+           :target (file "%<%Y%m%d%H%M%S>-${slug}.org")
+           :unnarrowed t)
+          ("r" "paper note" plain
+           (file "~/Dropbox/org/orbit/templates/paper.org")
+           :target (file "paper_${slug}.org")
+           :unnarrowed t)
           ("n" "notebook" plain
            (file "~/Dropbox/org/orbit/templates/notebook.org")
            :target (file "%<%Y%m%d%H%M%S>-${slug}.org")
            :unnarrowed t)))
 
-  (setq org-roam-dailies-capture-templates
+  (setq org-roam-dailies-directory "daily"
+        org-roam-dailies-capture-templates
         '(("d" "default" entry "* %?" :unnarrowed t :target
-           (file+head "%<%Y_%m_%d>.org" "#+filetags: :daily:\n#+title: %<%Y-%m-%d>\n\n")))))
+           (file+head "daily_%<%Y_%m_%d>.org" "#+filetags: :daily:\n#+title: %<%Y-%m-%d>\n\n")))))
 
 (use-package citar-org-roam
   :after citar org-roam
@@ -176,17 +224,7 @@
    (consult-org-roam-buffer-narrow-key ?r)
    ;; Display org-roam buffers right after non-org-roam buffers
    ;; in consult-buffer (and not down at the bottom)
-   (consult-org-roam-buffer-after-buffers t)
-   :config
-   ;; Eventually suppress previewing for certain functions
-   ;; (consult-customize
-   ;;  consult-org-roam-forward-links
-   ;;  :preview-key (kbd "M-."))
-   :bind
-   ;; Define some convenient keybindings as an addition
-   ("C-c n b" . consult-org-roam-backlinks)
-   ("C-c n l" . consult-org-roam-forward-links)
-   ("C-c n r" . consult-org-roam-search))
+   (consult-org-roam-buffer-after-buffers t))
 
 (use-package org-drill
   :ensure t
@@ -210,6 +248,24 @@
            "TAB" 'magit-section-cycle
            "g r" 'org-roam-review-refresh))
 
+(use-package org-roam-dblocks
+  :straight (:type git :host github :repo "chrisbarrett/nursery" :files (:defaults "list/*.el")))
+
+(use-package org-transclusion
+  :ensure t
+  :config
+  (custom-set-faces
+   `(org-transclusion-fringe ((t (:foreground ,(doom-color 'teal))))))
+
+  ;; (define-fringe-bitmap 'org-transclusion-fringe-bitmap [224]
+  ;;   nil nil '(center repeated))
+  (define-fringe-bitmap 'org-transclusion-fringe-bitmap
+    [17 34 68 136 68 34 17]
+    nil nil 'center)
+  (add-to-list 'org-transclusion-extensions 'org-transclusion-indent-mode)
+  (add-to-list 'org-transclusion-extensions 'org-transclusion-src-lines)
+  (add-to-list 'org-transclusion-extensions 'org-transclusion-font-lock)
+  (add-to-list 'org-transclusion-extensions 'org-transclusion-indent-mode))
 
 (use-package org-roam-ui
   :after org-roam
@@ -246,13 +302,10 @@
 (null-keybinds-leader-key-def
   :states 'normal
   "n r" '(:ignore t :wk "Org roam")
-  ;; "n r f" '(org-roam-node-find :wk "Find node")
-  "n r /" '(consult-org-roam-search :wk "Search org roam")
-  "n r B" '(consult-org-roam-forward-links :wk "List forward links")
+  "n r f" '(org-roam-node-find :wk "Find node")
   "n r R" '(org-roam-rewrite-rename :wk "Rename node")
   "n r S" '(org-roam-db-sync :wk "Sync roam database")
   "n r a" '(org-roam-alias-add :wk "Add alias")
-  "n r b" '(consult-org-roam-backlinks :wk "List backlinks")
   "n r c" '(citar-open :wk "Find cite")
   "n r n" '(citar-open-note :wk "Find cite note")
   "n r p" '(citar-open-files :wk "Find cite pdf")
@@ -262,7 +315,16 @@
   "n r s" '(org-roam-buffer-toggle :wk "Toggle org roam status buffer")
   "n r t" '(org-roam-tag-add :wk "Add tag")
   "n r u" '(org-roam-ui-open :wk "Open org roam ui")
-  "n r T" '(org-transclusion-add :wk "Transclude add")
+  "n r X" '(org-roam-capture :wk "Capture note")
+
+  "n t" '(:ignore t :wk "Org transclusion")
+  "n t a" '(org-transclusion-add :wk "Transclude add")
+  "n t x" '(org-transclusion-remove :wk "Transclude remove")
+  "n t r" '(org-transclusion-refresh :wk "Transclude refresh")
+  "n t o" '(org-transclusion-open-source :wk "Transclude goto")
+  "n t l" '(org-transclusion-make-from-link :wk "Transclude make from link")
+  "n t e" '(org-transclusion-live-sync-start :wk "Transclude live sync")
+  "n t d" '(org-transclusion-detach :wk "Transclude detach")
 
   "n a" '(:ignore t :wk "Org roam attach")
   "n a c" '(null/orbit-org-download-screenshot :wk "Download screenshot")
@@ -283,6 +345,11 @@
   "n e s" '(org-roam-review-set-seedling :wk "set seedling")
   "n e u" '(org-roam-review-bury :wk "bury")
   "n e x" '(org-roam-review-set-excluded :wk "set excluded")
+
+  "n s" '(:ignore t :wk "Org roam consult")
+  "n s i" '(consult-org-roam-backlinks :wk "incoming links")
+  "n s o" '(consult-org-roam-forward-links :wk "outgoing links")
+  "n s /" '(consult-org-roam-search :wk "search")
 
   "t z" '(writeroom-mode :wk "Toggle writeroom mode")
   "t Z" '(global-writeroom-mode :wk "Toggle global writeroom mode")
