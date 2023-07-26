@@ -1,4 +1,3 @@
-(setq package-enable-at-startup nil)
 (defvar native-comp-deferred-compilation-deny-list nil)
 (defvar bootstrap-version)
 (let ((bootstrap-file
