@@ -299,6 +299,13 @@ exist without jumping to it"
 (use-package mixed-pitch
   :hook (org-mode . mixed-pitch-mode))
 
+(use-package jinx
+  :ensure t
+  :general (:states '(normal) :keymaps 'jinx-mode-map
+           "z =" 'jinx-correct)
+  :hook (emacs-startup . global-jinx-mode))
+
+
 (null-keybinds-leader-key-def
   :states 'normal
   "n r" '(:ignore t :wk "Org roam")
@@ -353,7 +360,9 @@ exist without jumping to it"
 
   "t z" '(writeroom-mode :wk "Toggle writeroom mode")
   "t Z" '(global-writeroom-mode :wk "Toggle global writeroom mode")
-  "t i" '(org-toggle-inline-images :wk "Toggle inline images"))
+  "t i" '(org-toggle-inline-images :wk "Toggle inline images")
+
+  "z =" '(jinx-correct :wk "Jinx correct at point"))
 
 
 (provide 'null-org-knowledge)
