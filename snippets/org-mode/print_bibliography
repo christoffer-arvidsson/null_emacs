@@ -1,0 +1,7 @@
+# -*- mode: snippet -*-
+# name: print bibliography
+# key: bibl
+# --
+
+* References
+#+print_bibliography:
