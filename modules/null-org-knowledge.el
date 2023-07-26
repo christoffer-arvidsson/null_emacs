@@ -226,19 +226,22 @@ exist without jumping to it"
    ;; in consult-buffer (and not down at the bottom)
    (consult-org-roam-buffer-after-buffers t))
 
+;; Review dependencies
 (use-package org-drill
   :ensure t
   :after org)
-
 (use-package ht)
+(use-package ts
+  :ensure t)
 
 (use-package org-format
   :hook (org-mode . org-format-on-save-mode)
-  :straight (:type git :host github :repo "chrisbarrett/nursery" :files (:defaults "list/*.el")))
+  :straight (:type git :host github :repo "chrisbarrett/nursery" :files ("lisp/org-format.el")))
 
 (use-package org-roam-review
-  :straight (:type git :host github :repo "chrisbarrett/nursery" :files (:defaults "list/*.el"))
-  :after (org-roam org-drill)
+  :straight (:type git :host github :repo "chrisbarrett/nursery" :files ("lisp/org-roam-review.el" "lisp/org-tags-filter.el" "lisp/plisty.el"))
+  :ensure ts
+  :after (org-roam org-drill ts)
   :hook (org-roam-capture-new-node . org-roam-review-set-seedling)
   :commands (org-roam-review
              org-roam-review-list-by-maturity
