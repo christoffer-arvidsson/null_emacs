@@ -1,15 +1,43 @@
-;;; null-windows.el -*- lexical-binding: t; -*-
+;;; null-windows.el --- summary -*- lexical-binding: t -*-
+
+;; Author: Christoffer Arvidsson
+;; Maintainer: Christoffer Arvidsson
+;; Version: version
+;; Package-Requires: (dependencies)
+;; Homepage: homepage
+;; Keywords: keywords
+
+
+;; This file is not part of GNU Emacs
+
+;; This program is free software: you can redistribute it and/or modify
+;; it under the terms of the GNU General Public License as published by
+;; the Free Software Foundation, either version 3 of the License, or
+;; (at your option) any later version.
+
+;; This program is distributed in the hope that it will be useful,
+;; but WITHOUT ANY WARRANTY; without even the implied warranty of
+;; MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+;; GNU General Public License for more details.
+
+;; You should have received a copy of the GNU General Public License
+;; along with this program.  If not, see <https://www.gnu.org/licenses/>.
+
+
+;;; Commentary:
+
+;; commentary
+
+;;; Code:
 
 (require 'null-keybinds)
-
-;; Code
 
 ;;; Functions
 
 (defun null/evil-window-swap (direction)
   "Move current window to the next window in DIRECTION.
 If there are no windows there and there is only one window, split in that
-direction and place this window there. If there are no windows and this isn't
+direction and place this window there.  If there are no windows and this isn't
 the only window, use evil-window-move-* (e.g. `evil-window-move-far-left')."
   (when (window-dedicated-p)
     (user-error "Cannot swap a dedicated window"))
@@ -207,3 +235,5 @@ the only window, use evil-window-move-* (e.g. `evil-window-move-far-left')."
   "' '" '(harpoon-toggle-file :wk "Quick edit file"))
 
 (provide 'null-windows)
+
+;;; null-windows.el ends here
