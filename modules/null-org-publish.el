@@ -44,14 +44,19 @@
 (defvar orbit/directory "~/Dropbox/org/orbit"
   "The Orbit base directory.")
 
-(defvar orbit/public-directory (orbit/join-dirs orbit/directory "public")
+(defvar orbit/public-directory (orbit/join-dirs orbit/directory "orbit-hugo")
   "The directory to publish Orbit to.")
+
+(defun orbit/run-hugo-server (directory)
+  "Run 'hugo server' in the specified DIRECTORY."
+  (let ((default-directory directory))
+    (async-shell-command "hugo server --port 1313")))
 
 (defun orbit/serve ()
   "Start Orbit webserver."
   (interactive)
-  (httpd-serve-directory orbit/public-directory)
-  (browse-url "127.0.0.1:8080/articles/sitemap.html"))
+  (orbit/run-hugo-server orbit/public-directory)
+  (browse-url "localhost:1313"))
 
 (null-keybinds-leader-key-def
   :states '(normal motion visual emacs)
