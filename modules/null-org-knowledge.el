@@ -251,9 +251,6 @@ exist without jumping to it"
            "TAB" 'magit-section-cycle
            "g r" 'org-roam-review-refresh))
 
-(use-package org-roam-dblocks
-  :straight (:type git :host github :repo "chrisbarrett/nursery" :files (:defaults "list/*.el")))
-
 (use-package org-transclusion
   :ensure t
   :config
