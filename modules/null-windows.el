@@ -108,8 +108,11 @@ the only window, use evil-window-move-* (e.g. `evil-window-move-far-left')."
   (kill-buffer-and-window))
 
 
+;; Split priority
 (setq split-height-threshold nil
-      split-width-threshold nil)
+      split-width-threshold nil
+      evil-vsplit-window-right t
+      evil-split-window-below t)
 
 ;; Packages
 (use-package winner
