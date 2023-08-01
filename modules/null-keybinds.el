@@ -105,6 +105,7 @@
   "s" '(:ignore t :wk "search")
   "t" '(:ignore t :wk "toggle")
   "w" '(:ignore t :wk "window")
+  "z" '(:ignore t :wk "util")
   "u" 'universal-argument
   "RET" '(consult-bookmark :wk "Jump to bookmark")
   "q r" '(restart-emacs :wk "Restart emacs")
