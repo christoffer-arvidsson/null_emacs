@@ -92,12 +92,22 @@
 (null-keybinds-leader-key-def
   :states 'normal
   "" '(nil :wk "Leader")
+  "'" '(:ignore t :wk "harpoon")
+  "b" '(:ignore t :wk "buffer")
+  "f" '(:ignore t :wk "file")
+  "g" '(:ignore t :wk "git")
+  "h" '(:ignore t :wk "help")
+  "i" '(:ignore t :wk "insert")
+  "l" '(:ignore t :wk "lsp")
+  "o" '(:ignore t :wk "open")
+  "p" '(:ignore t :wk "project")
+  "q" '(:ignore t :wk "quit")
+  "s" '(:ignore t :wk "search")
   "t" '(:ignore t :wk "toggle")
+  "w" '(:ignore t :wk "window")
   "u" 'universal-argument
   "RET" '(consult-bookmark :wk "Jump to bookmark")
-  "q" '(:ignore t :wk "quit")
   "q r" '(restart-emacs :wk "Restart emacs")
   "q q" '(quit-window :wk "Quit emacs"))
 
 (provide 'null-keybinds)
-

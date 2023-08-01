@@ -112,7 +112,6 @@ _p_rev       _u_pper              _=_: upper/lower       _r_esolve
 
 (null-keybinds-leader-key-def
   :states 'normal
-  "p" '(:ignore t :wk "project")
   "p c" '(project-compile :wk "Compile project")
   "p f" '(project-find-file :wk "Find file in project")
   "p p" '(project-switch-project :wk "Switch project")
@@ -121,7 +120,6 @@ _p_rev       _u_pper              _=_: upper/lower       _r_esolve
   "p s" '(null/consult-ripgrep-thing-at-point :wk "Search project at point")
   "/" '(consult-ripgrep :wk "Search project")
 
-  "g" '(:ignore t :wk "git")
   "g B" '(magit-blame :wk "Magit blame")
   "g g" '(magit :wk "Magit status")
   "g t" '(git-timemachine :wk "Git timemachine")

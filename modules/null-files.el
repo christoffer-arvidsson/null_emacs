@@ -82,12 +82,10 @@
   :states 'normal
   "RET" '(consult-bookmark :wk "Jump bookmark")
 
-  "s" '(:ignore t :wk "search")
   "s i" '(consult-outline :wk "Consult outline")
   "s b" '(consult-line :wk "Search lines")
   "s s" '(null/search-symbol-at-point :wk "Search symbol at point")
 
-  "f" '(:ignore t :wk "file")
   "f r" '(consult-recent-file :wk "Recent files")
   "f d" '(mkdir :wk "mkdir")
   "f f" '(find-file :wk "Find file")
@@ -99,7 +97,6 @@
   "f D" '(null/delete-current-buffer-file :wk "Delete current file")
   "f R" '(null/rename-current-buffer-file :wk "Move current file")
 
-  "b" '(:ignore t :wk "buffer")
   "b b" '(consult-buffer :wk "Switch buffer")
   "b s" '(save-buffer :wk "Save buffer")
   "b r" '(revert-buffer :wk "Revert buffer")

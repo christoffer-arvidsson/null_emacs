@@ -201,7 +201,6 @@ the only window, use evil-window-move-* (e.g. `evil-window-move-far-left')."
 (null-keybinds-leader-key-def
   :states 'normal
   "TAB" '(evil-switch-to-windows-last-buffer :wk "Previous buffer")
-  "w" '(nil :wk "window")
   "w m" '(evil-window-left :wk "Select window left")
   "w n" '(evil-window-down :wk "Select window down")
   "w e" '(evil-window-up :wk "Select window up")
@@ -231,7 +230,6 @@ the only window, use evil-window-move-* (e.g. `evil-window-move-far-left')."
   "w +" '(null/text-scale-increase :wk "Fontsize increase global")
   "w -" '(null/text-scale-decrease :wk "Fontsize decrease global")
 
-  "'" '(:ignore t :wk "harpoon")
   "' a" '(harpoon-add-file :wk "Add file")
   "' D" '(harpoon-clear :wk "Clear files")
   "' x" '(harpoon-delete :wk "Delete file")
