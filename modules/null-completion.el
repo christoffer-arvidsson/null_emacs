@@ -69,6 +69,30 @@
 (use-package consult
   :hook (completion-list-mode . consult-preview-at-point-mode)
   :config
+  ; fd support
+  (defun consult--fd-builder (input)
+    (let ((fd-command
+           (if (eq 0 (process-file-shell-command "fdfind"))
+               "fdfind"
+             "fd")))
+      (pcase-let* ((`(,arg . ,opts) (consult--command-split input))
+                   (`(,re . ,hl) (funcall consult--regexp-compiler
+                                          arg 'extended t)))
+        (when re
+          (cons (append
+                 (list fd-command
+                       "--color=never" "--full-path"
+                       (consult--join-regexps re 'extended))
+                 opts)
+                hl)))))
+
+  (defun consult-fd (&optional dir initial)
+    (interactive "P")
+    (pcase-let* ((`(,prompt ,paths ,dir) (consult--directory-prompt "Fd" dir))
+                 (default-directory dir))
+      (find-file (consult--find prompt #'consult--fd-builder initial))))
+
+  ; Add selected text to initial query on search
   (consult-customize consult-line
                      consult-ripgrep
                      :preview-key "M-,"
