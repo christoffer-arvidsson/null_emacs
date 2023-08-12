@@ -67,7 +67,16 @@
   (marginalia-mode))
 
 (use-package consult
-  :hook (completion-list-mode . consult-preview-at-point-mode))
+  :hook (completion-list-mode . consult-preview-at-point-mode)
+  :config
+  (consult-customize consult-line
+                     consult-ripgrep
+                     :preview-key "M-,"
+                     :add-history (seq-some #'thing-at-point '(region symbol))
+                     :initial (if (use-region-p)
+                                (buffer-substring-no-properties
+                                 (region-beginning) (region-end))
+                                (thing-at-point 'symbol))))
 
 (use-package embark
   :ensure t
