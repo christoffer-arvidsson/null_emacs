@@ -13,6 +13,7 @@
   :straight (:files (:defaults "extensions/*"))
   :after orderless
   :custom
+  (corfu-on-exact-match nil)
   (corfu-cycle t)
   (corfu-auto-prefix 3)
   (corfu-echo-documentation 0.25)
