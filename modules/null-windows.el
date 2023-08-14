@@ -70,7 +70,7 @@ the only window, use evil-window-move-* (e.g. `evil-window-move-far-left')."
         (switch-to-buffer this-buffer))
       (select-window that-window))))
 
-(defun nell/evil-window-move-left ()
+(defun null/evil-window-move-left ()
   "Swap windows to the left."
   (interactive) (null/evil-window-swap 'left))
 (defun null/evil-window-move-right ()
@@ -195,7 +195,11 @@ the only window, use evil-window-move-* (e.g. `evil-window-move-far-left')."
 (general-define-key
  :states 'normal
  "<prior>" 'evil-scroll-up
- "<next>" 'evil-scroll-down)
+ "<next>" 'evil-scroll-down
+ "C-<left>" 'evil-window-left
+ "C-<right>" 'evil-window-right
+ "C-<up>" 'evil-window-up
+ "C-<down>" 'evil-window-down)
 
 
 (null-keybinds-leader-key-def
@@ -205,7 +209,7 @@ the only window, use evil-window-move-* (e.g. `evil-window-move-far-left')."
   "w n" '(evil-window-down :wk "Select window down")
   "w e" '(evil-window-up :wk "Select window up")
   "w i" '(evil-window-right :wk "Select window right")
-  "w M" '(nell/evil-window-move-left :wk "Move window left")
+  "w M" '(null/evil-window-move-left :wk "Move window left")
   "w N" '(null/evil-window-move-down :wk "Move window down")
   "w E" '(null/evil-window-move-up :wk "Move window up")
   "w I" '(null/evil-window-move-right :wk "Move window right")
@@ -222,7 +226,7 @@ the only window, use evil-window-move-* (e.g. `evil-window-move-far-left')."
   "w j" '(evil-window-down :wk "Select window down")
   "w k" '(evil-window-up :wk "Select window up")
   "w l" '(evil-window-right :wk "Select window right")
-  "w H" '(nell/evil-window-move-left :wk "Move window left")
+  "w H" '(null/evil-window-move-left :wk "Move window left")
   "w J" '(null/evil-window-move-down :wk "Move window down")
   "w K" '(null/evil-window-move-up :wk "Move window up")
   "w L" '(null/evil-window-move-right :wk "Move window right")
