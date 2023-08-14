@@ -337,10 +337,13 @@ exist without jumping to it"
   "n a c" '(null/orbit-org-download-screenshot :wk "Download screenshot")
 
   "n d" '(:ignore t :wk "Org roam dailies")
-  "n d t" '(org-roam-dailies-capture-today :wk "find today")
-  "n d T" '(org-roam-dailies-capture-tomorrow :wk "find tomorrow")
-  "n d y" '(org-roam-dailies-capture-yesterday :wk "find yesterday")
-  "n d d" '(org-roam-dailies-capture-date :wk "find by date")
+  "n d T" '(org-roam-dailies-capture-today :wk "capture today")
+  "n d Y" '(org-roam-dailies-capture-yesterday :wk "capture yesterday")
+  "n d D" '(org-roam-dailies-capture-date :wk "capture by date")
+  "n d t" '(org-roam-dailies-find-today :wk "find today")
+  "n d y" '(org-roam-dailies-find-yesterday :wk "find yesterday")
+  "n d d" '(org-roam-dailies-find-date :wk "find by date")
+
   "n d p" '(org-roam-dailies-goto-previous-note :wk "find previous note")
   "n d n" '(org-roam-dailies-goto-next-note :wk "find next note")
 
