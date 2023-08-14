@@ -242,6 +242,7 @@
 
 (general-define-key
  :states 'normal
+ :keymaps 'org-mode-map
  "z r" 'null/show-next-fold-level
  "z R" 'null/open-all-folds
  "z i" 'org-toggle-inline-images
