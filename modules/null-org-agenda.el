@@ -101,6 +101,7 @@
 
 
 (with-eval-after-load 'org
+  (add-hook 'after-save-hook (lambda () (org-update-statistics-cookies t)))
   (org-clock-persistence-insinuate) ; hooks for clock persistence
   (setq null/org-capture-todo-file null/org-capture-todo-file
         org-capture-journal-file null/org-capture-journal-file
