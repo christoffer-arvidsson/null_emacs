@@ -251,22 +251,6 @@ exist without jumping to it"
            "TAB" 'magit-section-cycle
            "g r" 'org-roam-review-refresh))
 
-(use-package org-transclusion
-  :ensure t
-  :config
-  (custom-set-faces
-   `(org-transclusion-fringe ((t (:foreground ,(doom-color 'teal))))))
-
-  ;; (define-fringe-bitmap 'org-transclusion-fringe-bitmap [224]
-  ;;   nil nil '(center repeated))
-  (define-fringe-bitmap 'org-transclusion-fringe-bitmap
-    [17 34 68 136 68 34 17]
-    nil nil 'center)
-  (add-to-list 'org-transclusion-extensions 'org-transclusion-indent-mode)
-  (add-to-list 'org-transclusion-extensions 'org-transclusion-src-lines)
-  (add-to-list 'org-transclusion-extensions 'org-transclusion-font-lock)
-  (add-to-list 'org-transclusion-extensions 'org-transclusion-indent-mode))
-
 (use-package org-roam-ui
   :after org-roam
   :defer t
@@ -323,15 +307,6 @@ exist without jumping to it"
   "n r t" '(org-roam-tag-add :wk "Add tag")
   "n r u" '(org-roam-ui-open :wk "Open org roam ui")
   "n r X" '(org-roam-capture :wk "Capture note")
-
-  "n t" '(:ignore t :wk "Org transclusion")
-  "n t a" '(org-transclusion-add :wk "Transclude add")
-  "n t x" '(org-transclusion-remove :wk "Transclude remove")
-  "n t r" '(org-transclusion-refresh :wk "Transclude refresh")
-  "n t o" '(org-transclusion-open-source :wk "Transclude goto")
-  "n t l" '(org-transclusion-make-from-link :wk "Transclude make from link")
-  "n t e" '(org-transclusion-live-sync-start :wk "Transclude live sync")
-  "n t d" '(org-transclusion-detach :wk "Transclude detach")
 
   "n a" '(:ignore t :wk "Org roam attach")
   "n a c" '(null/orbit-org-download-screenshot :wk "Download screenshot")
