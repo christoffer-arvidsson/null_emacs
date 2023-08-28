@@ -328,7 +328,7 @@
 
 (use-package org-drill
   :after org
-  :custom 
+  :custom
   (org-drill-file null/org-drill-file))
 
 (null-keybinds-major-key-def
