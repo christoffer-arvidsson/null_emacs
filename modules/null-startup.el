@@ -25,7 +25,7 @@
                      (projects . 5)
                      (agenda . 5)
                      (registers . 5)))
-  
+  :config
   (dashboard-setup-startup-hook))
 
 ;; Makes emacsclient default to the dashboard
