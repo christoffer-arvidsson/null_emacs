@@ -116,9 +116,12 @@
 ;; Required so that emacs client changes font
 (if (daemonp)
     (add-hook 'after-make-frame-functions
-              (lambda (frame)
+              (defun null/font-init-daemon (frame)
                 (with-selected-frame frame
-                  (fontaine-set-preset null-font-preset))))
+                  (fontaine-set-preset null-font-preset))
+                (remove-hook 'after-make-frame-functions
+                             #'null/font-init-daemon)
+                (fmakeunbound 'null/font-init-daemon)))
   (fontaine-set-preset null-font-preset))
 
 (null-keybinds-leader-key-def
