@@ -3,8 +3,8 @@
 ;; core
 (require 'null-defaults)
 (require 'null-keybinds)
-(require 'null-startup)
 (require 'null-ui)
+(require 'null-startup)
 
 ;; buffer, files, windows
 (require 'null-files)

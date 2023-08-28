@@ -12,8 +12,10 @@
 (use-package dashboard
   :init
   (add-hook 'after-init-hook 'dashboard-refresh-buffer)
+  (add-hook 'server-after-make-frame-hook 'dashboard-refresh-buffer)
   (add-hook 'dashboard-mode-hook 'null/dashboard-banner)
   :custom
+  (dashboard-icon-type 'all-the-icons)
   (dashboard-projects-backend 'project-el)
   (dashboard-startup-banner 'logo)
   (dashboard-center-content t)
