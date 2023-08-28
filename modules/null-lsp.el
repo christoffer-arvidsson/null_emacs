@@ -8,14 +8,24 @@
 
 (use-package eglot
   :ensure t
+  :after cape
   :hook
   (c-mode . eglot-ensure)
   (c++-ts-base-mode . eglot-ensure)
   (c++-ts-mode . eglot-ensure)
   (python-base-mode . eglot-ensure)
   (python-ts-mode . eglot-ensure)
+  (python-mode . eglot-ensure)
   :config
-  (add-to-list 'eglot-server-programs '((python-mode python-ts-mode python-base-mode) ("pyright-langserver" "--stdio")))
+  (defun my/eglot-capf ()
+    (setq-local completion-at-point-functions
+                (list (cape-super-capf
+                       #'eglot-completion-at-point
+                       (cape-company-to-capf #'company-yasnippet)))))
+
+  (add-hook 'eglot-managed-mode-hook #'my/eglot-capf)
+  (advice-add 'eglot-completion-at-point :around #'cape-wrap-buster)
+
   (add-to-list 'eglot-server-programs '((cuda-mode c++-mode c-mode c++-ts-mode c++-ts-base-mode) "clangd-12")))
 
 (use-package eldoc-box
@@ -39,7 +49,6 @@
 
 (null-keybinds-leader-key-def
   :keymaps 'eglot-mode-map
-  "l"  '(:ignore t :wk "lsp")
   "l a" '(eglot-code-actions :wk "code action")
   "l R" '(eglot-rename :wk "rename")
   "l d" '(xref-find-definitions :wk "find definitions")
