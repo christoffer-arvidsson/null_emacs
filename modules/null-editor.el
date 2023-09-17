@@ -24,6 +24,12 @@
   (evil-snipe-mode +1)
   (evil-snipe-override-mode +1))
 
+(use-package evil-fringe-mark
+  :ensure t
+  :config
+  (setq-default evil-fringe-mark-side 'left-fringe)
+  (global-evil-fringe-mark-mode 1))
+
 (use-package evil-surround
   :ensure t
   :config
@@ -174,6 +180,7 @@
 (null-keybinds-leader-key-def
   :states 'normal
   "i s" '(consult-yasnippet :wk "yasnippet insert snippet")
+  "s m" '(evil-collection-consult-mark :wk "consult marks")
   "i S" '(consult-yasnippet-visit-snippet-file :wk "yasnippet visit snippet"))
 
 

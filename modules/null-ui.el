@@ -23,6 +23,7 @@
   (column-number-mode +1)
   ;; (setq-default display-line-numbers-width 3)
   (setq visible-bell nil)
+  (setq left-fringe-width 16)
   (menu-bar-mode -1))
 
 (dolist (mode '(text-mode-hook
