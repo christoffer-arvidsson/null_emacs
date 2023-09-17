@@ -61,6 +61,7 @@
         evil-jumps-cross-buffers nil
         evil-kill-on-visual-paste nil
         evil-undo-system 'undo-tree
+        evil-symbol-word-search t
         evil-respect-visual-line-mode t)
   :config
   (let ((after-fn (lambda (&rest _) (recenter nil))))
