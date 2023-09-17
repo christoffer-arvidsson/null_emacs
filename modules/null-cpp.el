@@ -187,6 +187,13 @@ MODE is either `c' or `cpp'."
   (setq auto-mode-alist
         (cons '("\\.cu$" . cuda-mode) auto-mode-alist)))
 
+(use-package glsl-mode
+  :ensure t
+  :config
+  (define-derived-mode glsl-mode c-ts-mode "GLSL"
+    "GLSL mode."
+    (setq c-basic-offset 4)))
+
 ;; Keybinds
 (null-keybinds-major-key-def
   :states '(normal visual)
