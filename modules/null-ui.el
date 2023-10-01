@@ -38,15 +38,30 @@
   :ensure t)
 
 ;; icons
-(use-package all-the-icons
-  :if (display-graphic-p)
-  :ensure t)
-
-(use-package all-the-icons-completion
-  :ensure all-the-icons
-  :hook (marginalia-mode . all-the-icons-completion-marginalia-setup)
+(use-package nerd-icons
+  :after kind-icon
+  :ensure t
   :config
-  (all-the-icons-completion-mode))
+  (setq nerd-icons-font-family "Iosevka Nerd Font"))
+
+(use-package nerd-icons-completion
+  :after marginalia
+  :config
+  (nerd-icons-completion-mode)
+  (add-hook 'marginalia-mode-hook #'nerd-icons-completion-marginalia-setup))
+
+(use-package nerd-icons-corfu
+  :straight (:type git :host github :repo "LuigiPiucco/nerd-icons-corfu")
+  :after (nerd-icons corfu)
+  :ensure t
+  :config
+  (add-to-list 'corfu-margin-formatters #'nerd-icons-corfu-formatter))
+
+(use-package nerd-icons-dired
+  :after nerd-icons
+  :hook
+  (dired-mode . nerd-icons-dired-mode)
+  :ensure t)
 
 (use-package doom-themes
   :ensure t

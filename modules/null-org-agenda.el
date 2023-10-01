@@ -202,21 +202,19 @@
   (custom-set-faces
    `(org-agenda-done ((t (:foreground ,(doom-color 'teal))))))
 
-  (customize-set-value
-   'org-agenda-category-icon-alist
-   `(
-     ("music" (list (all-the-icons-material "collection-music" :heigh 1.2)) nil nil :ascent center :mask heuristic)
-     ("chore" (list (all-the-icons-material "replay" :heigh 1.2)) nil nil :ascent center :mask heuristic)
-     ("inbox" (list (all-the-icons-material "receipt" :heigh 1.2)) nil nil :ascent center :mask heuristic)
-     ("idea" (list (all-the-icons-material "pocket" :heigh 1.2)) nil nil :ascent center :mask heuristic)
-     ("scheduled" (list (all-the-icons-material "calendar" :heigh 1.2)) nil nil :ascent center)
-     ("class" (list (all-the-icons-material "book" :heigh 1.2)) nil nil :ascent center :mask heuristic)
-     ("loop" (list (all-the-icons-material "refresh" :heigh 1.2)) nil nil :ascent center)
-     ("work" , (list (all-the-icons-faicon "briefcase" :heigh 1.2)) nil nil :ascent center)
-     ("project", (list (all-the-icons-material "flag" :heigh 1.2)) nil nil :ascent center)
-     ("meeting", (list (all-the-icons-material "schedule" :heigh 1.2)) nil nil :ascent center)
-     ("todo", (list (all-the-icons-material "check_box_outline_blank" :heigh 1.2)) nil nil :ascent center)
-     ("check" (list (all-the-icons-material "check_box" :heigh 1.2)) nil nil :ascent center :mask heuristic)))
+  (setq org-agenda-category-icon-alist
+        `(
+          ("todo" ,(nerd-icons-faicon "nf-fa-check_square"))
+          ("music" ,(nerd-icons-faicon "nf-fa-music"))
+          ("chore" ,(nerd-icons-faicon "nf-fa-repeat"))
+          ("idea" ,(nerd-icons-faicon "nf-fa-lightbulb_o")
+          ("scheduled" ,(nerd-icons-faicon "nf-fa-calendar_check_o"))
+          ("class" ,(nerd-icons-faicon "nf-fa-book"))
+          ("loop" ,(nerd-icons-faicon "nf-fa-repeat"))
+          ("work" ,(nerd-icons-faicon "nf-fa-briefcase"))
+          ("project" ,(nerd-icons-faicon "nf-fa-flag"))
+          ("meeting" ,(nerd-icons-faicon "nf-fa-calendar_o"))
+          ("todo" ,(nerd-icons-faicon "nf-fa-check")))))
 
   (setq org-agenda-custom-commands
         '(
@@ -230,7 +228,7 @@
                         (org-agenda-skip-deadline-if-done t)
                         (org-agenda-start-day "+0d")
                         (org-agenda-span 2)
-                        (org-agenda-overriding-header "⚡ Calendar")
+                        (org-agenda-overriding-header " Calendar")
                         (org-agenda-repeating-timestamp-show-all nil)
                         (org-agenda-remove-tags t)
                         (org-agenda-prefix-format "   %i %?-2 t%s")
@@ -239,13 +237,13 @@
                         ;; (org-agenda-todo-keyword-format " ☐ ")
                         (org-agenda-todo-keyword-format "")
                         (org-agenda-time)
-                        (org-agenda-current-time-string "ᐊ┈┈┈┈┈┈┈ Now")
+                        (org-agenda-current-time-string "┈┈┈┈┈┈┈ Now")
                         (org-agenda-scheduled-leaders '("" ""))
                         (org-agenda-deadline-leaders '("Deadline:  " "In %3d d.: " "%2d d. ago: "))
                         (org-agenda-time-grid (quote ((today require-timed remove-match) () "      " "┈┈┈┈┈┈┈┈┈┈┈┈┈")))))
 
             (tags "-work+TODO=\"TODO\"|-work+TODO=\"DONE\"" (
-                                                             (org-agenda-overriding-header "\n⚡ Today")
+                                                             (org-agenda-overriding-header "\n Today")
                                                              (org-agenda-sorting-strategy '(priority-down))
                                                              (org-agenda-remove-tags t)
                                                              (org-agenda-skip-function '(org-agenda-skip-entry-if 'timestamp 'scheduled))
@@ -255,7 +253,7 @@
                                                              ))
 
             (tags "-work+TODO=\"NEXT\"" (
-                                         (org-agenda-overriding-header "\n⚡ Next")
+                                         (org-agenda-overriding-header "\n Next")
                                          (org-agenda-sorting-strategy '(priority-down))
                                          (org-agenda-remove-tags t)
                                          ;; (org-agenda-skip-function '(org-agenda-skip-entry-if 'timestamp))
@@ -265,7 +263,7 @@
 
 
             (tags "-work+project-CATEGORY=\"work\"" (
-                                                     (org-agenda-overriding-header "\n⚡ Projects")
+                                                     (org-agenda-overriding-header "\n Projects")
                                                      (org-agenda-remove-tags t)
                                                      (org-tags-match-list-sublevels nil)
                                                      (org-agenda-show-inherited-tags nil)
@@ -284,43 +282,43 @@
                         (org-agenda-start-day "+0d")
                         (org-agenda-span 2)
                         (org-agenda-log-mode-items '(clock))
-                        (org-agenda-overriding-header "\n⚡ Calendar")
+                        (org-agenda-overriding-header "\n Calendar")
                         (org-agenda-remove-tags t)
                         (org-agenda-prefix-format "    %i %?-2 t %?-8T %s")
                         (org-agenda-todo-keyword-format "")
                         (org-agenda-time)
-                        (org-agenda-current-time-string "ᐊ┈┈┈┈┈┈┈┈ Now ┈┈┈┈┈┈┈┈")
+                        (org-agenda-current-time-string "┈┈┈┈┈┈┈┈ Now ┈┈┈┈┈┈┈┈")
                         (org-agenda-scheduled-leaders '("" ""))
                         (org-agenda-deadline-leaders '("Deadline:  " "In %3d d.: " "%2d d. ago: "))
                         (org-agenda-time-grid (quote ((today require-timed remove-match) () "      " "┈┈┈┈┈┈┈┈┈┈┈┈┈")))))
 
             (tags "+work+TODO=\"TODO\"-CATEGORY=\"project\"" (
-                                                              (org-agenda-overriding-header "\n⚡ Inbox")
+                                                              (org-agenda-overriding-header "\n Inbox")
                                                               (org-agenda-sorting-strategy '(priority-down))
                                                               (org-agenda-remove-tags t)
                                                               (org-agenda-todo-ignore-scheduled 'all)
                                                               (org-agenda-prefix-format "   %-2i ")))
             (tags "LEVEL>1+work+CATEGORY=\"loop\"" (
-                                                    (org-agenda-overriding-header "\n⚡ Habit")
+                                                    (org-agenda-overriding-header "\n Habit")
                                                     (org-agenda-sorting-strategy '(priority-down))
                                                     (org-agenda-remove-tags t)
                                                     (org-agenda-todo-ignore-scheduled 'all)
                                                     (org-agenda-prefix-format "%i  %-2i ")))
             (tags "+work+TODO=\"NEXT\"" (
-                                         (org-agenda-overriding-header "\n⚡ Next")
+                                         (org-agenda-overriding-header "\n Next")
                                          (org-agenda-sorting-strategy '(priority-down))
                                          (org-agenda-remove-tags t)
                                          (org-agenda-todo-ignore-scheduled 'all)
                                          (org-agenda-prefix-format "    %-2i ")))
             (tags "+work+TODO=\"WAIT\"" (
-                                         (org-agenda-overriding-header "\n⚡ Waiting")
+                                         (org-agenda-overriding-header "\n Waiting")
                                          (org-agenda-sorting-strategy '(priority-down))
                                          (org-agenda-remove-tags t)
                                          (org-agenda-todo-ignore-scheduled 'all)
                                          (org-agenda-prefix-format "    %-2i ")))
 
             (tags "LEVEL>1+work+CATEGORY=\"project\"-TODO=\"DONE\"-TODO=\"CANC\"" (
-                                                                                   (org-agenda-overriding-header "\n⚡ Projects")
+                                                                                   (org-agenda-overriding-header "\n Projects")
                                                                                    (org-agenda-remove-tags t)
                                                                                    (org-tags-match-list-sublevels 'indentend)
                                                                                    (org-agenda-show-inherited-tags nil)
