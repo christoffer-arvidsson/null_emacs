@@ -2,8 +2,7 @@
 
 (require 'null-keybinds)
 
-(defvar null-theme 'doom-horizon
-  "The default theme.")
+(defvar null-theme 'ef-winter
 
 (defvar null-font-preset 'default
   "Fontaine preset to use.")
@@ -62,24 +61,6 @@
   :hook
   (dired-mode . nerd-icons-dired-mode)
   :ensure t)
-
-(use-package doom-themes
-  :ensure t
-  :custom
-  (doom-themes-enable-bold t)
-  (doom-themes-enable-italic t)
-  (doom-horizon-brighter-comments t)
-  (doom-horizon-comment-bg nil)
-  (doom-themes-padded-modeline t)
-  :config
-  (doom-themes-org-config))
-
-;; brighter line numbers
-(custom-set-faces
- `(line-number ((t (:foreground ,(doom-color 'magenta)))))
- `(org-special-keyword ((t (:foreground ,(doom-color 'magenta)))))
- `(org-property-value ((t (:foreground ,(doom-color 'magenta))))))
-
 
 (use-package mood-line
   :custom

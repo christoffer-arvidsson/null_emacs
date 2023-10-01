@@ -198,10 +198,6 @@
         org-fontify-whole-heading-line t
         org-fontify-quote-and-verse-blocks t)
 
-  ;; Make the entries nicer looking
-  (custom-set-faces
-   `(org-agenda-done ((t (:foreground ,(doom-color 'teal))))))
-
   (setq org-agenda-category-icon-alist
         `(
           ("todo" ,(nerd-icons-faicon "nf-fa-check_square"))
