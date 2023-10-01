@@ -11,6 +11,7 @@
   :after cape
   :hook
   (c-mode . eglot-ensure)
+  (c-ts-base-mode . eglot-ensure)
   (c++-ts-base-mode . eglot-ensure)
   (c++-ts-mode . eglot-ensure)
   (python-base-mode . eglot-ensure)
