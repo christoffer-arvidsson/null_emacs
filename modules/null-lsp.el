@@ -59,7 +59,8 @@
   "l i" '(eglot-find-implementation :wk "find implementation")
   "l e" '(consult-flymake :wk "consult errors")
   "l f" '(eglot-format-buffer :wk "format buffer")
-  "l t" '(eglot-find-typeDefinition :wk "find typeDefinition"))
+  "l t" '(eglot-find-typeDefinition :wk "find typeDefinition")
+  "l H" '(eglot-inlay-hints-mode :wk "toggle inlay hints"))
 
 (provide 'null-lsp)
 ;;; null-lsp.el ends here
