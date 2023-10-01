@@ -1,11 +1,11 @@
 ;;; null-ui.el -*- lexical-binding: t; -*-
 
 (require 'null-keybinds)
+(require 'null-font)
 
 (defvar null-theme 'ef-winter
 
-(defvar null-font-preset 'default
-  "Fontaine preset to use.")
+  "The default theme.")
 
 (defun null-ui-disable-scroll-bars (frame)
   (modify-frame-parameters frame
@@ -21,8 +21,9 @@
   (tooltip-mode -1)
   (column-number-mode +1)
   ;; (setq-default display-line-numbers-width 3)
-  (setq visible-bell nil)
-  (setq left-fringe-width 16)
+  (setq visible-bell nil
+        left-fringe-width 3
+        right-fringe-width 4)
   (menu-bar-mode -1))
 
 (dolist (mode '(text-mode-hook
@@ -34,7 +35,11 @@
 (null-ui-init)
 
 (use-package ef-themes
-  :ensure t)
+  :ensure t
+  :custom
+  (ef-themes-mixed-fonts t)
+  (ef-themes-variable-pitch-ui nil))
+
 
 ;; icons
 (use-package nerd-icons
@@ -73,53 +78,7 @@
   :config
   (solaire-global-mode +1))
 
-(use-package fontaine
-  :ensure t
-  :custom
-  (fontaine-presets
-   '(
-     (default
-      :default-family "Monospace")
-     (desktop
-      :default-family "Iosevka"
-      :default-weight normal
-      :default-height 110
-      :variable-pitch-family "Vollkorn"
-      :variable-pitch-weight normal
-      :variable-pitch-height 1.05
-      :line-spacing nil)
-     (big
-      :inherit desktop
-      :default-height 150)
-     (laptop
-      :inherit desktop
-      :default-height 95))))
-
 (add-hook 'after-init-hook (lambda () (load-theme null-theme t)))
-
-(define-minor-mode null-global-big-text-mode
-  "Toggle big text mode."
-  :init-value nil
-  :global t
-  :group 'null
-  :lighter " big-text"
-  (if null-global-big-text-mode
-      (progn
-        (message "big-text-mode activated!")
-        (fontaine-set-preset 'big))
-    (progn (message "big-text-mode deactivated!")
-           (fontaine-set-preset null-font-preset))))
-
-;; Required so that emacs client changes font
-(if (daemonp)
-    (add-hook 'after-make-frame-functions
-              (defun null/font-init-daemon (frame)
-                (with-selected-frame frame
-                  (fontaine-set-preset null-font-preset))
-                (remove-hook 'after-make-frame-functions
-                             #'null/font-init-daemon)
-                (fmakeunbound 'null/font-init-daemon)))
-  (fontaine-set-preset null-font-preset))
 
 (null-keybinds-leader-key-def
   :states 'normal

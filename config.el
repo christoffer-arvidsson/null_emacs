@@ -3,6 +3,7 @@
 ;; core
 (require 'null-defaults)
 (require 'null-keybinds)
+(require 'null-font)
 (require 'null-ui)
 (require 'null-startup)
 
