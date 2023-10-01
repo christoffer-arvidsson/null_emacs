@@ -53,6 +53,11 @@
           (ranger project-root)
         (message "No project found.")))))
 
+(use-package diredfl
+  :ensure t
+  :config
+  (diredfl-global-mode t))
+
 (use-package tmr
    :ensure t)
 
