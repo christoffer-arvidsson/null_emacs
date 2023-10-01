@@ -74,7 +74,7 @@
   (evil-mode 1))
 
 (use-package evil-collection
-  :after evil
+  :after (evil magit)
   :init
   :custom
   (evil-collection-outline-bind-tab-p nil)
