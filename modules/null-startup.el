@@ -12,9 +12,9 @@
 (use-package dashboard
   :after nerd-icons
   :init
-  (add-hook 'after-init-hook 'dashboard-refresh-buffer)
   (add-hook 'dashboard-mode-hook 'null/dashboard-banner)
   :custom
+  (dashboard-display-icons-p t)
   (dashboard-icon-type 'nerd-icons)
   (dashboard-projects-backend 'project-el)
   (dashboard-startup-banner 'logo)
@@ -28,10 +28,10 @@
                      (agenda . 5)
                      (registers . 5)))
   :config
-  (dashboard-setup-startup-hook))
+  (dashboard-setup-startup-hook)
 
-;; Makes emacsclient default to the dashboard
-(setq initial-buffer-choice (lambda () (get-buffer "*dashboard*")))
+  ;; Makes emacsclient default to the dashboard
+  (setq initial-buffer-choice (lambda () (get-buffer "*dashboard*"))))
 
 (provide 'null-startup)
 ;;; null-startup.el ends here
