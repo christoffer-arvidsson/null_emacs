@@ -19,6 +19,7 @@
 
 (use-package evil-snipe
   :ensure t
+  :after evil
   :hook (magit-mode . turn-off-evil-snipe-override-mode)
   :config
   (evil-snipe-mode +1)
