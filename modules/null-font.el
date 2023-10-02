@@ -54,6 +54,8 @@
       :default-height 150)
      (laptop
       :inherit desktop
+      :default-family "Iosevka"
+      :variable-pitch-family "Volkorn"
       :default-height 95)
      (t
       :bold weight bold
