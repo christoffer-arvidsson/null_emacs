@@ -55,7 +55,7 @@
      (laptop
       :inherit desktop
       :default-family "Iosevka"
-      :variable-pitch-family "Volkorn"
+      :variable-pitch-family "Iosevka Comfy Duo"
       :default-height 95)
      (t
       :bold weight bold
