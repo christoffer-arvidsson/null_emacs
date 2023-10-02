@@ -84,6 +84,7 @@
   "h v" 'helpful-variable
   "h k" 'helpful-key
   "h d" 'helpful-at-point
+  "h c" 'describe-char
   "h M" 'consult-man)
 
 (provide 'null-defaults)

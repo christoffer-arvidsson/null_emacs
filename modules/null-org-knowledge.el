@@ -129,9 +129,9 @@ exist without jumping to it"
   (org-cite-follow-processor 'citar)
   (org-cite-activate-processor 'citar)
   (citar-symbols
-   `((file ,(all-the-icons-faicon "file-o" :face 'all-the-icons-green :v-adjust -0.1) . " ")
-     (note ,(all-the-icons-material "speaker_notes" :face 'all-the-icons-blue :v-adjust -0.3) . " ")
-     (link ,(all-the-icons-octicon "link" :face 'all-the-icons-orange :v-adjust 0.01) . " ")))
+   `((file ,(nerd-icons-faicon "nf-fa-file")))
+   `((note ,(nerd-icons-faicon "nf-fa-file_text")))
+   `((link ,(nerd-icons-faicon "nf-fa-link"))))
   (citar-symbol-separator "  ")
   :hook
   (LaTeX-mode . citar-capf-setup)

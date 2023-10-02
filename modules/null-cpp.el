@@ -194,6 +194,14 @@ MODE is either `c' or `cpp'."
     "GLSL mode."
     (setq c-basic-offset 4)))
 
+(use-package bazel
+  :ensure t
+  :custom
+  (bazel-command "./bazel.py")
+  :config
+  (setq auto-mode-alist
+        (cons '("\\.bazel" . bazel-mode) auto-mode-alist)))
+
 ;; Keybinds
 (null-keybinds-major-key-def
   :states '(normal visual)

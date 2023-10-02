@@ -26,12 +26,7 @@
 
   (add-hook 'eglot-managed-mode-hook #'my/eglot-capf)
   (advice-add 'eglot-completion-at-point :around #'cape-wrap-buster)
-
   (add-to-list 'eglot-server-programs '((cuda-mode c++-mode c-mode c++-ts-mode c++-ts-base-mode) "clangd-12")))
-
-(use-package eldoc-box
-  :ensure
-  :hook (eldoc-mode . eldoc-box-hover-mode))
 
 (use-package flycheck-eglot
   :ensure t
@@ -59,7 +54,8 @@
   "l i" '(eglot-find-implementation :wk "find implementation")
   "l e" '(consult-flymake :wk "consult errors")
   "l f" '(eglot-format-buffer :wk "format buffer")
-  "l t" '(eglot-find-typeDefinition :wk "find typeDefinition"))
+  "l t" '(eglot-find-typeDefinition :wk "find typeDefinition")
+  "l H" '(eglot-inlay-hints-mode :wk "toggle inlay hints"))
 
 (provide 'null-lsp)
 ;;; null-lsp.el ends here
