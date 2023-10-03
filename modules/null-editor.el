@@ -3,8 +3,6 @@
 (require 'null-keybinds)
 (require 'null-defaults)
 
-(use-package expand-region)
-
 (use-package rainbow-delimiters
   :ghook 'prog-mode-hook)
 
