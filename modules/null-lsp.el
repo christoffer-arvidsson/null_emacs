@@ -26,7 +26,7 @@
 
   (add-hook 'eglot-managed-mode-hook #'my/eglot-capf)
   (advice-add 'eglot-completion-at-point :around #'cape-wrap-buster)
-  (add-to-list 'eglot-server-programs '((cuda-mode c++-mode c-mode c++-ts-mode c++-ts-base-mode) "clangd-12")))
+  (add-to-list 'eglot-server-programs '((cuda-mode c++-mode c-mode c++-ts-mode c++-ts-base-mode) "clangd")))
 
 (use-package flycheck-eglot
   :ensure t
