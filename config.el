@@ -56,6 +56,10 @@
 (defun null/init-home-config ()
   "Do home specific initialization."
   (message "using home configuration.")
+
+  ;; breaks jupyter otherwise
+  (use-package zmq)
+
   (setq null-font-preset 'desktop))
 
 (let ((name (system-name)))

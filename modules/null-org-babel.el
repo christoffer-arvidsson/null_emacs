@@ -31,8 +31,6 @@
 ;;; Code:
 (setenv "PYDEVD_DISABLE_FILE_VALIDATION" "1")
 
-(use-package zmq)
-
 (use-package jupyter
   :demand t
   :after (:all org python zmq)
