@@ -30,6 +30,11 @@
   :config
   (dashboard-setup-startup-hook)
 
+  ;; Hack until `initial-buffer-choice` is not a live buffer
+  ;; if fixed upstream
+  (get-buffer-create "*dashboard*")
+  (dashboard-refresh-buffer)
+
   ;; Makes emacsclient default to the dashboard
   (setq initial-buffer-choice (lambda () (get-buffer "*dashboard*"))))
 
