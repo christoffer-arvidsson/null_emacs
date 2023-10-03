@@ -170,6 +170,7 @@ MODE is either `c' or `cpp'."
   :custom
   (ff-search-directories
    '("./base"
+     "../"
      "." "../src"
      "../src/*/"
      "../include" "../include/*/"
@@ -181,11 +182,11 @@ MODE is either `c' or `cpp'."
 (use-package cuda-mode
   :ensure t
   :config
-  (define-derived-mode cuda-mode c-mode "CUDA"
+  (define-derived-mode cuda-mode c++-mode "CUDA"
     "CUDA mode."
     (setq c-basic-offset 4))
   (setq auto-mode-alist
-        (cons '("\\.cu$" . cuda-mode) auto-mode-alist)))
+        (cons '("\\.cu$" . c++-mode) auto-mode-alist)))
 
 (use-package glsl-mode
   :ensure t
