@@ -75,5 +75,13 @@
 ;; Reload the font
 (fontaine-set-preset null-font-preset)
 
+(use-package evil-motion-trainer
+  :straight (:type git :host github :repo "martinbaillie/evil-motion-trainer")
+  :ensure t
+  :custom
+  (evil-motion-trainer-threshold 5)
+  :config
+  (global-evil-motion-trainer-mode +1))
+
 (provide 'config)
 ;;; config.el ends here
