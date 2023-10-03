@@ -51,7 +51,8 @@
 (defun null/init-work-config ()
   "Do work specific initialization."
   (message "using work configuration.")
-  (setq null-font-preset 'laptop))
+  (setq null-font-preset 'laptop
+        null-font-big-preset 'laptop-big))
 
 (defun null/init-home-config ()
   "Do home specific initialization."
@@ -60,7 +61,8 @@
   ;; breaks jupyter otherwise
   (use-package zmq)
 
-  (setq null-font-preset 'desktop))
+  (setq null-font-preset 'desktop
+        null-font-big-preset 'big))
 
 (let ((name (system-name)))
   (pcase name

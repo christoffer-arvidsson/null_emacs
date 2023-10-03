@@ -33,7 +33,10 @@
 (require 'null-keybinds)
 
 (defvar null-font-preset 'default
-  "Fontaine preset to use.")
+  "Fontaine font preset to use.")
+
+(defvar null-font-big-preset 'big
+  "Fontaine big font preset to use.")
 
 (use-package fontaine
   :ensure t
@@ -57,6 +60,9 @@
       :default-family "Iosevka"
       :variable-pitch-family "Iosevka Comfy Duo"
       :default-height 95)
+     (laptop-big
+      :inherit laptop
+      :default-height 140)
      (t
       :bold weight bold
       :italic-slant italic
@@ -71,7 +77,7 @@
   (if null-global-big-text-mode
       (progn
         (message "big-text-mode activated!")
-        (fontaine-set-preset 'big))
+        (fontaine-set-preset null-font-big-preset))
     (progn (message "big-text-mode deactivated!")
            (fontaine-set-preset null-font-preset))))
 
