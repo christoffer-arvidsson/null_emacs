@@ -46,7 +46,7 @@
      (default
       :default-family "Monospace")
      (desktop
-      :default-family "Iosevka Comfy"
+      :default-family "Iosevka"
       :default-weight regular
       :default-height 110
       :variable-pitch-family "Iosevka Comfy Duo"
