@@ -51,6 +51,8 @@
 (defun null/init-work-config ()
   "Do work specific initialization."
   (message "using work configuration.")
+  (require 'secrets)
+
   (setq null-font-preset 'laptop
         null-font-big-preset 'laptop-big))
 

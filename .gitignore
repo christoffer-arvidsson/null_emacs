@@ -1,4 +1,3 @@
-
 autoloads/*
 cache/*
 straight/
@@ -9,3 +8,5 @@ etc/
 elpy/
 tree-sitter/
 /.local/
+
+secrets.el
