@@ -71,11 +71,19 @@
    "g c" '(evilnc-comment-operator :wk "Comment operator")))
 
 (use-package evil-multiedit
+  :after evil
   :ensure t
   :config
   (evil-multiedit-default-keybinds))
 
+(use-package evil-mc
+  :after evil
+  :ensure t
+  :config
+  (global-evil-mc-mode +1))
+
 (use-package drag-stuff
+  :ensure t
   :config
   (drag-stuff-global-mode +1)
   (drag-stuff-define-keys))
