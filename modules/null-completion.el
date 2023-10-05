@@ -69,6 +69,9 @@
 
 (use-package consult
   :hook (completion-list-mode . consult-preview-at-point-mode)
+  :bind (:map minibuffer-local-map
+              ("M-s". consult-history)
+              ("M-r". consult-history))
   :config
   ; fd support
   (defun consult--fd-builder (input)
