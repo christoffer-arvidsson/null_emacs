@@ -77,6 +77,11 @@
     (set-buffer-major-mode buffer)
     (set-window-buffer nil buffer)))
 
+(defun null/consult-ripgrep-current-directory ()
+  "Search with `consult-ripgrep` from current directory."
+  (interactive)
+  (consult-ripgrep default-directory))
+
 ;; bookmarks
 (null-keybinds-leader-key-def
   :states 'normal
@@ -85,6 +90,7 @@
   "s i" '(consult-outline :wk "Consult outline")
   "s b" '(consult-line :wk "Search lines")
   "s s" '(null/search-symbol-at-point :wk "Search symbol at point")
+  "s /" '(null/consult-ripgrep-current-directory :wk "Grep from current directory")
 
   "f r" '(consult-recent-file :wk "Recent files")
   "f d" '(mkdir :wk "mkdir")
