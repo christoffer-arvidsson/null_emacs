@@ -120,6 +120,8 @@ _p_rev       _u_pper              _=_: upper/lower       _r_esolve
   "g g" '(magit :wk "Magit status")
   "g c" '(magit-clone :wk "Magit clone")
   "g t" '(git-timemachine :wk "Git timemachine")
-  "g m" '(null/smerge-body :wk "Smerge hydra"))
+  "g m" '(null/smerge-body :wk "Smerge hydra")
+  "g i" '(magit-init :wk "Magit init"))
+
 
 (provide 'null-project)
