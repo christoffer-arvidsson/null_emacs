@@ -28,20 +28,11 @@
   (advice-add 'eglot-completion-at-point :around #'cape-wrap-buster)
   (add-to-list 'eglot-server-programs '((cuda-mode c++-mode c-mode c++-ts-mode c++-ts-base-mode) "clangd")))
 
-(use-package flycheck-eglot
-  :ensure t
-  :after (flycheck eglot)
-  :config
-  (global-flycheck-eglot-mode 1))
-
-(use-package flycheck-posframe
-  :ensure t
-  :after flycheck
-  :hook (flycheck-mode . flycheck-posframe-mode)
+(use-package flymake
+  :after eglot
   :custom
-  (flycheck-posframe-position 'window-top-right-corner)
-  :config
-  (flycheck-posframe-configure-pretty-defaults))
+  (flymake-fringe-indicator-position 'right-fringe)
+  :ensure t)
 
 (null-keybinds-leader-key-def
   :keymaps 'eglot-mode-map

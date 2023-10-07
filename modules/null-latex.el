@@ -37,7 +37,6 @@
   :hook
   (LaTeX-mode . TeX-PDF-mode)
   (LaTeX-mode . flyspell-mode)
-  (LaTeX-mode . flycheck-mode)
   (LaTeX-mode . LaTeX-math-mode)
   (LaTeX-mode . reftex-mode)
   (LaTeX-mode . cdlatex-mode)

@@ -95,18 +95,6 @@ _p_rev       _u_pper              _=_: upper/lower       _r_esolve
   ;; force update evil keymaps after git-timemachine-mode loaded
   (add-hook 'git-timemachine-mode-hook #'evil-normalize-keymaps))
 
-;; Flycheck
-(use-package flycheck
-  :ensure t
-  :defer t
-  :init (global-flycheck-mode)
-  :custom
-  (flycheck-indication-mode 'right-fringe)
-  :config
-  (setq flycheck-checker-error-threshold 1500)
-  (define-fringe-bitmap 'flycheck-fringe-bitmap-double-arrow
-    [16 48 112 240 112 48 16] nil nil 'center))
-
 ;; Use ripgrep over grep
 (grep-apply-setting
  'grep-find-command

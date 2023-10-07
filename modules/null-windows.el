@@ -175,7 +175,6 @@ the only window, use evil-window-move-* (e.g. `evil-window-move-far-left')."
           ("*Backtrace*"                   :noselect t   :align below :size 0.25)
           ("*Warnings*"                    :noselect t   :align below :size 0.25)
           ("*Error*"                       :noselect t   :size 0.25)
-          ("*Flycheck errors*"             :noselect t   :size 0.25)
           ("*compilation*"                 :noselect t   :size 0.33 :align below)
           (vterm-mode                      :select t     :size 0.25 :align below)
           (harpoon-mode                    :select t :size 0.15 :align below)
