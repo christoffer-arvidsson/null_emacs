@@ -13,11 +13,16 @@
     :custom
     (dumb-jump-prefer-searcher 'rg))
 
-;; Use projcet.el
-;; Defines a "m" option to open magit
+;; Use project.el
+(defun null-project-override (dir)
+  (let ((override (locate-dominating-file dir ".project.el")))
+    (if override
+        (cons 'transient override)
+      nil)))
 (use-package project
   :config
   (define-key project-prefix-map "m" #'magit-project-status)
+  (add-to-list 'project-find-functions #'null-project-override)
   (add-to-list 'project-switch-commands '(magit-project-status "Magit") t))
 
 ;;; Version control
