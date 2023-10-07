@@ -22,6 +22,8 @@
   :init
   (savehist-mode))
 
+(global-display-fill-column-indicator-mode +1)
+
 ;; Repeat mode
 (repeat-mode 1)
 
