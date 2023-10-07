@@ -140,6 +140,11 @@
        (cdr (ring-ref avy-ring 0))))
     t)
 
+  (defun avy-action-exchange (pt)
+    "Exchange sexp at PT with the one at point."
+    (set-mark pt)
+    (transpose-sexps 0))
+
   (setq avy-keys '(?q ?e ?w ?u ?o ?a ?s ?f ?g ?h ?j ?k ?l ?' ?c ?v ?b ?n ?, ?/))
 
   (setf (alist-get ?p avy-dispatch-alist) 'avy-action-yank
@@ -150,6 +155,7 @@
         (alist-get ?Y avy-dispatch-alist) 'avy-action-copy-whole-line
         (alist-get ?t avy-dispatch-alist) 'avy-action-teleport
         (alist-get ?T avy-dispatch-alist) 'avy-action-teleport-whole-line
+        (alist-get ?x avy-dispatch-alist) 'avy-action-exchange
         (alist-get ?  avy-dispatch-alist) 'avy-action-mark-to-char
         (alist-get ?. avy-dispatch-alist) 'avy-action-embark))
 
