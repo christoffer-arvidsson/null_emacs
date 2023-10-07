@@ -112,6 +112,23 @@ _p_rev       _u_pper              _=_: upper/lower       _r_esolve
  'grep-find-command
  '("rg -n -H --no-heading -e '' $(git rev-parse --show-toplevel || pwd)" . 27))
 
+;; Ansi colors in compilation mode
+(use-package fancy-compilation
+  :commands (fancy-compilation-mode)
+  :config
+  (fancy-compilation-mode +1))
+
+(use-package compile
+  :ensure t
+  :custom
+  (setq compilation-scroll-output t)
+  :config
+  (defun colorize-compilation-buffer ()
+    (let ((inhibit-read-only t))
+      (ansi-color-apply-on-region (point-min) (point-max))))
+
+  (add-hook 'compilation-filter-hook 'colorize-compilation-buffer))
+
 (null-keybinds-leader-key-def
   :states '(normal visual)
   "p c" '(project-compile :wk "Compile project")

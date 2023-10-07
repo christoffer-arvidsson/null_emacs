@@ -67,9 +67,6 @@
 (use-package helpful
   :ensure t)
 
-;; Scroll compilation buffers to end
-(setq compilation-scroll-output t)
-
 ;; Cleanup whitespace on save
 (add-hook 'before-save-hook 'whitespace-cleanup)
 
