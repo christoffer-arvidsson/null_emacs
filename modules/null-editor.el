@@ -176,7 +176,7 @@
   (yas-global-mode 1))
 
 (use-package yasnippet-snippets
-  :straight (:type git :host github :repo "johannesneyer/yasnippet-snippets")
+  :straight (:type git :host github :repo "christoffer-arvidsson/yasnippet-snippets")
   :ensure yasnippet)
 
 (use-package yasnippet-radical-snippets
