@@ -106,14 +106,10 @@ _p_rev       _u_pper              _=_: upper/lower       _r_esolve
  'grep-find-command
  '("rg -n -H --no-heading -e '' $(git rev-parse --show-toplevel || pwd)" . 27))
 
-(use-package compile
-  :ensure t
-  :custom
-  (setq compilation-scroll-output t))
+(setq compilation-scroll-output t)
 
 ;; Ansi colors in compilation mode
 (use-package fancy-compilation
-  :after compile
   :commands (fancy-compilation-mode)
   :config
   (fancy-compilation-mode +1))
