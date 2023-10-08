@@ -221,7 +221,11 @@
 
 (use-package org-modern
   :after org
+  :custom
+  ;; Looks bad with mixed pitch for me
+  (org-modern-table nil)
   :config
+  (set-face-attribute 'org-table nil :inherit 'fixed-pitch)
   (global-org-modern-mode))
 
 (use-package htmlize
