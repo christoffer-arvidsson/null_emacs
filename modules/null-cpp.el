@@ -177,6 +177,10 @@ MODE is either `c' or `cpp'."
      "../../src" "../../src/*/"
      "../../include" "../../include/*/"
      "/usr/include" "$PROJECT/*/include")))
+(use-package clang-format
+  :custom
+  (clang-format-style "file")
+  :ensure t)
 
 ;; Cuda
 (use-package cuda-mode
@@ -210,7 +214,9 @@ MODE is either `c' or `cpp'."
              c++-ts-base-mode-map
              cuda-mode-map
              glsl-mode-map)
-  "f" '(ff-find-other-file :wk "find other file"))
+  "f" '(ff-find-other-file :wk "find other file")
+  "b" '(:ignore t :wk "buffer")
+  "b f" '(clang-format-buffer :wk format buffer))
 
 (provide 'null-cpp)
 
