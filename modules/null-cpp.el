@@ -176,7 +176,12 @@ MODE is either `c' or `cpp'."
      "../include" "../include/*/"
      "../../src" "../../src/*/"
      "../../include" "../../include/*/"
-     "/usr/include" "$PROJECT/*/include")))
+     "/usr/include" "$PROJECT/*/include"))
+  :config
+  (add-hook 'c++-ts-mode-hook
+          (lambda ()
+            (set-fill-column 80))))
+
 (use-package clang-format
   :custom
   (clang-format-style "file")
