@@ -7,6 +7,11 @@
 (setq-default indent-tabs-mode nil)
 (setq tramp-default-method "ssh")
 (setq display-line-numbers-type 'relative)
+(setq global-display-line-numbers-mode t)
+(setq global-display-fill-column-indicator-modes
+      '((not dired-mode)
+        (not special-mode)
+        t))
 (setq load-prefer-newer t)
 
 ;; bookmarks
