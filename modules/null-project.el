@@ -30,8 +30,14 @@
 (use-package magit
   :custom
   (magit-display-buffer-function 'magit-display-buffer-same-window-except-diff-v1)
+  (magit-section-disable-line-numbers nil)
   :config
   (setenv "SSH_AUTH_SOCK" "/run/user/1400946984/ssh-agent.socket"))
+
+(use-package magit-todos
+  :ensure t
+  :config
+  (magit-todos-mode +1))
 
 (use-package hydra)
 

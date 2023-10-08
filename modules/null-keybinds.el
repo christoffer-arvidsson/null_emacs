@@ -83,7 +83,10 @@
   :config
   (delete 'lispy evil-collection-mode-list)
   (delete 'org-present evil-collection-mode-list)
-  (evil-collection-init))
+  (evil-collection-init)
+
+  ;; Unbind escape in magit mode
+  (evil-define-key* 'normal magit-status-mode-map [escape] nil))
 
 ;; Which key
 (use-package which-key
