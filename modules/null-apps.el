@@ -58,6 +58,10 @@
   :config
   (diredfl-global-mode t))
 
+(use-package wdired
+  :ensure t
+  :hook (dired-mode . auto-revert-mode))
+
 (use-package tmr
    :ensure t)
 
