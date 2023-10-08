@@ -86,8 +86,9 @@
   "e f" 'python-shell-send-defun
   "e v" 'python-shell-send-region
 
-  "f r" 'python-black-region
-  "f b" 'python-black-buffer)
+  "b" '(:ignore t :wk "buffer")
+  "b r" 'python-black-region
+  "b f" 'python-black-buffer)
 
 
 
