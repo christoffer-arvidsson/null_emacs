@@ -93,6 +93,7 @@
   "s /" '(null/consult-ripgrep-current-directory :wk "Grep from current directory")
 
   "f r" '(consult-recent-file :wk "Recent files")
+  "f m" '(chmod :wk "chmod")
   "f d" '(mkdir :wk "mkdir")
   "f f" '(find-file :wk "Find file")
   "f s" '(save-buffer :wk "Save buffer")
