@@ -34,11 +34,6 @@
   :config
   (setenv "SSH_AUTH_SOCK" "/run/user/1400946984/ssh-agent.socket"))
 
-(use-package magit-todos
-  :ensure t
-  :config
-  (magit-todos-mode +1))
-
 (use-package hydra)
 
 (use-package smerge-mode
