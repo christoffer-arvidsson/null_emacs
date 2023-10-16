@@ -37,6 +37,9 @@
   :custom
   (python-indent-offset 4)
   :config
+  (add-hook 'python-ts-mode-hook
+          (lambda ()
+            (set-fill-column 100)))
   (setenv "PYTHONPATH" "/home/s0001520/repos/madame-web"))
 
 (use-package anaconda-mode
