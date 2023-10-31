@@ -182,7 +182,7 @@ exist without jumping to it"
            :target (file "%<%Y%m%d%H%M%S>-${slug}.org")
            :unnarrowed t)
           ("p" "permanent note" plain
-           (file "~/Dropbox/org/orbit/templates/latex.org")
+           (file "~/Dropbox/org/orbit/templates/basic.org")
            :target (file "%<%Y%m%d%H%M%S>-${slug}.org")
            :unnarrowed t)
           ("m" "metanote" plain
@@ -192,6 +192,10 @@ exist without jumping to it"
           ("r" "paper note" plain
            (file "~/Dropbox/org/orbit/templates/paper.org")
            :target (file "paper_${slug}.org")
+           :unnarrowed t)
+          ("w" "work story" plain
+           (file "~/Dropbox/org/orbit/templates/basic.org")
+           :target (file "work/%<%Y%m%d%H%M%S>-${slug}.org")
            :unnarrowed t)
           ("n" "notebook" plain
            (file "~/Dropbox/org/orbit/templates/notebook.org")
