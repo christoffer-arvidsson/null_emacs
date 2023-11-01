@@ -195,7 +195,7 @@ exist without jumping to it"
            :unnarrowed t)
           ("w" "work story" plain
            (file "~/Dropbox/org/orbit/templates/basic.org")
-           :target (file "work/%<%Y%m%d%H%M%S>-${slug}.org")
+           :target (file "~/notes/work/%<%Y%m%d%H%M%S>-${slug}.org")
            :unnarrowed t)
           ("n" "notebook" plain
            (file "~/Dropbox/org/orbit/templates/notebook.org")
@@ -310,7 +310,7 @@ exist without jumping to it"
   "n r s" '(org-roam-buffer-toggle :wk "Toggle org roam status buffer")
   "n r t" '(org-roam-tag-add :wk "Add tag")
   "n r u" '(org-roam-ui-open :wk "Open org roam ui")
-  "n r X" '(org-roam-capture :wk "Capture note")
+  "n r x" '(org-roam-capture :wk "Capture note")
 
   "n a" '(:ignore t :wk "Org roam attach")
   "n a c" '(null/orbit-org-download-screenshot :wk "Download screenshot")

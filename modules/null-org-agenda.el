@@ -145,34 +145,7 @@
            "* TODO %?\n%i\n%a" :prepend t)
           ("c" "To clocked task" item
            (clock)
-           "- %?")
-          ("w" "Work")
-          ("wr" "Work retro item" entry
-           (file+headline null/org-capture-work-file "Retro points")
-           "* %?" :prepend t)
-          ("ww" "Work inbox" entry
-           (file+headline null/org-capture-work-file "Inbox")
-           "* %?" :prepend t)
-          ("wt" "Work Todo" entry
-           (file+headline null/org-capture-work-file "Todos")
-           "* TODO %?" :prepend t)
-          ("wT" "Work Clocked Todo" entry
-           (file+headline null/org-capture-work-file "Todos")
-           "* NEXT %?" :prepend t :clock-in t)
-          ("wm" "Work Meeting notes" entry
-           (file+headline null/org-capture-work-file "Meeting notes")
-           "* %?\n<%<%Y-%m-%d %a %H:00>>" :prepend t :clock-in t)
-          ("wp" "Project Todo" entry (file+function null/org-capture-work-file null/org-capture-to-project-heading)
-           "* TODO %?\n" :prepend t)
-          ("wP" "Project Todo Clocked" entry (file+function null/org-capture-work-file null/org-capture-to-project-heading)
-           "* TODO %?\n" :prepend t :clock-in t)
-
-          ("p" "Templates for projects")
-          ("pi" "Idea" entry
-           (file+headline null/org-capture-todo-file "Project ideas"))
-          ("pt" "Project todo" entry
-           (file+headline null/org-capture-todo-file "Project todos")
-           "* TODO %u %?\n%i\n%a" :prepend t))))
+           "- %?"))))
 
 ;; Cleaner agenda
 (with-eval-after-load 'org
