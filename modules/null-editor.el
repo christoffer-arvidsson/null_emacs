@@ -23,6 +23,11 @@
   (evil-snipe-mode +1)
   (evil-snipe-override-mode +1))
 
+(use-package evil-quickscope
+  :ensure t
+  :config
+  (global-evil-quickscope-mode +1))
+
 (use-package evil-fringe-mark
   :ensure t
   :config
