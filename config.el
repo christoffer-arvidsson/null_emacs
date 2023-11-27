@@ -52,6 +52,7 @@
   "Do work specific initialization."
   (message "using work configuration.")
   (require 'secrets)
+  (require 'null-denote)
 
   (setq null-font-preset 'laptop
         null-font-big-preset 'laptop-big))
