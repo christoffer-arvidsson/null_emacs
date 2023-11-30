@@ -2,16 +2,16 @@
 
 ;; Blazingly fast
 (use-package rg
-    :ensure t
-    :config
-   (rg-enable-default-bindings))
+  :ensure t
+  :config
+  (rg-enable-default-bindings))
 
 ;; Dumb jump for jumping to symbol
 (use-package dumb-jump
-    :ensure t
-    :hook (xref-backend-functions . #'dumb-jump-xref-activate)
-    :custom
-    (dumb-jump-prefer-searcher 'rg))
+  :ensure t
+  :hook (xref-backend-functions . #'dumb-jump-xref-activate)
+  :custom
+  (dumb-jump-prefer-searcher 'rg))
 
 ;; Use project.el
 (defun null-project-override (dir)
@@ -20,6 +20,7 @@
         (cons 'transient override)
       nil)))
 (use-package project
+  :ensure t
   :config
   (define-key project-prefix-map "m" #'magit-project-status)
   (add-to-list 'project-find-functions #'null-project-override)

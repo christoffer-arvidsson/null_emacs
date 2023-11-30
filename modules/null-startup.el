@@ -3,8 +3,8 @@
 ;;; Code:
 
 (defun null/dashboard-banner ()
-  """Set a dashboard banner including information on package initialization
-       time and garbage collections."""
+  "Set a dashboard banner including information on package initialization
+       time and garbage collections."
   (setq dashboard-banner-logo-title
         (format "Emacs ready in %.2f seconds with %d garbage collections."
                 (float-time (time-subtract after-init-time before-init-time)) gcs-done)))
@@ -29,11 +29,6 @@
                      (registers . 5)))
   :config
   (dashboard-setup-startup-hook)
-
-  ;; Hack until `initial-buffer-choice` is not a live buffer
-  ;; if fixed upstream
-  (get-buffer-create "*dashboard*")
-  (dashboard-refresh-buffer)
 
   ;; Makes emacsclient default to the dashboard
   (setq initial-buffer-choice (lambda () (get-buffer "*dashboard*"))))
