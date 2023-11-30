@@ -228,6 +228,9 @@
   (set-face-attribute 'org-table nil :inherit 'fixed-pitch)
   (global-org-modern-mode))
 
+(use-package ox-pandoc
+  :ensure t)
+
 (use-package htmlize
   :ensure t)
 
