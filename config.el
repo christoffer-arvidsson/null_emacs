@@ -54,6 +54,11 @@
   (require 'secrets)
   (require 'null-denote)
 
+  (use-package ox-confluence-modern
+    :straight (:type git :host github :repo "nan0scho1ar/ox-confluence-modern" :files ("*.el"))
+    :ensure t)
+
+
   (setq null-font-preset 'laptop
         null-font-big-preset 'laptop-big))
 
