@@ -72,11 +72,10 @@
   (setq null-font-preset 'desktop
         null-font-big-preset 'big))
 
-(let ((name (system-name)))
-  (pcase name
-    ("ucnd1387l61" (null/init-work-config))
-    ("station" (null/init-home-config))
-    (_ (message "No matching system configuration"))))
+(pcase (system-name)
+  ("ucnd1387l61" (null/init-work-config))
+  ("station" (null/init-home-config))
+  (_ (message "No matching system configuration")))
 
 ;; Reload the font
 (fontaine-set-preset null-font-preset)
