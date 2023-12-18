@@ -89,48 +89,11 @@
   (add-to-list 'auto-mode-alist '("\\.tsx\\'" . tsx-ts-mode))
   (add-to-list 'auto-mode-alist '("\\.ts\\'" . typescript-ts-mode))
   (add-to-list 'auto-mode-alist '("\\.y[a]?ml\\'" . yaml-ts-mode))
-  
+
   (global-treesit-auto-mode +1))
 
 (use-package evil-ts
   :straight (:type git :host github :repo "foxfriday/evil-ts"))
-;; Treesitter
-;; (use-package tree-sitter
-;;   :ensure t
-;;   :config
-;;   (global-tree-sitter-mode)
-;;   (add-hook 'tree-sitter-after-on-hook #'tree-sitter-hl-mode))
-
-;; (use-package tree-sitter-langs
-;;   :ensure tree-sitter)
-
-;; (use-package evil-textobj-tree-sitter :ensure t
-;;   :after evil
-;;   :config
-;;   ;; bind `function.outer`(entire function block) to `f` for use in things like `vaf`, `yaf`
-;;   (define-key evil-outer-text-objects-map "f" (evil-textobj-tree-sitter-get-textobj "function.outer"))
-;;   ;; bind `function.inner`(function block without name and args) to `f` for use in things like `vif`, `yif`
-;;   (define-key evil-inner-text-objects-map "f" (evil-textobj-tree-sitter-get-textobj "function.inner"))
-
-;;   ;; You can also bind multiple items and we will match the first one we can find
-;;   (define-key evil-outer-text-objects-map "a" (evil-textobj-tree-sitter-get-textobj ("conditional.outer" "loop.outer")))
-
-;;   ;; Goto start of next function
-;;   (define-key evil-normal-state-map (kbd "]f") (lambda ()
-;;                                                  (interactive)
-;;                                                  (evil-textobj-tree-sitter-goto-textobj "function.outer")))
-;;   ;; Goto start of previous function
-;;   (define-key evil-normal-state-map (kbd "[f") (lambda ()
-;;                                                  (interactive)
-;;                                                  (evil-textobj-tree-sitter-goto-textobj "function.outer" t)))
-;;   ;; Goto end of next function
-;;   (define-key evil-normal-state-map (kbd "]F") (lambda ()
-;;                                                  (interactive)
-;;                                                  (evil-textobj-tree-sitter-goto-textobj "function.outer" nil t)))
-;;   ;; Goto end of previous function
-;;   (define-key evil-normal-state-map (kbd "[F") (lambda ()
-;;                                                  (interactive)
-;;                                                  (evil-textobj-tree-sitter-goto-textobj "function.outer" t t))))
 
 (provide 'null-treesit)
 
