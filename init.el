@@ -24,6 +24,7 @@
   (add-to-list 'recentf-exclude no-littering-var-directory)
   (add-to-list 'recentf-exclude no-littering-etc-directory)
   (recentf-mode 1)
+  (run-at-time nil (* 5 60) 'recentf-save-list)
   (no-littering-theme-backups)
   (setq custom-file (no-littering-expand-etc-file-name "custom.el")))
 
