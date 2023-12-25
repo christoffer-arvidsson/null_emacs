@@ -15,14 +15,22 @@
   :custom
   (corfu-on-exacs-match nil)
   (corfu-cycle t)
-  (corfu-auto-delay 0.5)
+  (corfu-auto-delay 0.25)
   (corfu-auto-prefix 3)
   (corfu-auto t)
   (corfu-quit-no-match 'separator)
-
   ;; popupinfo
   (corfu-popupinfo-delay 0.5)
   :config
+  (defun corfu-move-to-minibuffer ()
+    (interactive)
+    (when completion-in-region--data
+      (let ((completion-extra-properties corfu--extra)
+            completion-cycle-threshold completion-cycling)
+        (apply #'consult-completion-in-region completion-in-region--data))))
+  (keymap-set corfu-map "M-m" #'corfu-move-to-minibuffer)
+  (add-to-list 'corfu-continue-commands #'corfu-move-to-minibuffer)
+
   (corfu-echo-mode +1)
   (corfu-popupinfo-mode +1)
   :init
@@ -115,13 +123,7 @@
                                 (thing-at-point 'symbol))))
 
 (use-package embark
-  :ensure t
-  :bind
-  (("C-." . embark-act)         ;; pick some comfortable binding
-   ("C-," . embark-export)         ;; pick some comfortable binding
-   ("M-." . embark-dwim)        ;; good alternative: M-.
-   ("C-h B" . embark-bindings)) ;; alternative for `describe-bindings'
-  )
+  :ensure t)
 
 ;; Consult users will also want the embark-consult package.
 (use-package embark-consult
@@ -166,5 +168,14 @@
 
   ;; Enable recursive minibuffers
   (setq enable-recursive-minibuffers t))
+
+(general-define-key
+ :states 'normal
+ :keymaps 'override
+ "C-." 'embark-act
+ "C-," 'embark-export
+ "M-." 'embark-dwim
+ "C-h B" 'embark-bindings)
+
 
 (provide 'null-completion)
