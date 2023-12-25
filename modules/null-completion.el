@@ -115,12 +115,7 @@
    ("C-," . embark-export)         ;; pick some comfortable binding
    ("M-." . embark-dwim)        ;; good alternative: M-.
    ("C-h B" . embark-bindings)) ;; alternative for `describe-bindings'
-  :config
-  ;; Hide the mode line of the Embark live/completions buffers
-  (add-to-list 'display-buffer-alist
-               '("\\`\\*Embark Collect \\(Live\\|Completions\\)\\*"
-                 nil
-                 (window-parameters (mode-line-format . none)))))
+  )
 
 ;; Consult users will also want the embark-consult package.
 (use-package embark-consult
