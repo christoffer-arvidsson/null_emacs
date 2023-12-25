@@ -13,20 +13,26 @@
   :straight (:files (:defaults "extensions/*"))
   :after orderless
   :custom
-  (corfu-on-exact-match nil)
+  (corfu-on-exacs-match nil)
   (corfu-cycle t)
+  (corfu-auto-delay 0.5)
   (corfu-auto-prefix 3)
-  (corfu-echo-documentation 0.25)
   (corfu-auto t)
   (corfu-quit-no-match 'separator)
-  (corfu-on-exact-match nil)
 
   ;; popupinfo
   (corfu-popupinfo-delay 0.5)
   :config
-
+  (corfu-echo-mode +1)
   (corfu-popupinfo-mode +1)
-  (global-corfu-mode))
+  :init
+  (global-corfu-mode)
+
+  ;; https://github.com/emacs-evil/evil-collection/issues/766
+  (advice-remove 'corfu--setup 'evil-normalize-keymaps)
+  (advice-remove 'corfu--teardown 'evil-normalize-keymaps)
+  (advice-add 'corfu--setup :after (lambda (&rest r) (evil-normalize-keymaps)))
+  (advice-add 'corfu--teardown :after  (lambda (&rest r) (evil-normalize-keymaps))))
 
 (use-package cape
   :ensure t
