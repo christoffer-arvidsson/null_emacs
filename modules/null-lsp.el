@@ -21,7 +21,7 @@
   :config
   (defun my/eglot-capf ()
     (setq-local completion-at-point-functions
-                (list (cape-super-capf
+                (list (cape-capf-super
                        #'eglot-completion-at-point
                        (cape-company-to-capf #'company-yasnippet)))))
 
