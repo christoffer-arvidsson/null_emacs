@@ -9,6 +9,7 @@
 (use-package eglot
   :ensure t
   :after cape
+  :straight (:type built-in)
   :hook
   (c-mode . eglot-ensure)
   (c-ts-base-mode . eglot-ensure)
@@ -30,6 +31,7 @@
 
 (use-package flymake
   :after eglot
+  :straight (:type built-in)
   :custom
   (flymake-fringe-indicator-position 'right-fringe)
   :ensure t)
