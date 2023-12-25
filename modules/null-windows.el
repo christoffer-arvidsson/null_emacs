@@ -121,7 +121,6 @@ the only window, use evil-window-move-* (e.g. `evil-window-move-far-left')."
   (winner-mode +1))
 
 (use-package harpoon
-  :straight (:type git :host github :repo "joncol/harpoon.el" :branch "fix-project-root-bug")
   :custom
   (harpoon-separate-by-branch t)
   (harpoon-project-package 'project)
