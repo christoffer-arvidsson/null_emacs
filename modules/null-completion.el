@@ -131,7 +131,9 @@
   ;; auto-updating embark collect buffer
   :hook (embark-collect-mode . consult-preview-at-point-mode))
 
-(use-package prescient)
+(use-package prescient
+  :config
+  (prescient-persist-mode +1))
 
 (use-package corfu-prescient
   :ensure t
