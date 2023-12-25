@@ -62,6 +62,13 @@
   (setq null-font-preset 'laptop
         null-font-big-preset 'laptop-big))
 
+(defun null/init-shuttle-config ()
+  "Do work specific initialization."
+  (message "using shuttle configuration.")
+
+  (setq null-font-preset 'laptop
+        null-font-big-preset 'laptop-big))
+
 (defun null/init-home-config ()
   "Do home specific initialization."
   (message "using home configuration.")
@@ -75,6 +82,7 @@
 (pcase (system-name)
   ("ucnd1387l61" (null/init-work-config))
   ("station" (null/init-home-config))
+  ("shuttle" (null/init-shuttle-config))
   (_ (message "No matching system configuration")))
 
 ;; Reload the font
