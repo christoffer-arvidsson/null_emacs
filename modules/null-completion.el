@@ -21,7 +21,6 @@
   (corfu-auto-prefix 3)
   (corfu-auto t)
   (corfu-quit-no-match 'separator)
-  ;; popupinfo
   (corfu-popupinfo-delay 0.5)
   :config
   (defun corfu-move-to-minibuffer ()
@@ -37,7 +36,7 @@
   :init
   (global-corfu-mode)
 
-  ;; https://github.com/emacs-evil/evil-collection/issues/766
+  ;; TODO: https://github.com/emacs-evil/evil-collection/issues/766
   (advice-remove 'corfu--setup 'evil-normalize-keymaps)
   (advice-remove 'corfu--teardown 'evil-normalize-keymaps)
   (advice-add 'corfu--setup :after (lambda (&rest r) (evil-normalize-keymaps)))
@@ -53,11 +52,6 @@
 (use-package company
   :after cape corfu
   :ensure t)
-
-(use-package emacs
-  :init
-  ;; TAB cycle if there are only few candidates
-  (setq completion-cycle-threshold 3))
 
 (use-package vertico
   :custom
@@ -124,6 +118,7 @@
                                  (region-beginning) (region-end))
                                 (thing-at-point 'symbol))))
 
+;; Embark
 (use-package embark
   :after vertico
   :general (:keymaps 'vertico-map
@@ -133,15 +128,15 @@
             "C-h B" 'embark-bindings)
   :ensure t)
 
-;; Consult users will also want the embark-consult package.
 (use-package embark-consult
   :ensure t
-  :after (embark consult)
+  :after embark consult
   :demand t ; only necessary if you have the hook below
   ;; if you want to have consult previews as you move around an
   ;; auto-updating embark collect buffer
   :hook (embark-collect-mode . consult-preview-at-point-mode))
 
+;; Prescient
 (use-package prescient
   :config
   (prescient-persist-mode +1))
@@ -158,6 +153,10 @@
 
 (use-package emacs
   :hook (minibuffer-setup-hook #'cursor-intangible-mode)
+  :init
+  ;; TAB cycle if there are only few candidates
+  (setq completion-cycle-threshold 3)
+
   :config
   ;; Add prompt indicator to `completing-read-multiple'.
   ;; Alternatively try `consult-completing-read-multiple'.
@@ -168,11 +167,6 @@
   ;; Do not allow the cursor in the minibuffer prompt
   (setq minibuffer-prompt-properties
         '(read-only t cursor-intangible t face minibuffer-prompt))
-
-  ;; Emacs 28: Hide commands in M-x which do not work in the current mode.
-  ;; Vertico commands are hidden in normal buffers.
-  ;; (setq read-extended-command-predicate
-  ;;       #'command-completion-default-include-p)
 
   ;; Enable recursive minibuffers
   (setq enable-recursive-minibuffers t))
