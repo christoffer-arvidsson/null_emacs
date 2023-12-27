@@ -12,6 +12,8 @@
 (use-package corfu
   :straight (:files (:defaults "extensions/*"))
   :after orderless
+  :general (:states 'normal :keymaps 'corfu-mode-map
+                    "M-m" #'corfu-move-to-minibuffer)
   :custom
   (corfu-on-exacs-match nil)
   (corfu-cycle t)
@@ -28,7 +30,6 @@
       (let ((completion-extra-properties corfu--extra)
             completion-cycle-threshold completion-cycling)
         (apply #'consult-completion-in-region completion-in-region--data))))
-  (keymap-set corfu-map "M-m" #'corfu-move-to-minibuffer)
   (add-to-list 'corfu-continue-commands #'corfu-move-to-minibuffer)
 
   (corfu-echo-mode +1)
@@ -123,6 +124,12 @@
                                 (thing-at-point 'symbol))))
 
 (use-package embark
+  :after vertico
+  :general (:keymaps 'vertico-map
+            "C-." 'embark-act
+            "C-," 'embark-export
+            "M-." 'embark-dwim
+            "C-h B" 'embark-bindings)
   :ensure t)
 
 ;; Consult users will also want the embark-consult package.
@@ -168,14 +175,5 @@
 
   ;; Enable recursive minibuffers
   (setq enable-recursive-minibuffers t))
-
-(general-define-key
- :states 'normal
- :keymaps 'override
- "C-." 'embark-act
- "C-," 'embark-export
- "M-." 'embark-dwim
- "C-h B" 'embark-bindings)
-
 
 (provide 'null-completion)
