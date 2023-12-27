@@ -53,6 +53,12 @@
           (ranger project-root)
         (message "No project found.")))))
 
+(use-package dired
+  :straight (:type built-in)
+  :ensure t
+  :custom
+  (dired-dwim-target t))
+
 (use-package diredfl
   :ensure t
   :config
