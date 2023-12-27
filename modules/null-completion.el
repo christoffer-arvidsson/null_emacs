@@ -12,8 +12,8 @@
 (use-package corfu
   :straight (:files (:defaults "extensions/*"))
   :after orderless
-  :general (:states 'normal :keymaps 'corfu-mode-map
-                    "M-m" #'corfu-move-to-minibuffer)
+  :general (:keymaps 'corfu-mode-map
+                     "M-m" #'corfu-move-to-minibuffer)
   :custom
   (corfu-on-exacs-match nil)
   (corfu-cycle t)
@@ -44,14 +44,32 @@
 
 (use-package cape
   :ensure t
+  :bind (("C-<tab> p" . completion-at-point) ;; capf
+         ("C-<tab> t" . complete-tag)        ;; etags
+         ("C-<tab> d" . cape-dabbrev)        ;; or dabbrev-completion
+         ("C-<tab> h" . cape-history)
+         ("C-<tab> f" . cape-file)
+         ("C-<tab> k" . cape-keyword)
+         ("C-<tab> s" . cape-elisp-symbol)
+         ("C-<tab> e" . cape-elisp-block)
+         ("C-<tab> a" . cape-abbrev)
+         ("C-<tab> l" . cape-line)
+         ("C-<tab> w" . cape-dict)
+         ("C-<tab> :" . cape-emoji)
+         ("C-<tab> \\" . cape-tex)
+         ("C-<tab> _" . cape-tex)
+         ("C-<tab> ^" . cape-tex)
+         ("C-<tab> &" . cape-sgml)
+         ("C-<tab> r" . cape-rfc1345))
   :init
   (add-to-list 'completion-at-point-functions #'cape-file)
   (add-to-list 'completion-at-point-functions #'cape-dabbrev))
 
-;; delete me once yas has a good cape adapter
-(use-package company
-  :after cape corfu
-  :ensure t)
+(use-package yasnippet-capf
+  :after cape yasnippet
+  :ensure t
+  :config
+  (add-to-list 'completion-at-point-functions #'yasnippet-capf))
 
 (use-package vertico
   :custom
@@ -67,9 +85,10 @@
 
 (use-package orderless
   :custom
-  (completion-styles '(orderless basic))
+  (completion-styles '(orderless partial-completion basic))
   (completion-category-defaults nil)
-  (completion-category-overrides '((eglot (styles basic partial-completion))))
+  (completion-category-overrides '((eglot (styles orderless))
+                                   (eglot-capf (styles orderless))))
   (orderless-component-separator "[ &]"))
 
 (use-package marginalia
