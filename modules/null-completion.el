@@ -86,6 +86,7 @@
   :hook (completion-list-mode . consult-preview-at-point-mode)
   :custom
   (xref-show-xrefs-function #'consult-xref)
+  (xref-show-definitions-function #'consult-xref)
   :bind (:map minibuffer-local-map
               ("M-s". consult-history)
               ("M-r". consult-history))
