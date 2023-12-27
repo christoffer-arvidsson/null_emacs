@@ -6,10 +6,21 @@
 
 (require 'null-keybinds)
 
+(use-package eldoc
+  :ensure t)
+
+(use-package eldoc-box
+  :after eldoc
+  :ensure t
+  :config
+  ;; These need to be evil since they have to override evil-collection bindings
+  (evil-define-key 'normal 'eglot-mode-map (kbd "K") #'eldoc-box-help-at-point)
+  (evil-define-key 'normal 'eglot-mode-map (kbd "K") #'eldoc-box-help-at-point)
+  (evil-define-key 'normal 'eglot-mode-map (kbd "C-K") #'eldoc-doc-buffer))
+
 (use-package eglot
   :ensure t
   :after cape
-  :straight (:type built-in)
   :hook
   (c-mode . eglot-ensure)
   (c-ts-base-mode . eglot-ensure)
@@ -19,19 +30,35 @@
   (python-ts-mode . eglot-ensure)
   (python-mode . eglot-ensure)
   :config
-  (defun my/eglot-capf ()
+  ;; Modes
+  (add-to-list 'eglot-server-programs '((c++-ts-mode c++-ts-base-mode cuda-mode c++-mode c-mode) "clangd"))
+
+  ;; Add capfs to eglot
+  (defun null/eglot-capf ()
+    "Create capf for eglot+cape capfs."
     (setq-local completion-at-point-functions
                 (list (cape-capf-super
                        #'eglot-completion-at-point
-                       (cape-company-to-capf #'company-yasnippet)))))
+                       #'yasnippet-capf
+                       #'cape-file))))
 
-  (add-hook 'eglot-managed-mode-hook #'my/eglot-capf)
-  (advice-add 'eglot-completion-at-point :around #'cape-wrap-buster)
-  (add-to-list 'eglot-server-programs '((cuda-mode c++-mode c-mode c++-ts-mode c++-ts-base-mode) "clangd")))
+  (add-hook 'eglot-managed-mode-hook #'null/eglot-capf)
+  (advice-add #'eglot-completion-at-point :around #'cape-wrap-buster)
+
+  ;; Hover documentation
+  (add-hook 'eglot-managed-mode-hook
+            (lambda () (setq eldoc-documentation-strategy
+                             #'eldoc-documentation-compose)))
+  (add-hook 'eglot-managed-mode-hook
+            (lambda () (setq eldoc-documentation-functions
+                             '(flymake-eldoc-function
+                               eglot-signature-eldoc-function))))
+
+  ;; Turn off documentation on hover
+  (add-hook 'eglot-managed-mode-hook (lambda () (eldoc-mode -1))))
 
 (use-package flymake
   :after eglot
-  :straight (:type built-in)
   :custom
   (flymake-fringe-indicator-position 'right-fringe)
   :ensure t)
