@@ -13,18 +13,23 @@
   :custom
   (dumb-jump-prefer-searcher 'rg))
 
-;; Use project.el
-(defun null-project-override (dir)
-  (let ((override (locate-dominating-file dir ".project.el")))
-    (if override
-        (cons 'transient override)
-      nil)))
 (use-package project
   :ensure t
   :config
-  (define-key project-prefix-map "m" #'magit-project-status)
+  (defun null-project-override (dir)
+    (let ((override (locate-dominating-file dir ".project.el")))
+      (if override
+          (cons 'transient override)
+        nil)))
+
   (add-to-list 'project-find-functions #'null-project-override)
-  (add-to-list 'project-switch-commands '(magit-project-status "Magit") t))
+
+  ;; Magit
+  (define-key project-prefix-map "m" #'magit-project-status)
+  (add-to-list 'project-switch-commands '(magit-project-status "Magit") t)
+  ;; Dired
+  (define-key project-prefix-map "." #'project-dired)
+  (add-to-list 'project-switch-commands '(project-dired "Dired") t))
 
 ;;; Version control
 
