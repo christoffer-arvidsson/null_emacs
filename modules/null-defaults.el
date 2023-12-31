@@ -6,6 +6,9 @@
 (setq-default evil-shift-width tab-width)
 (setq-default indent-tabs-mode nil)
 (setq tramp-default-method "ssh")
+(with-eval-after-load 'tramp
+    (add-to-list 'tramp-remote-path 'tramp-own-remote-path))
+
 (setq display-line-numbers-type 'relative)
 (setq global-display-line-numbers-mode t)
 (setq global-display-fill-column-indicator-modes
