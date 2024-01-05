@@ -6,6 +6,7 @@ straight/repos/*
 var/
 etc/
 elpy/
+elpaca/
 tree-sitter/
 /.local/
 

@@ -2,7 +2,7 @@
 
 ;;; Code:
 (use-package kind-icon
-  :ensure t
+
   :after corfu
   :custom
   (kind-icon-default-face 'corfu-default) ; to compute blended backgrounds correctly
@@ -10,7 +10,7 @@
   (add-to-list 'corfu-margin-formatters #'kind-icon-margin-formatter))
 
 (use-package corfu
-  :straight (:files (:defaults "extensions/*"))
+  :elpaca (:files (:defaults "extensions/*"))
   :after orderless
   :general (:keymaps 'corfu-mode-map
                      "M-m" #'corfu-move-to-minibuffer)
@@ -43,7 +43,7 @@
   (advice-add 'corfu--teardown :after  (lambda (&rest r) (evil-normalize-keymaps))))
 
 (use-package cape
-  :ensure t
+
   :bind (("C-' p" . completion-at-point) ;; capf
          ("C-' t" . complete-tag)        ;; etags
          ("C-' d" . cape-dabbrev)        ;; or dabbrev-completion
@@ -67,7 +67,7 @@
 
 (use-package yasnippet-capf
   :after cape yasnippet
-  :ensure t
+
   :config
   (add-to-list 'completion-at-point-functions #'yasnippet-capf))
 
@@ -145,10 +145,10 @@
             "C-," 'embark-export
             "M-." 'embark-dwim
             "C-h B" 'embark-bindings)
-  :ensure t)
+  )
 
 (use-package embark-consult
-  :ensure t
+
   :after embark consult
   :demand t ; only necessary if you have the hook below
   ;; if you want to have consult previews as you move around an
@@ -160,10 +160,10 @@
   :config
   (prescient-persist-mode +1))
 
-(use-package corfu-prescient
-  :ensure t
-  :config
-  (corfu-prescient-mode +1))
+;; (use-package corfu-prescient
+;;   :after (corfu prescient)
+;;   :config
+;;   (corfu-prescient-mode +1))
 
 (use-package vertico-prescient
   :after (vertico prescient)
@@ -171,6 +171,7 @@
   (vertico-prescient-mode +1))
 
 (use-package emacs
+  :elpaca nil
   :hook (minibuffer-setup-hook #'cursor-intangible-mode)
   :init
   ;; TAB cycle if there are only few candidates

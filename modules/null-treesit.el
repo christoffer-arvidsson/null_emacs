@@ -31,7 +31,7 @@
 ;;; Code:
 
 (use-package treesit
-  :straight (:type built-in)
+  :elpaca nil ; built-in
   :custom
   (treesit-extra-load-path (list (concat user-emacs-directory "tree-sitter/")))
   (treesit-font-lock-level 4))
@@ -93,7 +93,7 @@
   (global-treesit-auto-mode +1))
 
 (use-package evil-ts
-  :straight (:type git :host github :repo "foxfriday/evil-ts"))
+  :elpaca (:host github :repo "foxfriday/evil-ts"))
 
 (provide 'null-treesit)
 

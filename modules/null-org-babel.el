@@ -52,20 +52,20 @@
   (add-to-list 'org-src-lang-modes '("jupyter-python" . python))
   (add-to-list 'org-structure-template-alist '("ju" . "src jupyter-python")))
 
-(org-babel-do-load-languages
- 'org-babel-load-languages
- '((emacs-lisp . t)
-   (python . t)
-   (jupyter . t)
-   (shell . t)
-   (C . t)
-   (gnuplot . t)))
-
-
 ;; Had to to this to properly use this function.
 ;; This is nice to have as it makes github recognize the code blocks as python.
 ;; Plus, I have no use for normal python blocks anyway
 (with-eval-after-load 'ob-jupyter
+  (org-babel-do-load-languages
+   'org-babel-load-languages
+   '((emacs-lisp . t)
+     (python . t)
+     (jupyter . t)
+     (shell . t)
+     (C . t)
+     (gnuplot . t)))
+
+
   (org-babel-jupyter-override-src-block "python"))
 
 

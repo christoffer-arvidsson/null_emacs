@@ -30,8 +30,17 @@
 
 ;;; Code:
 
-(use-package tex
-  :straight auctex
+(use-package auctex
+  :elpaca  (auctex :pre-build (("./autogen.sh")
+                               ("./configure"
+                                "--without-texmf-dir"
+                                "--with-packagelispdir=./"
+                                "--with-lispdir=./"
+                                "--with-packagedatadir=./")
+                               ("make"))
+                   :build (:not elpaca--compile-info) ;; Make will take care of this step
+                   :files ("*.el" "doc/*.info*" "etc" "images" "latex" "style")
+                   :version (lambda (_) (require 'tex-site) AUCTeX-version))
   :mode
   ("\\.tex\\'" . latex-mode) ; Must first activate the inferior Emacs latex mode
   :hook
@@ -46,13 +55,13 @@
 
   (setq-default TeX-master 'dwim)
 
-  (setq TeX-data-directory (straight--repos-dir "auctex")
+  (setq TeX-data-directory (expand-file-name "auctex" elpaca-repos-directory)
         TeX-lisp-directory TeX-data-directory
 
                                         ; Or custom-set-variables as follows.
                                         ; M-x describe-variable RET preview-TeX-style-dir RET
                                         ;`(preview-TeX-style-dir ,(concat ".:" (straight--repos-dir "auctex") "latex:"))
-        preview-TeX-style-dir (concat ".:" (straight--repos-dir "auctex") "latex:")
+        preview-TeX-style-dir (concat ".:" (expand-file-name "auctex" elpaca-repos-directory) "latex:")
 
         TeX-parse-self t ; parse on load
         TeX-auto-save t  ; parse on save

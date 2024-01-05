@@ -166,7 +166,8 @@ MODE is either `c' or `cpp'."
 
 ;; Mode
 (use-package cc-mode
-  :ensure t
+  :elpaca nil ; built-in
+
   :custom
   (ff-search-directories
    '("./base"
@@ -185,11 +186,11 @@ MODE is either `c' or `cpp'."
 (use-package clang-format
   :custom
   (clang-format-style "file")
-  :ensure t)
+  )
 
 ;; Cuda
 (use-package cuda-mode
-  :ensure t
+
   :config
   (define-derived-mode cuda-mode c++-mode "CUDA"
     "CUDA mode."
@@ -198,14 +199,14 @@ MODE is either `c' or `cpp'."
         (cons '("\\.cu$" . c++-mode) auto-mode-alist)))
 
 (use-package glsl-mode
-  :ensure t
+
   :config
   (define-derived-mode glsl-mode c-ts-mode "GLSL"
     "GLSL mode."
     (setq c-basic-offset 4)))
 
 (use-package bazel
-  :ensure t
+
   :custom
   (bazel-command "./bazel.py")
   :config

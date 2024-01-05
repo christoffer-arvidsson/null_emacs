@@ -9,12 +9,9 @@
 ;; Add the modules folder to the load path
 (add-to-list 'load-path (expand-file-name "modules/" user-emacs-directory))
 
-;; Init package system
-(null-package-initialize)
-
 ;; No littering (load as early as possible)
 (use-package no-littering
-  :ensure t
+
   :config
   ;; Littering settings
   (require 'recentf)
@@ -27,6 +24,8 @@
   (run-at-time nil (* 5 60) 'recentf-save-list)
   (no-littering-theme-backups)
   (setq custom-file (no-littering-expand-etc-file-name "custom.el")))
+
+(elpaca-wait)
 
 ;; Load the user configuration file if it exists
 (when (file-exists-p null-config-file)

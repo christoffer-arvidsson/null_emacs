@@ -16,7 +16,7 @@
   (smartparens-global-mode))
 
 (use-package evil-snipe
-  :ensure t
+
   :after evil
   :hook (magit-mode . turn-off-evil-snipe-override-mode)
   :config
@@ -24,30 +24,30 @@
   (evil-snipe-override-mode +1))
 
 (use-package evil-quickscope
-  :ensure t
+
   :config
   (global-evil-quickscope-mode +1))
 
 (use-package evil-fringe-mark
-  :ensure t
+
   :config
   (setq-default evil-fringe-mark-side 'left-fringe)
   (global-evil-fringe-mark-mode 1))
 
 (use-package evil-surround
-  :ensure t
+
   :config
   (global-evil-surround-mode 1))
 
 ;; Align stuff
 (use-package evil-lion
-  :ensure t
+
   :config
   (evil-lion-mode))
 
 ;; Extra text objects
 (use-package evil-args
-  :ensure t
+
   :config
   ;; bind evil-args text objects
   (define-key evil-inner-text-objects-map "a" 'evil-inner-arg)
@@ -64,7 +64,7 @@
 
 ;; Indent text object
 (use-package evil-indent-plus
-  :ensure t
+
   :config
   (evil-indent-plus-default-bindings))
 
@@ -77,18 +77,18 @@
 
 (use-package evil-multiedit
   :after evil
-  :ensure t
+
   :config
   (evil-multiedit-default-keybinds))
 
 (use-package evil-mc
   :after evil
-  :ensure t
+
   :config
   (global-evil-mc-mode +1))
 
 (use-package drag-stuff
-  :ensure t
+
   :config
   (drag-stuff-global-mode +1)
   (drag-stuff-define-keys))
@@ -165,35 +165,35 @@
         (alist-get ?. avy-dispatch-alist) 'avy-action-embark))
 
 (use-package iedit
-  :ensure t)
+  )
 
 (use-package undo-tree
-  :ensure t
+
   :config
   (global-undo-tree-mode))
 
 ;; Snippets
 (use-package yasnippet
-  :ensure t
+
   :custom
   (yas-snippet-dirs (list (expand-file-name "snippets/" user-emacs-directory)))
   :config
   (yas-global-mode 1))
 
 (use-package yasnippet-snippets
-  :straight (:type git :host github :repo "christoffer-arvidsson/yasnippet-snippets")
+  :elpaca (:host github :repo "christoffer-arvidsson/yasnippet-snippets")
   :ensure yasnippet)
 
 (use-package yasnippet-radical-snippets
-  :straight (:type git :host github :repo "Xaldew/yasnippet-radical-snippets" :files (:defaults "snippets" "yasnippet-radical-snippets.el"))
-  :ensure t
+  :elpaca (:host github :repo "Xaldew/yasnippet-radical-snippets" :files (:defaults "snippets" "yasnippet-radical-snippets.el"))
+
   :after yasnippet
   :config
   (yasnippet-radical-snippets-initialize))
 
 (use-package consult-yasnippet
   :after consult yasnippet
-  :ensure t)
+  )
 
 (null-keybinds-leader-key-def
   :states 'normal

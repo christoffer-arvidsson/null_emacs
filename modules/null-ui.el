@@ -31,11 +31,7 @@
                 conf-mode-hook))
   (add-hook mode (lambda () (display-line-numbers-mode 1))))
 
-;; initialize ui
-(null-ui-init)
-
 (use-package ef-themes
-  :ensure t
   :custom
   (ef-themes-mixed-fonts t)
   (ef-themes-variable-pitch-ui nil))
@@ -44,7 +40,7 @@
 ;; icons
 (use-package nerd-icons
   :after kind-icon
-  :ensure t
+
   :config
   (setq nerd-icons-font-family "Iosevka Nerd Font"))
 
@@ -55,17 +51,15 @@
   (add-hook 'marginalia-mode-hook #'nerd-icons-completion-marginalia-setup))
 
 (use-package nerd-icons-corfu
-  :straight (:type git :host github :repo "LuigiPiucco/nerd-icons-corfu")
+  :elpaca (:host github :repo "LuigiPiucco/nerd-icons-corfu")
   :after (nerd-icons corfu)
-  :ensure t
   :config
   (add-to-list 'corfu-margin-formatters #'nerd-icons-corfu-formatter))
 
 (use-package nerd-icons-dired
   :after nerd-icons
   :hook
-  (dired-mode . nerd-icons-dired-mode)
-  :ensure t)
+  (dired-mode . nerd-icons-dired-mode))
 
 (use-package mood-line
   :custom
@@ -74,11 +68,13 @@
   (mood-line-mode))
 
 (use-package solaire-mode
-  :ensure t
   :config
   (solaire-global-mode +1))
 
-(add-hook 'after-init-hook (lambda () (load-theme null-theme t)))
+(add-hook 'elpaca-after-init-hook (lambda () (load-theme null-theme t)))
+
+;; initialize ui
+(null-ui-init)
 
 (null-keybinds-leader-key-def
   :states 'normal

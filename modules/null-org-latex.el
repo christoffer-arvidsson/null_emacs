@@ -125,7 +125,7 @@
 
 ;; Latex
 (use-package org-fragtog
-  :ensure t
+  
   :hook (org-mode . org-fragtog-mode)
   :config
   (setq org-fragtog-ignore-predicates '(org-at-table-p)))

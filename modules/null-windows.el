@@ -116,6 +116,7 @@ the only window, use evil-window-move-* (e.g. `evil-window-move-far-left')."
 
 ;; Packages
 (use-package winner
+  :elpaca nil ; built-in
   :config
   ;; Allow restoring window changes
   (winner-mode +1))

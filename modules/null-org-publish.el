@@ -31,7 +31,7 @@
 ;;; Code:
 
 (use-package ox-hugo
-   :ensure t)
+   )
 
 (defun orbit/join-dirs (root &rest dirs)
   "Joins a series of directories DIRS together starting at ROOT."

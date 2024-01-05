@@ -10,13 +10,12 @@
     (expand-file-name  "var/eln-cache/" user-emacs-directory))))
 ;; enable async native compilation
 (setq native-comp-deferred-compilation t)
- 
+
 (defvar null-bootstrap-directory (expand-file-name "bootstrap/" user-emacs-directory)
   "Package system bootstrap configuration.")
 
-(load (expand-file-name "null-straight-bootstrap.el" null-bootstrap-directory))
+(load (expand-file-name "null-elpaca-bootstrap.el" null-bootstrap-directory))
 
 ;; Make gc pauses faster by decreasing the threshold.
 (setq gc-cons-threshold (* 100 1000 1000))
 (setq read-process-output-max (* 3 1024 1024)) ;; 3mb
-

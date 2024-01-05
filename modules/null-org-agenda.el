@@ -99,9 +99,11 @@
                                       (buffer-name (marker-buffer marker)))))
                          (if transform (substring cand (1+ (length name))) name)))))
 
-
 (with-eval-after-load 'org
-  (add-hook 'after-save-hook (lambda () (org-update-statistics-cookies t)))
+  (add-hook 'after-save-hook
+            (lambda () (if (derived-mode-p 'org-mode)
+                           (org-update-statistics-cookies t))))
+
   (org-clock-persistence-insinuate) ; hooks for clock persistence
   (setq null/org-capture-todo-file null/org-capture-todo-file
         org-capture-journal-file null/org-capture-journal-file
@@ -171,19 +173,20 @@
         org-fontify-whole-heading-line t
         org-fontify-quote-and-verse-blocks t)
 
-  (setq org-agenda-category-icon-alist
-        `(
-          ("todo" ,(nerd-icons-faicon "nf-fa-check_square"))
-          ("music" ,(nerd-icons-faicon "nf-fa-music"))
-          ("chore" ,(nerd-icons-faicon "nf-fa-repeat"))
-          ("idea" ,(nerd-icons-faicon "nf-fa-lightbulb_o")
-          ("scheduled" ,(nerd-icons-faicon "nf-fa-calendar_check_o"))
-          ("class" ,(nerd-icons-faicon "nf-fa-book"))
-          ("loop" ,(nerd-icons-faicon "nf-fa-repeat"))
-          ("work" ,(nerd-icons-faicon "nf-fa-briefcase"))
-          ("project" ,(nerd-icons-faicon "nf-fa-flag"))
-          ("meeting" ,(nerd-icons-faicon "nf-fa-calendar_o"))
-          ("todo" ,(nerd-icons-faicon "nf-fa-check")))))
+  (with-eval-after-load 'nerd-icons
+    (setq org-agenda-category-icon-alist
+          `(
+            ("todo" ,(nerd-icons-faicon "nf-fa-check_square"))
+            ("music" ,(nerd-icons-faicon "nf-fa-music"))
+            ("chore" ,(nerd-icons-faicon "nf-fa-repeat"))
+            ("idea" ,(nerd-icons-faicon "nf-fa-lightbulb_o")
+             ("scheduled" ,(nerd-icons-faicon "nf-fa-calendar_check_o"))
+             ("class" ,(nerd-icons-faicon "nf-fa-book"))
+             ("loop" ,(nerd-icons-faicon "nf-fa-repeat"))
+             ("work" ,(nerd-icons-faicon "nf-fa-briefcase"))
+             ("project" ,(nerd-icons-faicon "nf-fa-flag"))
+             ("meeting" ,(nerd-icons-faicon "nf-fa-calendar_o"))
+             ("todo" ,(nerd-icons-faicon "nf-fa-check"))))))
 
   (setq org-agenda-custom-commands
         '(

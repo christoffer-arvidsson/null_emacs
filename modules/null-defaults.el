@@ -27,6 +27,7 @@
 
 ;; Save history
 (use-package savehist
+  :elpaca nil ; built-in
   :init
   (savehist-mode))
 
@@ -36,7 +37,7 @@
 (repeat-mode 1)
 
 (use-package super-save
-  :ensure t
+
   :custom
   (super-save-auto-save-when-idle t)
   (super-save-idle-duration 10)
@@ -73,7 +74,7 @@
 
 ;; Helpful
 (use-package helpful
-  :ensure t)
+  )
 
 ;; Cleanup whitespace on save
 (add-hook 'before-save-hook 'whitespace-cleanup)

@@ -40,10 +40,10 @@
   :custom
   (elfeed-db-directory "~/Dropbox/org/elfeed/db/")
   (elfeed-show-entry-switch #'elfeed-display-buffer)
-  :ensure t)
+  )
 
 (use-package elfeed-org
-  :ensure t
+  
   :custom
   (rmh-elfeed-org-files (list "~/Dropbox/org/elfeed/elfeed.org"))
   :config

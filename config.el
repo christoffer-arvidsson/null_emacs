@@ -41,6 +41,8 @@
 (require 'null-apps)
 (require 'null-rss)
 
+(elpaca-wait)
+
 ;; Personal information
 (setq user-full-name "Christoffer Arvidsson"
       user-mail-address "christoffer@arvidson.nu")
@@ -55,9 +57,7 @@
   (require 'null-denote)
 
   (use-package ox-confluence-modern
-    :straight (:type git :host github :repo "nan0scho1ar/ox-confluence-modern" :files ("*.el"))
-    :ensure t)
-
+    :elpaca (:host github :repo "nan0scho1ar/ox-confluence-modern" :files ("*.el")))
 
   (setq null-font-preset 'laptop
         null-font-big-preset 'laptop-big))
@@ -72,10 +72,6 @@
 (defun null/init-home-config ()
   "Do home specific initialization."
   (message "using home configuration.")
-
-  ;; breaks jupyter otherwise
-  (use-package zmq)
-
   (setq null-font-preset 'desktop
         null-font-big-preset 'big))
 
@@ -88,6 +84,8 @@
 ;; Reload the font
 (fontaine-set-preset null-font-preset)
 
+(elpaca-wait)
+(load-theme null-theme t)
 
 (provide 'config)
 ;;; config.el ends here

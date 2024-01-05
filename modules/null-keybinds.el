@@ -51,6 +51,7 @@
 
   (advice-add 'keyboard-escape-quit :around #'my-keyboard-escape-quit--around))
 
+(elpaca-wait)
 
 ;; Evil mode
 (use-package evil

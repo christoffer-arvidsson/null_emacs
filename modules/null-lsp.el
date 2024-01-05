@@ -7,11 +7,10 @@
 (require 'null-keybinds)
 
 (use-package eldoc
-  :ensure t)
+  :elpaca nil)
 
 (use-package eldoc-box
   :after eldoc
-  :ensure t
   :config
   ;; These need to be evil since they have to override evil-collection bindings
   (evil-define-key 'normal 'eglot-mode-map (kbd "K") #'eldoc-box-help-at-point)
@@ -19,7 +18,7 @@
   (evil-define-key 'normal 'eglot-mode-map (kbd "C-K") #'eldoc-doc-buffer))
 
 (use-package eglot
-  :ensure t
+  :elpaca nil
   :after cape
   :hook
   (c-mode . eglot-ensure)
@@ -58,10 +57,10 @@
   (add-hook 'eglot-managed-mode-hook (lambda () (eldoc-mode -1))))
 
 (use-package flymake
-  :after eglot
+  :elpaca nil ; built-in
+  :after eglot eldoc
   :custom
-  (flymake-fringe-indicator-position 'right-fringe)
-  :ensure t)
+  (flymake-fringe-indicator-position 'right-fringe))
 
 (null-keybinds-leader-key-def
   :keymaps 'eglot-mode-map

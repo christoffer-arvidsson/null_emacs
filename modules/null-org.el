@@ -115,7 +115,7 @@
     (set-face-attribute (car face) nil :font "Iosevka" :weight 'bold :height (cdr face))))
 
 (use-package org
-  :ensure t
+  :elpaca nil
   :hook
   (org-mode . null/org-mode-setup)
   (org-babel-after-execute . org-redisplay-inline-images)
@@ -229,10 +229,10 @@
   (global-org-modern-mode))
 
 (use-package ox-pandoc
-  :ensure t)
+  )
 
 (use-package htmlize
-  :ensure t)
+  )
 
 (null-keybinds-major-key-def
   :states 'normal

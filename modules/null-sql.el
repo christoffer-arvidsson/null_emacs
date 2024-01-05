@@ -35,10 +35,10 @@
 ;;; Code:
 (use-package sql-indent
   :hook (sql-mode . sqlind-minor-mode)
-  :ensure t)
+  )
 
 (use-package sqlup-mode
-  :ensure t
+  
   :hook
   (sql-mode . sqlup-mode)
   (sql-interactive-mode . sqlup-mode))

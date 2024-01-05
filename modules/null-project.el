@@ -1,20 +1,35 @@
 ;;; Code:
 
-;; Blazingly fast
+;; -----------------------------------------
+;; See https://github.com/progfolio/elpaca/issues/216
+(defun +elpaca-unload-seq (e)
+  (and (featurep 'seq) (unload-feature 'seq t))
+  (elpaca--continue-build e))
+
+;; You could embed this code directly in the reicpe, I just abstracted it into a function.
+(defun +elpaca-seq-build-steps ()
+  (append (butlast (if (file-exists-p (expand-file-name "seq" elpaca-builds-directory))
+                       elpaca--pre-built-steps elpaca-build-steps))
+          (list '+elpaca-unload-seq 'elpaca--activate-package)))
+
+(use-package seq
+  :elpaca `(seq :build ,(+elpaca-seq-build-steps)))
+;; -----------------------------------------
+
 (use-package rg
-  :ensure t
   :config
   (rg-enable-default-bindings))
 
 ;; Dumb jump for jumping to symbol
 (use-package dumb-jump
-  :ensure t
+
   :hook (xref-backend-functions . #'dumb-jump-xref-activate)
   :custom
   (dumb-jump-prefer-searcher 'rg))
 
 (use-package project
-  :ensure t
+  :elpaca nil ; built-in
+
   :config
   (defun null-project-override (dir)
     (let ((override (locate-dominating-file dir ".project.el")))
@@ -43,6 +58,7 @@
 (use-package hydra)
 
 (use-package smerge-mode
+  :elpaca nil ; built-in
   :after hydra
   :config
   (defhydra unpackaged/smerge-hydra
@@ -103,9 +119,12 @@ _p_rev       _u_pper              _=_: upper/lower       _r_esolve
   (add-hook 'git-timemachine-mode-hook #'evil-normalize-keymaps))
 
 ;; Use ripgrep over grep
-(grep-apply-setting
- 'grep-find-command
- '("rg -n -H --no-heading -e '' $(git rev-parse --show-toplevel || pwd)" . 27))
+(use-package grep
+  :elpaca nil ; built-in
+  :config
+  (grep-apply-setting
+   'grep-find-command
+   '("rg -n -H --no-heading -e '' $(git rev-parse --show-toplevel || pwd)" . 27)))
 
 (setq compilation-scroll-output t)
 

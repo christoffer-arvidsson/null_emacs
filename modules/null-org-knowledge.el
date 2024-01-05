@@ -118,7 +118,7 @@ exist without jumping to it"
 
 
 (use-package citar
-  :after org
+  :after org nerd-icons
   :bind (:map minibuffer-local-map
               ("M-b" . citar-insert-preset))
   :custom
@@ -211,7 +211,7 @@ exist without jumping to it"
         citar-org-roam-capture-template-key "r"))
 
 (use-package consult-org-roam
-   :ensure t
+
    :after org-roam
    :init
    (require 'consult-org-roam)
@@ -227,20 +227,17 @@ exist without jumping to it"
    (consult-org-roam-buffer-after-buffers t))
 
 ;; Review dependencies
-(use-package org-drill
-  :ensure t
-  :after org)
 (use-package ht)
 (use-package ts
-  :ensure t)
+  )
 
 (use-package org-format
   :hook (org-mode . org-format-on-save-mode)
-  :straight (:type git :host github :repo "chrisbarrett/nursery" :files ("lisp/org-format.el" "lisp/org-capture-detect.el")))
+  :elpaca (:host github :repo "chrisbarrett/nursery" :files ("lisp/org-format.el" "lisp/org-capture-detect.el")))
 
 (use-package org-roam-review
-  :straight (:type git :host github :repo "chrisbarrett/nursery" :files ("lisp/org-roam-review.el" "lisp/org-tags-filter.el" "lisp/plisty.el"))
-  :ensure ts
+  :elpaca (:host github :repo "chrisbarrett/nursery" :files ("lisp/org-roam-review.el" "lisp/org-tags-filter.el" "lisp/plisty.el"))
+  s
   :after (org-roam org-drill ts)
   :hook (org-roam-capture-new-node . org-roam-review-set-seedling)
   :commands (org-roam-review
@@ -284,10 +281,10 @@ exist without jumping to it"
   :hook (org-mode . mixed-pitch-mode))
 
 (use-package jinx
-  :ensure t
+
   :general (:states '(normal) :keymaps 'jinx-mode-map
            "z =" 'jinx-correct)
-  :hook (emacs-startup . global-jinx-mode))
+  :hook (elpaca-after-init-hook . global-jinx-mode))
 
 
 (null-keybinds-leader-key-def

@@ -31,13 +31,13 @@
 ;;; Code:
 
 (use-package dockerfile-mode
-  :ensure t)
+  )
 
 (use-package docker-compose-mode
-  :ensure t)
+  )
 
 (use-package docker
-  :ensure t)
+  )
 
 (defun null/capitalize-dockerfile-keywords ()
   "Capitalize Dockerfile keywords."

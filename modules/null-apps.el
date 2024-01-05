@@ -33,16 +33,17 @@
 (require 'null-keybinds)
 
 (use-package calc
-  :ensure t)
+  :elpaca nil ; built-in
+  )
 
 (use-package vterm
-  :ensure t)
+  )
 
 (use-package fish-mode
-  :ensure t)
+  )
 
 (use-package ranger
-  :ensure t
+
   :config
   (defun null/open-ranger-in-project-root ()
     "Open Ranger in the root directory of the current project."
@@ -54,22 +55,22 @@
         (message "No project found.")))))
 
 (use-package dired
-  :straight (:type built-in)
-  :ensure t
+  :elpaca nil ; built-in
   :custom
   (dired-dwim-target t))
 
+(use-package wdired
+  :after dired
+  :elpaca nil ; built-in
+  :hook (dired-mode . auto-revert-mode))
+
 (use-package diredfl
-  :ensure t
+
   :config
   (diredfl-global-mode t))
 
-(use-package wdired
-  :ensure t
-  :hook (dired-mode . auto-revert-mode))
-
 (use-package tmr
-   :ensure t)
+   )
 
 ;; Non-package keys
 (null-keybinds-leader-key-def

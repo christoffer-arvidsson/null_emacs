@@ -49,19 +49,19 @@
 
 ;; Handle different python versions
 (use-package pyenv-mode
-  :ensure t
+  
   :defer t
   :config
   (pyenv-mode))
 
 ;; Remove unused imports on save
 (use-package pyimport
-  :ensure t
+  
   :hook (before-save . pyimport-remove-unused))
 
 ;; Sort imports on save
 (use-package py-isort
-  :ensure t
+  
   :hook (before-save . py-isort-before-save))
 
 ;; Handle venvs
