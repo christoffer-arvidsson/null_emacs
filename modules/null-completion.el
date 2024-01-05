@@ -44,23 +44,23 @@
 
 (use-package cape
   :ensure t
-  :bind (("C-<tab> p" . completion-at-point) ;; capf
-         ("C-<tab> t" . complete-tag)        ;; etags
-         ("C-<tab> d" . cape-dabbrev)        ;; or dabbrev-completion
-         ("C-<tab> h" . cape-history)
-         ("C-<tab> f" . cape-file)
-         ("C-<tab> k" . cape-keyword)
-         ("C-<tab> s" . cape-elisp-symbol)
-         ("C-<tab> e" . cape-elisp-block)
-         ("C-<tab> a" . cape-abbrev)
-         ("C-<tab> l" . cape-line)
-         ("C-<tab> w" . cape-dict)
-         ("C-<tab> :" . cape-emoji)
-         ("C-<tab> \\" . cape-tex)
-         ("C-<tab> _" . cape-tex)
-         ("C-<tab> ^" . cape-tex)
-         ("C-<tab> &" . cape-sgml)
-         ("C-<tab> r" . cape-rfc1345))
+  :bind (("C-' p" . completion-at-point) ;; capf
+         ("C-' t" . complete-tag)        ;; etags
+         ("C-' d" . cape-dabbrev)        ;; or dabbrev-completion
+         ("C-' h" . cape-history)
+         ("C-' f" . cape-file)
+         ("C-' k" . cape-keyword)
+         ("C-' s" . cape-elisp-symbol)
+         ("C-' e" . cape-elisp-block)
+         ("C-' a" . cape-abbrev)
+         ("C-' l" . cape-line)
+         ("C-' w" . cape-dict)
+         ("C-' :" . cape-emoji)
+         ("C-' \\" . cape-tex)
+         ("C-' _" . cape-tex)
+         ("C-' ^" . cape-tex)
+         ("C-' &" . cape-sgml)
+         ("C-' r" . cape-rfc1345))
   :init
   (add-to-list 'completion-at-point-functions #'cape-file)
   (add-to-list 'completion-at-point-functions #'cape-dabbrev))
