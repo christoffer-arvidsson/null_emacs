@@ -39,16 +39,13 @@
   :config
   (add-hook 'python-ts-mode-hook
           (lambda ()
-            (set-fill-column 100)))
-  (setenv "PYTHONPATH" "/home/s0001520/repos/madame-web"))
+            (set-fill-column 100))))
 
 (use-package anaconda-mode
   :defer t
   :hook
   (python-base-mode . anaconda-mode)
-  (python-base-mode . anaconda-eldoc-mode)
-  :config
-  (add-to-list 'python-shell-extra-pythonpaths "~/repos/madame_web"))
+  (python-base-mode . anaconda-eldoc-mode))
 
 ;; Handle different python versions
 (use-package pyenv-mode
