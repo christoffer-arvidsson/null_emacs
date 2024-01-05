@@ -193,10 +193,6 @@ exist without jumping to it"
            (file "~/Dropbox/org/orbit/templates/paper.org")
            :target (file "paper_${slug}.org")
            :unnarrowed t)
-          ("w" "work story" plain
-           (file "~/Dropbox/org/orbit/templates/basic.org")
-           :target (file "~/notes/work/%<%Y%m%d%H%M%S>-${slug}.org")
-           :unnarrowed t)
           ("n" "notebook" plain
            (file "~/Dropbox/org/orbit/templates/notebook.org")
            :target (file "%<%Y%m%d%H%M%S>-${slug}.org")
