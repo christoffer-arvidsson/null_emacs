@@ -80,7 +80,15 @@
   (evil-collection-init)
 
   ;; Unbind escape in magit mode
-  (evil-define-key* 'normal magit-status-mode-map [escape] nil))
+  (evil-define-key* 'normal magit-status-mode-map [escape] nil)
+
+  ;; Rebind unimpaired next/prev error to emacs built-in instead of flymake's
+  (evil-collection-define-key 'normal 'evil-collection-unimpaired-mode-map
+    "[q" 'previous-error
+    "]q" 'next-error
+    "[Q" 'first-error
+    ;; TODO: implement "]Q" last error somehow
+    ))
 
 ;; Which key
 (use-package which-key
