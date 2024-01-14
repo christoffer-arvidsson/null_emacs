@@ -36,14 +36,20 @@
   :elpaca nil ; built-in
   )
 
-(use-package vterm
-  )
+(use-package vterm)
 
-(use-package fish-mode
-  )
+(use-package eshell
+  :elpaca nil
+  :config
+  (defun null/eshell-other-window ()
+    (interactive)
+    (let ((buf (eshell)))
+      (switch-to-buffer (other-buffer buf))
+      (switch-to-buffer-other-window buf))))
+
+(use-package fish-mode)
 
 (use-package ranger
-
   :config
   (defun null/open-ranger-in-project-root ()
     "Open Ranger in the root directory of the current project."
@@ -65,12 +71,10 @@
   :hook (dired-mode . auto-revert-mode))
 
 (use-package diredfl
-
   :config
   (diredfl-global-mode t))
 
-(use-package tmr
-   )
+(use-package tmr)
 
 ;; Non-package keys
 (null-keybinds-leader-key-def
@@ -79,6 +83,8 @@
   "o c" '(quick-calc :wk "Quick calculator")
   "o t" '(vterm-other-window :wk "Open vterm popup")
   "o T" '(vterm :wk "Open vterm")
+  "o e" '(null/eshell-other-window :wk "Open eshell popup")
+  "o E" '(eshell :wk "Open eshell")
   "o r" '(null/open-ranger-in-project-root :wk "Open ranger in project root")
   "o R" '(ranger :wk "Open ranger")
   "o C" '(calc :wk "Calculator"))
