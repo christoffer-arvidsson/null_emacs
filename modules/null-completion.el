@@ -33,13 +33,7 @@
   (corfu-echo-mode +1)
   (corfu-popupinfo-mode +1)
   :init
-  (global-corfu-mode)
-
-  ;; TODO: https://github.com/emacs-evil/evil-collection/issues/766
-  (advice-remove 'corfu--setup 'evil-normalize-keymaps)
-  (advice-remove 'corfu--teardown 'evil-normalize-keymaps)
-  (advice-add 'corfu--setup :after (lambda (&rest r) (evil-normalize-keymaps)))
-  (advice-add 'corfu--teardown :after  (lambda (&rest r) (evil-normalize-keymaps))))
+  (global-corfu-mode))
 
 (use-package cape
   :bind (("C-' p" . completion-at-point) ;; capf
