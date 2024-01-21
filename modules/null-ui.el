@@ -40,7 +40,6 @@
 ;; icons
 (use-package nerd-icons
   :after kind-icon
-
   :config
   (setq nerd-icons-font-family "Iosevka Nerd Font"))
 

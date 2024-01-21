@@ -33,7 +33,6 @@
 (require 'null-keybinds)
 
 (use-package denote
-  
   :custom
   (denote-directory "~/notes")
   (denote-known-keywords '("work")))

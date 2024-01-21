@@ -5,10 +5,10 @@
 ;;; Code:
 
 (use-package rustic
+  :after rust-mode
   :custom
   (rustic-lsp-client 'eglot)
-  (rust-ts-mode-hook rust-mode-hook)
-  )
+  (rust-ts-mode-hook rust-mode-hook))
 
 (null-keybinds-major-key-def
   :states '(normal visual)

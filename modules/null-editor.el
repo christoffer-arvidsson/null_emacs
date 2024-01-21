@@ -16,7 +16,6 @@
   (smartparens-global-mode))
 
 (use-package evil-snipe
-
   :after evil
   :hook (magit-mode . turn-off-evil-snipe-override-mode)
   :config
@@ -24,30 +23,25 @@
   (evil-snipe-override-mode +1))
 
 (use-package evil-quickscope
-
   :config
   (global-evil-quickscope-mode +1))
 
 (use-package evil-fringe-mark
-
   :config
   (setq-default evil-fringe-mark-side 'left-fringe)
   (global-evil-fringe-mark-mode 1))
 
 (use-package evil-surround
-
   :config
   (global-evil-surround-mode 1))
 
 ;; Align stuff
 (use-package evil-lion
-
   :config
   (evil-lion-mode))
 
 ;; Extra text objects
 (use-package evil-args
-
   :config
   ;; bind evil-args text objects
   (define-key evil-inner-text-objects-map "a" 'evil-inner-arg)
@@ -64,7 +58,6 @@
 
 ;; Indent text object
 (use-package evil-indent-plus
-
   :config
   (evil-indent-plus-default-bindings))
 
@@ -77,18 +70,18 @@
 
 (use-package evil-multiedit
   :after evil
-
   :config
   (evil-multiedit-default-keybinds))
 
 (use-package evil-mc
   :after evil
-
   :config
+  (evil-define-key 'visual evil-mc-key-map
+    "A" #'evil-mc-make-cursor-in-visual-selection-end
+    "I" #'evil-mc-make-cursor-in-visual-selection-beg)
   (global-evil-mc-mode +1))
 
 (use-package drag-stuff
-
   :config
   (drag-stuff-global-mode +1)
   (drag-stuff-define-keys))
@@ -164,11 +157,9 @@
         (alist-get ?  avy-dispatch-alist) 'avy-action-mark-to-char
         (alist-get ?. avy-dispatch-alist) 'avy-action-embark))
 
-(use-package iedit
-  )
+(use-package iedit)
 
 (use-package undo-tree
-
   :config
   (global-undo-tree-mode))
 
@@ -186,14 +177,12 @@
 
 (use-package yasnippet-radical-snippets
   :elpaca (:host github :repo "Xaldew/yasnippet-radical-snippets" :files (:defaults "snippets" "yasnippet-radical-snippets.el"))
-
   :after yasnippet
   :config
   (yasnippet-radical-snippets-initialize))
 
 (use-package consult-yasnippet
-  :after consult yasnippet
-  )
+  :after consult yasnippet)
 
 (null-keybinds-leader-key-def
   :states 'normal

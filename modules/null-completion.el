@@ -2,7 +2,6 @@
 
 ;;; Code:
 (use-package kind-icon
-
   :after corfu
   :custom
   (kind-icon-default-face 'corfu-default) ; to compute blended backgrounds correctly
@@ -43,7 +42,6 @@
   (advice-add 'corfu--teardown :after  (lambda (&rest r) (evil-normalize-keymaps))))
 
 (use-package cape
-
   :bind (("C-' p" . completion-at-point) ;; capf
          ("C-' t" . complete-tag)        ;; etags
          ("C-' d" . cape-dabbrev)        ;; or dabbrev-completion
@@ -67,7 +65,6 @@
 
 (use-package yasnippet-capf
   :after cape yasnippet
-
   :config
   (add-to-list 'completion-at-point-functions #'yasnippet-capf))
 
@@ -144,11 +141,9 @@
             "C-." 'embark-act
             "C-," 'embark-export
             "M-." 'embark-dwim
-            "C-h B" 'embark-bindings)
-  )
+            "C-h B" 'embark-bindings))
 
 (use-package embark-consult
-
   :after embark consult
   :demand t ; only necessary if you have the hook below
   ;; if you want to have consult previews as you move around an

@@ -39,11 +39,9 @@
       (set-window-text-height (get-buffer-window) (round (* 0.7 (frame-height)))))
   :custom
   (elfeed-db-directory "~/Dropbox/org/elfeed/db/")
-  (elfeed-show-entry-switch #'elfeed-display-buffer)
-  )
+  (elfeed-show-entry-switch #'elfeed-display-buffer))
 
 (use-package elfeed-org
-  
   :custom
   (rmh-elfeed-org-files (list "~/Dropbox/org/elfeed/elfeed.org"))
   :config

@@ -5,7 +5,6 @@
   (tide-hl-identifier-mode +1))
 
 (use-package web-mode
-  
   :mode (("\\.html?\\'" . web-mode)
          ("\\.tsx\\'" . web-mode)
          ("\\.jsx\\'" . web-mode))
@@ -27,14 +26,12 @@
         (setup-tide-mode)))))
 
 (use-package typescript-mode
-  
   :hook (typescript-mode . subword-mode))
   :config
   (setq typescript-indent-level 2)
 
 (use-package tide
   :init
-  
   :after (typescript-mode)
   :hook
   (typescript-mode . tide-setup)

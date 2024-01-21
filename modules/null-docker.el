@@ -30,14 +30,11 @@
 
 ;;; Code:
 
-(use-package dockerfile-mode
-  )
+(use-package dockerfile-mode)
 
-(use-package docker-compose-mode
-  )
+(use-package docker-compose-mode)
 
-(use-package docker
-  )
+(use-package docker)
 
 (defun null/capitalize-dockerfile-keywords ()
   "Capitalize Dockerfile keywords."

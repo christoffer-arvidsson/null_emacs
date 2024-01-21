@@ -33,8 +33,7 @@
 (require 'null-keybinds)
 
 (use-package calc
-  :elpaca nil ; built-in
-  )
+  :elpaca nil)
 
 (use-package vterm)
 

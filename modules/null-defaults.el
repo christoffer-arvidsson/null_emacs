@@ -37,7 +37,6 @@
 (repeat-mode 1)
 
 (use-package super-save
-
   :custom
   (super-save-auto-save-when-idle t)
   (super-save-idle-duration 10)
@@ -60,7 +59,6 @@
 (use-package openwith
   :custom
   (openwith-associations '(("\\.pdf\\'" "zathura" (file))))
-
   :config
   (openwith-mode t))
 
@@ -73,8 +71,7 @@
 (add-hook 'find-file-hooks 'no-junk-please-were-unixish)
 
 ;; Helpful
-(use-package helpful
-  )
+(use-package helpful)
 
 ;; Cleanup whitespace on save
 (add-hook 'before-save-hook 'whitespace-cleanup)

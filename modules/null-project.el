@@ -22,14 +22,12 @@
 
 ;; Dumb jump for jumping to symbol
 (use-package dumb-jump
-
   :hook (xref-backend-functions . #'dumb-jump-xref-activate)
   :custom
   (dumb-jump-prefer-searcher 'rg))
 
 (use-package project
   :elpaca nil ; built-in
-
   :config
   (defun null-project-override (dir)
     (let ((override (locate-dominating-file dir ".project.el")))

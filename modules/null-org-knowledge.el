@@ -161,7 +161,6 @@ exist without jumping to it"
                                           (propertize "${tags:30}" 'face 'font-lock-keyword-face)
                                           (propertize "${file:48}" 'face 'org-tag)))
   :config
-
   (cl-defmethod org-roam-node-directories ((node org-roam-node))
     (if-let ((dirs (file-name-directory (file-relative-name (org-roam-node-file node) org-roam-directory))))
         (format "(%s)" (car (split-string dirs "/")))
@@ -228,8 +227,7 @@ exist without jumping to it"
 
 ;; Review dependencies
 (use-package ht)
-(use-package ts
-  )
+(use-package ts)
 
 (use-package org-format
   :hook (org-mode . org-format-on-save-mode)
@@ -237,7 +235,6 @@ exist without jumping to it"
 
 (use-package org-roam-review
   :elpaca (:host github :repo "chrisbarrett/nursery" :files ("lisp/org-roam-review.el" "lisp/org-tags-filter.el" "lisp/plisty.el"))
-  s
   :after (org-roam org-drill ts)
   :hook (org-roam-capture-new-node . org-roam-review-set-seedling)
   :commands (org-roam-review
@@ -281,10 +278,9 @@ exist without jumping to it"
   :hook (org-mode . mixed-pitch-mode))
 
 (use-package jinx
-
+  :hook (elpaca-after-init-hook . global-jinx-mode)
   :general (:states '(normal) :keymaps 'jinx-mode-map
-           "z =" 'jinx-correct)
-  :hook (elpaca-after-init-hook . global-jinx-mode))
+           "z =" 'jinx-correct))
 
 
 (null-keybinds-leader-key-def

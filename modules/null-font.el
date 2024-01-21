@@ -39,7 +39,6 @@
   "Fontaine big font preset to use.")
 
 (use-package fontaine
-
   :custom
   (fontaine-presets
    '(
