@@ -236,7 +236,7 @@ exist without jumping to it"
 (use-package org-roam-review
   :elpaca (:host github :repo "chrisbarrett/nursery" :files ("lisp/org-roam-review.el" "lisp/org-tags-filter.el" "lisp/plisty.el"))
   :after (org-roam org-drill ts)
-  :hook (org-roam-capture-new-node . org-roam-review-set-seedling)
+  ;; :hook (org-roam-capture-new-node . org-roam-review-set-seedling)
   :commands (org-roam-review
              org-roam-review-list-by-maturity
              org-roam-review-list-recently-added)
@@ -281,7 +281,6 @@ exist without jumping to it"
   :hook (elpaca-after-init-hook . global-jinx-mode)
   :general (:states '(normal) :keymaps 'jinx-mode-map
            "z =" 'jinx-correct))
-
 
 (null-keybinds-leader-key-def
   :states 'normal

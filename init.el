@@ -11,7 +11,6 @@
 
 ;; No littering (load as early as possible)
 (use-package no-littering
-
   :config
   ;; Littering settings
   (require 'recentf)
