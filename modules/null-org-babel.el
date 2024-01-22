@@ -32,8 +32,7 @@
 (setenv "PYDEVD_DISABLE_FILE_VALIDATION" "1")
 
 (use-package jupyter
-  :demand t
-  :after (:all org python zmq)
+  :after (:all org python zmq ob-jupyter)
   :config
   (defun display-ansi-colors ()
     (ansi-color-apply-on-region (point-min) (point-max)))
@@ -52,6 +51,14 @@
   (add-to-list 'org-src-lang-modes '("jupyter-python" . python))
   (add-to-list 'org-structure-template-alist '("ju" . "src jupyter-python")))
 
+(setq org-babel-load-languages
+   '((emacs-lisp . t)
+     (python . t)
+     (jupyter . t)
+     (shell . t)
+     (C . t)
+     (gnuplot . t)))
+
 ;; Had to to this to properly use this function.
 ;; This is nice to have as it makes github recognize the code blocks as python.
 ;; Plus, I have no use for normal python blocks anyway
@@ -64,11 +71,7 @@
      (shell . t)
      (C . t)
      (gnuplot . t)))
-
-
-  (org-babel-jupyter-override-src-block "python"))
-
-
+    (org-babel-jupyter-override-src-block "python"))
 
 (org-babel-lob-ingest "~/Dropbox/org/orbit/templates/lob.org")
 
