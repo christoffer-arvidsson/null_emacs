@@ -125,13 +125,14 @@ the only window, use evil-window-move-* (e.g. `evil-window-move-far-left')."
   :custom
   (harpoon-separate-by-branch t)
   (harpoon-project-package 'project)
-  :bind (:map harpoon-mode-map
-              ("q" . null/harpoon-save-and-quit-window)
-              ("<escape>" . null/harpoon-save-and-quit-window))
-  :bind (("M-n" . harpoon-go-to-1)
-         ("M-e" . harpoon-go-to-2)
-         ("M-i" . harpoon-go-to-3)
-         ("M-o" . harpoon-go-to-4))
+  :general (:states 'normal :keymaps 'harpoon-mode-map
+                    "q" 'null/harpoon-save-and-quit-window
+                    "<escape>" 'null/harpoon-save-and-quit-window)
+  :bind
+  (("M-n" . 'harpoon-go-to-1)
+   ("M-e" . 'harpoon-go-to-2)
+   ("M-i" . 'harpoon-go-to-3)
+   ("M-o" . 'harpoon-go-to-4))
   :config
   (evil-make-overriding-map harpoon-mode-map 'normal)
   (defun harpoon-toggle-file ()
