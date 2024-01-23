@@ -61,7 +61,6 @@
         evil-want-C-u-scroll t
         evil-want-C-i-jump t
         evil-want-Y-yank-to-eol t
-        evil-want-minibuffer t
         evil-jumps-cross-buffers nil
         evil-kill-on-visual-paste nil
         evil-undo-system 'undo-tree
@@ -75,7 +74,6 @@
   :init
   :custom
   (evil-collection-outline-bind-tab-p nil)
-  (evil-collection-setup-minibuffer t)
   :config
   (delete 'lispy evil-collection-mode-list)
   (delete 'org-present evil-collection-mode-list)
