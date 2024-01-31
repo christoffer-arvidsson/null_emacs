@@ -6,6 +6,9 @@
 
 (require 'null-keybinds)
 
+(with-eval-after-load 'flymake
+  (add-hook 'emacs-lisp-mode-hook 'flymake-mode))
+
 (null-keybinds-major-key-def
   :states '(normal visual)
   :keymaps 'emacs-lisp-mode-map
