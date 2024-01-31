@@ -165,7 +165,7 @@ _p_rev       _u_pper              _=_: upper/lower       _r_esolve
   "/" '(consult-ripgrep :wk "Search project")
 
   "g B" '(magit-blame :wk "Magit blame")
-  "g g" '(magit :wk "Magit status")
+  "g s" '(magit :wk "Magit status")
   "g c" '(magit-clone :wk "Magit clone")
   "g t" '(git-timemachine :wk "Git timemachine")
   "g m" '(null/smerge-body :wk "Smerge hydra")
