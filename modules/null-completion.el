@@ -122,11 +122,7 @@
   (consult-customize consult-line
                      consult-ripgrep
                      :preview-key '(:debounce 0.0 any)
-                     :add-history (seq-some #'thing-at-point '(region symbol))
-                     :initial (if (use-region-p)
-                                (buffer-substring-no-properties
-                                 (region-beginning) (region-end))
-                                (thing-at-point 'symbol))))
+                     :add-history (seq-some #'thing-at-point '(region symbol))))
 
 ;; Embark
 (use-package embark
