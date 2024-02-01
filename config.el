@@ -11,6 +11,7 @@
 (require 'null-files)
 (require 'null-project)
 (require 'null-windows)
+(require 'null-pike)
 
 ;; editor
 (require 'null-completion)

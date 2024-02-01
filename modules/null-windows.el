@@ -180,6 +180,7 @@ the only window, use evil-window-move-* (e.g. `evil-window-move-far-left')."
           ("*eldoc"                        :regexp t     :noselect t   :size 0.33 :align below)
           (vterm-mode                      :select t     :size 0.25 :align below)
           (harpoon-mode                    :select t :size 0.15 :align below)
+          (pike-mode :select t :size 0.15 :align below)
           (deadgrep-mode                   :select t :size 0.5 :align right)
           (compilation-mode                :noselect t   :size 0.25)
           (messages-buffer-mode            :noselect t   :align below :size 0.25)
