@@ -19,5 +19,10 @@
   "e b" 'eval-buffer
   "e r" 'eval-region)
 
+(null-keybinds-leader-key-def
+  :states '(normal visual)
+  :keymaps 'emacs-lisp-mode-map
+  "l e" 'consult-flymake)
+
 (provide 'null-elisp)
 ;;; null-elisp.el ends here
