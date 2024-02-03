@@ -70,15 +70,17 @@
   (with-temp-buffer
     (insert-file-contents (pike--global-cache-file-name))
     (goto-char (point-min))
-    (when (search-forward search-string nil t)
+    (when (search-forward-regexp (format "^%s$" search-string) nil t)
         (line-number-at-pos (line-beginning-position)))))
 
 (defun pike--get-file (line-number)
   "Get the line from cache at the specified LINE-NUMBER."
   (with-temp-buffer
     (insert-file-contents (pike--global-cache-file-name))
-    (forward-line line-number)
+    (goto-char (point-min))
+    (forward-line (1- line-number))
     (let ((row (buffer-substring-no-properties (line-beginning-position) (line-end-position))))
+      (message row)
       (if (or (= (length row) 0)
               (not (eq (line-number-at-pos (point)) line-number)))
           nil row))))
@@ -103,18 +105,23 @@
 
 (defun pike--save-and-quit-window ()
   "Save and quit pike buffer."
-  (flush-lines "^$")
-  (save-buffer)
-  (kill-buffer-and-window))
+  (when (eq major-mode 'pike-mode)
+    (flush-lines "^$")
+    (save-buffer)
+    (kill-buffer-and-window)))
+
+(defun pike--get-cache-key ()
+  "Get the cache key of the current buffer."
+  (abbreviate-file-name
+   (if (equal major-mode 'dired-mode)
+       default-directory (buffer-file-name))))
 
 ;;;###autoload
 (defun pike-add-file ()
   "Add current file to pike."
   (interactive)
   (pike--create-cache-directory)
-  (let ((filename (abbreviate-file-name
-               (if (equal major-mode 'dired-mode)
-                   default-directory (buffer-file-name)))))
+  (let ((filename (pike--get-cache-key)))
     (if (pike--find-file-number filename)
         (message (format "File %s already in pike." filename))
       (with-current-buffer (pike--get-buffer)
@@ -161,21 +168,31 @@
   (interactive)
   (pike--find 4))
 
+;;;###autoload
 (defun pike-next ()
-  "TODO."
+  "Find the next file in the pike file ring.
+Loops around if at the end."
   (interactive)
-  (let* ((filename (abbreviate-file-name (if (equal major-mode 'dired-mode)
-                                                    default-directory
-                                                    (buffer-file-name))))
-         (num-lines (pike--num-entries))
-         (line-number (pike--find-file-number filename)))
-    (when line-number
-      (pike--find (mod (1+ line-number) num-lines)))))
+  (let* ((num-lines (pike--num-entries))
+         (line-number (pike--find-file-number (pike--get-cache-key))))
+    (if line-number
+      (pike--find (1+ (mod line-number num-lines)))
+      (message "`pike-next` only works in files stored in pike."))))
+
+;;;###autoload
+(defun pike-previous ()
+  "Find the previous file in the pike file ring.
+Loops around if at the beginning."
+  (interactive)
+  (let* ((num-lines (pike--num-entries))
+         (line-number (pike--find-file-number (pike--get-cache-key))))
+    (if line-number
+        (pike--find (1+ (mod (- line-number 2) num-lines)))
+      (message "`pike-previous` only works in files stored in pike."))))
 
 (define-derived-mode pike-mode nil "Pike"
   "Mode for pike buffer."
   (display-line-numbers-mode t))
-
 
 (provide 'pike)
 ;;; pike.el ends here
