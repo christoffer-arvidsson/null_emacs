@@ -44,7 +44,7 @@
 
 (null-keybinds-leader-key-def
   :states 'normal
-  "` a" 'pike-add-file
+  "` a" 'pike-add-key
   "` X" 'pike-clear
   "` `" 'pike-open-buffer)
 

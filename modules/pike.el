@@ -26,7 +26,10 @@
 
 ;;; Commentary:
 
-;; commentary
+;; Todos
+;; - [x] next and prev
+;; - [x] store buffers in pike ring
+;; - [ ] separate by branch
 
 ;;; Code:
 
@@ -65,15 +68,15 @@
     (insert-file-contents (pike--global-cache-file-name))
     (count-lines (point-min) (point-max))))
 
-(defun pike--find-file-number (search-string)
+(defun pike--find-cache-number (search-string)
   "Get the line number of entry in cache matching SEARCH-STRING, or nil."
   (with-temp-buffer
     (insert-file-contents (pike--global-cache-file-name))
     (goto-char (point-min))
-    (when (search-forward-regexp (format "^%s$" search-string) nil t)
+    (when (search-forward-regexp (regexp-quote search-string) nil t)
         (line-number-at-pos (line-beginning-position)))))
 
-(defun pike--get-file (line-number)
+(defun pike--get-cache-key-at-line (line-number)
   "Get the line from cache at the specified LINE-NUMBER."
   (with-temp-buffer
     (insert-file-contents (pike--global-cache-file-name))
@@ -98,9 +101,11 @@
 
 (defun pike--find (line-number)
   "Find file at LINE-NUMBER."
-  (let ((filename (pike--get-file line-number)))
-    (if filename
-        (find-file filename)
+  (let ((cache-key (pike--get-cache-key-at-line line-number)))
+    (if cache-key
+        (if (get-buffer cache-key)
+            (switch-to-buffer cache-key)
+          (find-file cache-key))
       (message (format "Could not find pike file in entry %d" line-number)))))
 
 (defun pike--save-and-quit-window ()
@@ -112,21 +117,27 @@
 
 (defun pike--get-cache-key ()
   "Get the cache key of the current buffer."
-  (abbreviate-file-name
-   (if (equal major-mode 'dired-mode)
-       default-directory (buffer-file-name))))
+  (let ((filename (buffer-file-name)))
+    ;; is it a file or directory
+    (if filename
+        (abbreviate-file-name
+         (if (equal major-mode 'dired-mode)
+             default-directory filename))
+      (if (buffer-name)
+          (buffer-name)
+        (message "Not a valid buffer to store in pike.")))))
 
 ;;;###autoload
-(defun pike-add-file ()
-  "Add current file to pike."
+(defun pike-add-key ()
+  "Add current key to pike."
   (interactive)
   (pike--create-cache-directory)
-  (let ((filename (pike--get-cache-key)))
-    (if (pike--find-file-number filename)
-        (message (format "File %s already in pike." filename))
+  (let ((cache-key (pike--get-cache-key)))
+    (if (pike--find-cache-number cache-key)
+        (message (format "Key %s already in pike." cache-key))
       (with-current-buffer (pike--get-buffer)
         (goto-char (point-max))
-        (insert filename)
+        (insert cache-key)
         (insert hard-newline)
         (save-buffer))))
   (pike--revert-cache-buffer))
@@ -174,7 +185,7 @@
 Loops around if at the end."
   (interactive)
   (let* ((num-lines (pike--num-entries))
-         (line-number (pike--find-file-number (pike--get-cache-key))))
+         (line-number (pike--find-cache-number (pike--get-cache-key))))
     (if line-number
       (pike--find (1+ (mod line-number num-lines)))
       (message "`pike-next` only works in files stored in pike."))))
@@ -185,7 +196,7 @@ Loops around if at the end."
 Loops around if at the beginning."
   (interactive)
   (let* ((num-lines (pike--num-entries))
-         (line-number (pike--find-file-number (pike--get-cache-key))))
+         (line-number (pike--find-cache-number (pike--get-cache-key))))
     (if line-number
         (pike--find (1+ (mod (- line-number 2) num-lines)))
       (message "`pike-previous` only works in files stored in pike."))))
