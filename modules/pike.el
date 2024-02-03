@@ -28,7 +28,7 @@
 
 ;; Todos
 ;; - [x] separate by repo
-;;   - [ ] separate by branch
+;;   - [x] separate by branch
 ;; - [ ] make project package selectable
 ;; - [ ] make binding global vs non-global easier
 
@@ -59,13 +59,24 @@
   "Get the file path for the global cache."
   (expand-file-name "pike_global" pike-cache-directory))
 
+(defun pike--project-branch ()
+  "Get the project git branch name."
+  (let ((root (project-root (project-current))))
+    (car (split-string
+          (shell-command-to-string
+           (concat "cd " root "; git rev-parse --abbrev-ref HEAD")) "\n"))))
+
 (defun pike--project-cache-file-path ()
   "Get the file path for the current project cache."
-  (if-let ((root (project-root (project-current))))
-      (expand-file-name (file-name-nondirectory
-                         (directory-file-name root))
-                        pike-cache-directory)
-    (message "Could not determine project.")))
+  (if-let ((project (project-current))
+           (root (project-root project))
+           (branch (pike--project-branch)))
+      (format "%s--%s"
+              (expand-file-name (file-name-nondirectory
+                                 (directory-file-name root))
+                                pike-cache-directory)
+              branch)
+    (message "Could not determine project or branch.")))
 
 (defun pike--cache-file-path (&optional global)
   "Get the cache file path for the current project.
