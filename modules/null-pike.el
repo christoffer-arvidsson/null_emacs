@@ -37,16 +37,26 @@
 
 (general-define-key
  :states 'normal
- "M-N" #'pike-find-1
- "M-E" #'pike-find-2
- "M-I" #'pike-find-3
- "M-O" #'pike-find-4)
+ "M-N" #'pike-find-global-1
+ "M-E" #'pike-find-global-2
+ "M-I" #'pike-find-global-3
+ "M-O" #'pike-find-global-4
+ "M-n" #'pike-find-1
+ "M-e" #'pike-find-2
+ "M-i" #'pike-find-3
+ "M-o" #'pike-find-4)
 
 (null-keybinds-leader-key-def
   :states 'normal
-  "` a" 'pike-add-key
-  "` X" 'pike-clear
-  "` `" 'pike-open-buffer)
+  "' a" #'(lambda () (interactive) (pike-add-key nil))
+  "' n" #'(lambda () (interactive) (pike-next nil))
+  "' '" #'(lambda () (interactive) (pike-open-buffer nil))
+  "' X" #'(lambda () (interactive) (pike-clear nil))
+
+  "` a" #'(lambda () (interactive) (pike-add-key t))
+  "` n" #'(lambda () (interactive) (pike-next t))
+  "` `" #'(lambda () (interactive) (pike-open-buffer t))
+  "` X" #'(lambda () (interactive) (pike-clear t)))
 
 (provide 'null-pike)
 
