@@ -33,7 +33,12 @@
 (require 'null-keybinds)
 (require 'pike)
 
-(setq pike-cache-directory (no-littering-expand-var-file-name "pike/"))
+(setq pike-cache-directory (no-littering-expand-var-file-name "pike/")
+      tab-line-tabs-function #'pike-tab-line-tabs-function
+      tab-line-close-button nil
+      tab-line-new-button nil)
+
+(global-tab-line-mode +1)
 
 (general-define-key
  :states 'normal

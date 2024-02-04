@@ -59,6 +59,8 @@
   "Get the file path for the global cache."
   (expand-file-name "pike_global" pike-cache-directory))
 
+;; TODO: Speed up `pike--project-branch` and `pike--project-cache-file-path`
+;; sinde they will be used in tab line!
 (defun pike--project-branch ()
   "Get the project git branch name."
   (let ((root (project-root (project-current))))
@@ -75,8 +77,7 @@
               (expand-file-name (file-name-nondirectory
                                  (directory-file-name root))
                                 pike-cache-directory)
-              branch)
-    (message "Could not determine project or branch.")))
+              branch)))
 
 (defun pike--cache-file-path (&optional global)
   "Get the cache file path for the current project.
@@ -129,9 +130,8 @@ If GLOBAL is non-nil then clear the global cache file."
   (pike--create-cache-directory)
   (with-current-buffer (pike--get-buffer global)
     (progn (erase-buffer)
-           (message "Pike buffer cleared.")
-           (flush-lines "^$")
-           (save-buffer))))
+           (save-buffer)
+           (message "Pike buffer cleared."))))
 
 (defun pike--find (cache-file line-number)
   "Find file at LINE-NUMBER in CACHE-FILE."
@@ -146,7 +146,6 @@ If GLOBAL is non-nil then clear the global cache file."
 (defun pike--get-cache-key ()
   "Get the cache key of the current buffer."
   (let ((filename (buffer-file-name)))
-    ;; is it a file or directory
     (if filename
         (abbreviate-file-name
          (if (equal major-mode 'dired-mode)
@@ -174,101 +173,121 @@ If GLOBAL is non-nil then add to global cache."
     (pike--revert-cache-buffer cache-file)))
 
 ;;;###autoload
-  (defun pike-open-buffer (&optional global)
-    "Open the pike cache buffer.
+(defun pike-open-buffer (&optional global)
+  "Open the pike cache buffer.
 If GLOBAL is non-nil open the global buffer."
-    ;; TODO: We want to be able to open the global buffer from the
-    ;; non-global ones, and vice-versa. Just checking the mode is not
-    ;; enough here.
-    (interactive)
-    (unless (eq major-mode 'pike-mode)
-      (pike--create-cache-directory)
-      (let ((buffer (pike--get-buffer global)))
-        (with-current-buffer buffer
-          (pike-mode))
-        (display-buffer buffer))))
+  ;; TODO: We want to be able to open the global buffer from the
+  ;; non-global ones, and vice-versa. Just checking the mode is not
+  ;; enough here.
+  (interactive)
+  (unless (eq major-mode 'pike-mode)
+    (pike--create-cache-directory)
+    (let ((buffer (pike--get-buffer global)))
+      (with-current-buffer buffer
+        (pike-mode))
+      (display-buffer buffer))))
 
 ;;;###autoload
-  (defun pike-find-1 ()
-    "Find pike file 1."
-    (interactive)
-    (pike--find (pike--project-cache-file-path) 1))
+(defun pike-find-1 ()
+  "Find pike file 1."
+  (interactive)
+  (pike--find (pike--project-cache-file-path) 1))
 
 ;;;###autoload
-  (defun pike-find-2 ()
-    "Find pike file 2."
-    (interactive)
-    (pike--find (pike--project-cache-file-path) 2))
+(defun pike-find-2 ()
+  "Find pike file 2."
+  (interactive)
+  (pike--find (pike--project-cache-file-path) 2))
 
 ;;;###autoload
-  (defun pike-find-3 ()
-    "Find pike file 3."
-    (interactive)
-    (pike--find (pike--project-cache-file-path) 3))
+(defun pike-find-3 ()
+  "Find pike file 3."
+  (interactive)
+  (pike--find (pike--project-cache-file-path) 3))
 
 ;;;###autoload
-  (defun pike-find-4 ()
-    "Find pike file 4."
-    (interactive)
-    (pike--find (pike--project-cache-file-path) 4))
+(defun pike-find-4 ()
+  "Find pike file 4."
+  (interactive)
+  (pike--find (pike--project-cache-file-path) 4))
 
 ;;;###autoload
-  (defun pike-find-global-1 ()
-    "Find global pike file 1."
-    (interactive)
-    (pike--find (pike--global-cache-file-path) 1))
+(defun pike-find-global-1 ()
+  "Find global pike file 1."
+  (interactive)
+  (pike--find (pike--global-cache-file-path) 1))
 
 ;;;###autoload
-  (defun pike-find-global-2 ()
-    "Find global pike file 2."
-    (interactive)
-    (pike--find (pike--global-cache-file-path) 2))
+(defun pike-find-global-2 ()
+  "Find global pike file 2."
+  (interactive)
+  (pike--find (pike--global-cache-file-path) 2))
 
 ;;;###autoload
-  (defun pike-find-global-3 ()
-    "Find global pike file 3."
-    (interactive)
-    (pike--find (pike--global-cache-file-path) 3))
+(defun pike-find-global-3 ()
+  "Find global pike file 3."
+  (interactive)
+  (pike--find (pike--global-cache-file-path) 3))
 
 ;;;###autoload
-  (defun pike-find-global-4 ()
-    "Find global pike file 4."
-    (interactive)
-    (pike--find (pike--global-cache-file-path) 4))
+(defun pike-find-global-4 ()
+  "Find global pike file 4."
+  (interactive)
+  (pike--find (pike--global-cache-file-path) 4))
 
 ;;;###autoload
-  (defun pike-next (&optional global)
-    "Find the next file in the pike file ring.
+(defun pike-next (&optional global)
+  "Find the next file in the pike file ring.
 Loops around if at the end.
 If GLOBAL is non-nil then use the global pike cache."
-    (interactive)
-    (let* ((cache-file (pike--cache-file-path global))
-           (num-lines (pike--num-entries cache-file))
-           (line-number (pike--find-cache-number cache-file
-                                                 (pike--get-cache-key))))
-      (if line-number
-          (pike--find cache-file (1+ (mod line-number num-lines)))
-        (unless (= num-lines 0)
-          (pike--find cache-file 1)))))
+  (interactive)
+  (let* ((cache-file (pike--cache-file-path global))
+         (num-lines (pike--num-entries cache-file))
+         (line-number (pike--find-cache-number cache-file
+                                               (pike--get-cache-key))))
+    (if line-number
+        (pike--find cache-file (1+ (mod line-number num-lines)))
+      (unless (= num-lines 0)
+        (pike--find cache-file 1)))))
 
 ;;;###autoload
-  (defun pike-previous (&optional global)
-    "Find the previous file in the pike file ring.
+(defun pike-previous (&optional global)
+  "Find the previous file in the pike file ring.
 Loops around if at the beginning.
 If GLOBAL is non-nil then use the global pike cache."
-    (interactive)
-    (let* ((cache-file (pike--cache-file-path global))
-           (num-lines (pike--num-entries cache-file))
-           (line-number (pike--find-cache-number cache-file
-                                                 (pike--get-cache-key))))
-      (if line-number
-          (pike--find cache-file (1+ (mod (- line-number 2) num-lines)))
-        (unless (= num-lines 0)
-          (pike--find cache-file 1)))))
+  (interactive)
+  (let* ((cache-file (pike--cache-file-path global))
+         (num-lines (pike--num-entries cache-file))
+         (line-number (pike--find-cache-number cache-file
+                                               (pike--get-cache-key))))
+    (if line-number
+        (pike--find cache-file (1+ (mod (- line-number 2) num-lines)))
+      (unless (= num-lines 0)
+        (pike--find cache-file 1)))))
 
-  (define-derived-mode pike-mode nil "Pike"
-    "Mode for pike buffer."
-    (display-line-numbers-mode t))
+(define-derived-mode pike-mode nil "Pike"
+  "Mode for pike buffer."
+  (display-line-numbers-mode t))
 
-  (provide 'pike)
+(defvar pike-tab-line-add-non-pike-file t
+  "Whether to add the current non-pike file as the 5th tab.")
+
+(defun pike-tab-line-tabs-function ()
+  "Reads global cache file containing file paths, and returns a list of buffers."
+  (pike--create-cache-directory)
+  (let* ((project-cache-file (pike--project-cache-file-path))
+         (cache-file (if project-cache-file
+                         project-cache-file
+                       (pike--global-cache-file-path))))
+    (pike--create-cache-file cache-file)
+    (with-temp-buffer
+      (insert-file-contents cache-file)
+      (split-string (buffer-string) "\n" t)
+      (let ((buffers '()))
+        (dolist (line (split-string (buffer-string) "\n" t))
+          (when (file-exists-p line)
+            (setq buffers (cons (find-file-noselect line) buffers))))
+        (reverse buffers)))))
+
+(provide 'pike)
 ;;; pike.el ends here
