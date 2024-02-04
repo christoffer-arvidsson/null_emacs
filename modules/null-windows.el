@@ -100,14 +100,6 @@ the only window, use evil-window-move-* (e.g. `evil-window-move-far-left')."
       (delete-other-windows)
     (winner-undo)))
 
-(defun null/harpoon-save-and-quit-window ()
-  "Save and quit the current window."
-  (interactive)
-  (flush-lines "^$")
-  (save-buffer)
-  (kill-buffer-and-window))
-
-
 ;; Split priority
 (setq split-height-threshold nil
       split-width-threshold nil
@@ -120,34 +112,6 @@ the only window, use evil-window-move-* (e.g. `evil-window-move-far-left')."
   :config
   ;; Allow restoring window changes
   (winner-mode +1))
-
-(use-package harpoon
-  :custom
-  (harpoon-separate-by-branch t)
-  (harpoon-project-package 'project)
-  :general (:states 'normal :keymaps 'harpoon-mode-map
-                    "q" 'null/harpoon-save-and-quit-window
-                    "<escape>" 'null/harpoon-save-and-quit-window)
-  :bind
-  (("M-n" . 'harpoon-go-to-1)
-   ("M-e" . 'harpoon-go-to-2)
-   ("M-i" . 'harpoon-go-to-3)
-   ("M-o" . 'harpoon-go-to-4))
-  :config
-  (evil-make-overriding-map harpoon-mode-map 'normal)
-  (defun harpoon-toggle-file ()
-    "Open harpoon file."
-    (interactive)
-    (unless (eq major-mode 'harpoon-mode)
-      (harpoon--create-directory)
-      (setq harpoon--current-project-path (when (harpoon--has-project) (harpoon-project-root-function)))
-      (let* ((file-name (harpoon--file-name))
-             (buffer-name (harpoon--cache-key))
-             (buffer (find-file-noselect file-name)))
-        (with-current-buffer buffer
-          (harpoon-mode)
-          (rename-buffer buffer-name))
-        (display-buffer buffer)))))
 
 (defun null/text-scale-increase ()
   "Increase text scale by 4 step."
@@ -179,8 +143,7 @@ the only window, use evil-window-move-* (e.g. `evil-window-move-far-left')."
           ("*compilation*"                 :noselect t   :size 0.33 :align below)
           ("*eldoc"                        :regexp t     :noselect t   :size 0.33 :align below)
           (vterm-mode                      :select t     :size 0.25 :align below)
-          (harpoon-mode                    :select t :size 0.15 :align below)
-          (pike-mode :select t :size 0.15 :align below)
+          (pike-mode                       :select t :size 0.15 :align below)
           (deadgrep-mode                   :select t :size 0.5 :align right)
           (compilation-mode                :noselect t   :size 0.25)
           (messages-buffer-mode            :noselect t   :align below :size 0.25)
@@ -203,7 +166,6 @@ the only window, use evil-window-move-* (e.g. `evil-window-move-far-left')."
  "C-<right>" 'evil-window-right
  "C-<up>" 'evil-window-up
  "C-<down>" 'evil-window-down)
-
 
 (null-keybinds-leader-key-def
   :states 'normal
@@ -235,12 +197,7 @@ the only window, use evil-window-move-* (e.g. `evil-window-move-far-left')."
   "w L" '(null/evil-window-move-right :wk "Move window right")
 
   "w +" '(null/text-scale-increase :wk "Fontsize increase global")
-  "w -" '(null/text-scale-decrease :wk "Fontsize decrease global")
-
-  "' a" '(harpoon-add-file :wk "Add file")
-  "' D" '(harpoon-clear :wk "Clear files")
-  "' x" '(harpoon-delete :wk "Delete file")
-  "' '" '(harpoon-toggle-file :wk "Quick edit file"))
+  "w -" '(null/text-scale-decrease :wk "Fontsize decrease global"))
 
 (provide 'null-windows)
 
