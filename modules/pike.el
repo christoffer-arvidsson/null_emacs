@@ -35,14 +35,21 @@
 ;;; Code:
 
 (require 'project)
+(require 'vc-git)
 
 (defgroup pike nil
   "Quick-jump organization."
+  :version "0.1"
   :group 'tools)
 
 (defcustom pike-cache-directory (expand-file-name user-emacs-directory ".local/pike")
   "Where the cache files will be saved."
   :type 'string
+  :group 'pike)
+
+(defcustom pike-tab-line-add-non-pike-file t
+  "Whether to add the current non-pike file as the 5th tab."
+  :type 'boolean
   :group 'pike)
 
 (defun pike--create-cache-directory ()
@@ -59,14 +66,9 @@
   "Get the file path for the global cache."
   (expand-file-name "pike_global" pike-cache-directory))
 
-;; TODO: Speed up `pike--project-branch` and `pike--project-cache-file-path`
-;; sinde they will be used in tab line!
 (defun pike--project-branch ()
   "Get the project git branch name."
-  (let ((root (project-root (project-current))))
-    (car (split-string
-          (shell-command-to-string
-           (concat "cd " root "; git rev-parse --abbrev-ref HEAD")) "\n"))))
+  (car (vc-git-branches)))
 
 (defun pike--project-cache-file-path ()
   "Get the file path for the current project cache."
@@ -92,8 +94,8 @@ If GLOBAL is non-nil then get the global cache file path."
     (with-current-buffer buffer
       (revert-buffer nil t))))
 
-(defun pike--get-buffer (&optional global)
-  "Get pike buffer.
+(defun pike--get-cache-buffer (&optional global)
+  "Get pike cache buffer.
 If GLOBAL is non-nil then get the global pike buffer."
   (find-file-noselect (pike--cache-file-path global)))
 
@@ -128,19 +130,23 @@ If GLOBAL is non-nil then get the global pike buffer."
 If GLOBAL is non-nil then clear the global cache file."
   (interactive)
   (pike--create-cache-directory)
-  (with-current-buffer (pike--get-buffer global)
+  (with-current-buffer (pike--get-cache-buffer global)
     (progn (erase-buffer)
            (save-buffer)
            (message "Pike buffer cleared."))))
+
+(defun pike--get-buffer-from-key (key)
+  "Get buffer from pike KEY."
+  (if-let ((buffer (get-buffer key)))
+      buffer (find-file-noselect key)))
 
 (defun pike--find (cache-file line-number)
   "Find file at LINE-NUMBER in CACHE-FILE."
   (pike--create-cache-directory)
   (pike--create-cache-file cache-file)
-  (if-let ((cache-key (pike--get-cache-key-at-line cache-file line-number)))
-      (if (get-buffer cache-key)
-          (switch-to-buffer cache-key)
-        (find-file cache-key))
+  (if-let ((cache-key (pike--get-cache-key-at-line cache-file line-number))
+           (buf (pike--get-buffer-from-key cache-key)))
+      (switch-to-buffer buf)
     (message (format "Could not find pike file in entry %d" line-number))))
 
 (defun pike--get-cache-key ()
@@ -165,7 +171,7 @@ If GLOBAL is non-nil then add to global cache."
     (pike--create-cache-file cache-file)
     (if (pike--find-cache-number cache-file cache-key)
         (message (format "Key %s already in pike." cache-key))
-      (with-current-buffer (pike--get-buffer global)
+      (with-current-buffer (pike--get-cache-buffer global)
         (goto-char (point-max))
         (insert cache-key)
         (insert hard-newline)
@@ -182,7 +188,7 @@ If GLOBAL is non-nil open the global buffer."
   (interactive)
   (unless (eq major-mode 'pike-mode)
     (pike--create-cache-directory)
-    (let ((buffer (pike--get-buffer global)))
+    (let ((buffer (pike--get-cache-buffer global)))
       (with-current-buffer buffer
         (pike-mode))
       (display-buffer buffer))))
@@ -269,25 +275,25 @@ If GLOBAL is non-nil then use the global pike cache."
   "Mode for pike buffer."
   (display-line-numbers-mode t))
 
-(defvar pike-tab-line-add-non-pike-file t
-  "Whether to add the current non-pike file as the 5th tab.")
-
 (defun pike-tab-line-tabs-function ()
-  "Reads global cache file containing file paths, and returns a list of buffers."
+  "Create list of buffers of each entry in cache file.
+Uses global cache file if project-specific one can't be found."
   (pike--create-cache-directory)
   (let* ((project-cache-file (pike--project-cache-file-path))
          (cache-file (if project-cache-file
                          project-cache-file
-                       (pike--global-cache-file-path))))
+                       (pike--global-cache-file-path)))
+         (cur-buf (current-buffer)))
     (pike--create-cache-file cache-file)
     (with-temp-buffer
       (insert-file-contents cache-file)
-      (split-string (buffer-string) "\n" t)
-      (let ((buffers '()))
-        (dolist (line (split-string (buffer-string) "\n" t))
-          (when (file-exists-p line)
-            (setq buffers (cons (find-file-noselect line) buffers))))
-        (reverse buffers)))))
+      (split-string (buffer-string) hard-newline t)
+      (let  ((tabs (mapcar (lambda (line) (pike--get-buffer-from-key line))
+                         (split-string (buffer-string) hard-newline t))))
+        (if (and pike-tab-line-add-non-pike-file
+                  (not (member cur-buf tabs)))
+               (nconc tabs (list cur-buf))
+             tabs)))))
 
 (provide 'pike)
 ;;; pike.el ends here
