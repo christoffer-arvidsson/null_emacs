@@ -35,7 +35,10 @@
 (use-package calc
   :elpaca nil)
 
-(use-package vterm)
+(use-package vterm
+  :general (:states '(normal insert)
+                    :keymaps 'vterm-mode-map
+                    "C-c" 'vterm-send-C-c))
 
 (use-package eshell
   :elpaca nil
