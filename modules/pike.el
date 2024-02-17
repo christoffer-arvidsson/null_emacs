@@ -160,6 +160,14 @@ If GLOBAL is non-nil then clear the global cache file."
           (buffer-name)
         (message "Not a valid buffer to store in pike.")))))
 
+(defun pike--get-buffers (cache-file)
+  "Get buffer for each key in CACHE-FILE."
+  (with-temp-buffer
+    (insert-file-contents cache-file)
+    (split-string (buffer-string) hard-newline t)
+    (mapcar (lambda (line) (pike--get-buffer-from-key line))
+            (split-string (buffer-string) hard-newline t))))
+
 ;;;###autoload
 (defun pike-add-key (&optional global)
   "Add current key to pike.
@@ -271,17 +279,21 @@ If GLOBAL is non-nil then use the global pike cache."
       (unless (= num-lines 0)
         (pike--find cache-file 1)))))
 
+;;;###autoload
+(defun pike-delete-current ()
+  "Delete current visited buffer from pike cache."
+  (interactive)
+  (pike--create-cache-directory)
+  (if-let ((cache-line (pike--find-cache-number (pike--cache-file-path) (pike--get-cache-key))))
+      (with-current-buffer (pike--get-cache-buffer)
+        (goto-char (point-min))
+        (forward-line (1- cache-line))
+        (delete-line)
+        (save-buffer))))
+
 (define-derived-mode pike-mode nil "Pike"
   "Mode for pike buffer."
   (display-line-numbers-mode t))
-
-(defun pike--get-buffers (cache-file)
-  "Get buffer for each key in CACHE-FILE."
-  (with-temp-buffer
-    (insert-file-contents cache-file)
-    (split-string (buffer-string) hard-newline t)
-    (mapcar (lambda (line) (pike--get-buffer-from-key line))
-            (split-string (buffer-string) hard-newline t))))
 
 (defun pike-tab-line-tabs-function ()
   "Create list of buffers of each entry in cache file.
