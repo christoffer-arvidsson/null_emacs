@@ -138,7 +138,7 @@ If GLOBAL is non-nil then clear the global cache file."
 (defun pike--get-buffer-from-key (key)
   "Get buffer from pike KEY."
   (if-let ((buffer (get-buffer key)))
-      buffer (find-file-noselect key)))
+      buffer (find-file-noselect key t)))
 
 (defun pike--find (cache-file line-number)
   "Find file at LINE-NUMBER in CACHE-FILE."
