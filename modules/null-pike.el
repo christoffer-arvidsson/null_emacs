@@ -36,7 +36,9 @@
 (setq pike-cache-directory (no-littering-expand-var-file-name "pike/")
       tab-line-tabs-function #'pike-tab-line-tabs-function
       tab-line-close-button nil
-      tab-line-new-button nil)
+      tab-line-new-button nil
+      tab-line-separator " "
+      tab-line-exclude-modes (list 'pike-mode))
 
 (global-tab-line-mode +1)
 
@@ -57,7 +59,7 @@
   "' n" #'(lambda () (interactive) (pike-next nil))
   "' '" #'(lambda () (interactive) (pike-open-buffer nil))
   "' X" #'(lambda () (interactive) (pike-clear nil))
-
+  "' x" #'pike-delete-current
   "` a" #'(lambda () (interactive) (pike-add-key t))
   "` n" #'(lambda () (interactive) (pike-next t))
   "` `" #'(lambda () (interactive) (pike-open-buffer t))
