@@ -275,6 +275,14 @@ If GLOBAL is non-nil then use the global pike cache."
   "Mode for pike buffer."
   (display-line-numbers-mode t))
 
+(defun pike--get-buffers (cache-file)
+  "Get buffer for each key in CACHE-FILE."
+  (with-temp-buffer
+    (insert-file-contents cache-file)
+    (split-string (buffer-string) hard-newline t)
+    (mapcar (lambda (line) (pike--get-buffer-from-key line))
+            (split-string (buffer-string) hard-newline t))))
+
 (defun pike-tab-line-tabs-function ()
   "Create list of buffers of each entry in cache file.
 Uses global cache file if project-specific one can't be found."
@@ -285,15 +293,11 @@ Uses global cache file if project-specific one can't be found."
                        (pike--global-cache-file-path)))
          (cur-buf (current-buffer)))
     (pike--create-cache-file cache-file)
-    (with-temp-buffer
-      (insert-file-contents cache-file)
-      (split-string (buffer-string) hard-newline t)
-      (let  ((tabs (mapcar (lambda (line) (pike--get-buffer-from-key line))
-                         (split-string (buffer-string) hard-newline t))))
+    (let ((tabs (pike--get-buffers cache-file)))
         (if (and pike-tab-line-add-non-pike-file
                   (not (member cur-buf tabs)))
                (nconc tabs (list cur-buf))
-             tabs)))))
+             tabs))))
 
 (provide 'pike)
 ;;; pike.el ends here
