@@ -124,17 +124,6 @@ If GLOBAL is non-nil then get the global pike buffer."
               (not (eq (line-number-at-pos (point)) line-number)))
           nil row))))
 
-;;;###autoload
-(defun pike-clear (&optional global)
-  "Clear the global pike files.
-If GLOBAL is non-nil then clear the global cache file."
-  (interactive)
-  (pike--create-cache-directory)
-  (with-current-buffer (pike--get-cache-buffer global)
-    (progn (erase-buffer)
-           (save-buffer)
-           (message "Pike buffer cleared."))))
-
 (defun pike--get-buffer-from-key (key)
   "Get buffer from pike KEY."
   (if-let ((buffer (get-buffer key)))
@@ -169,6 +158,17 @@ If GLOBAL is non-nil then clear the global cache file."
             (split-string (buffer-string) hard-newline t))))
 
 ;;;###autoload
+(defun pike-clear (&optional global)
+  "Clear the global pike files.
+If GLOBAL is non-nil then clear the global cache file."
+  (interactive)
+  (pike--create-cache-directory)
+  (with-current-buffer (pike--get-cache-buffer global)
+    (progn (erase-buffer)
+           (save-buffer)
+           (message "Pike buffer cleared."))))
+
+;;;###autoload
 (defun pike-add-key (&optional global)
   "Add current key to pike.
 If GLOBAL is non-nil then add to global cache."
@@ -196,6 +196,7 @@ If GLOBAL is non-nil open the global buffer."
   (interactive)
   (unless (eq major-mode 'pike-mode)
     (pike--create-cache-directory)
+    (pike--create-cache-file (pike--cache-file-path global))
     (let ((buffer (pike--get-cache-buffer global)))
       (with-current-buffer buffer
         (pike-mode))
