@@ -16,7 +16,7 @@
   :custom
   (corfu-on-exacs-match nil)
   (corfu-cycle t)
-  (corfu-auto-delay 0.25)
+  (corfu-auto-delay 0.10)
   (corfu-auto-prefix 3)
   (corfu-auto t)
   (corfu-quit-no-match 'separator)
