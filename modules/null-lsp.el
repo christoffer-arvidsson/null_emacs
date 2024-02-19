@@ -62,15 +62,12 @@
   :custom
   (flymake-fringe-indicator-position 'right-fringe))
 
-(use-package jsonrpc
-  :elpaca (:source "gnu")
-  :ensure t)
-
 (use-package eglot-booster
   :after eglot
   :elpaca (:host github :repo "jdtsmith/eglot-booster")
   :config
   (eglot-booster-mode))
+
 (null-keybinds-leader-key-def
   :keymaps 'eglot-mode-map
   "l a" '(eglot-code-actions :wk "code action")
