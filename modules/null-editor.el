@@ -76,9 +76,6 @@
 (use-package evil-mc
   :after evil
   :config
-  (evil-define-key 'visual evil-mc-key-map
-    "A" #'evil-mc-make-cursor-in-visual-selection-end
-    "I" #'evil-mc-make-cursor-in-visual-selection-beg)
   (global-evil-mc-mode +1))
 
 (use-package drag-stuff
