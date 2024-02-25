@@ -14,7 +14,7 @@
   :general (:keymaps 'corfu-mode-map
                      "M-m" #'corfu-move-to-minibuffer)
   :custom
-  (corfu-on-exacs-match nil)
+  (corfu-on-exact-match nil)
   (corfu-cycle t)
   (corfu-auto-delay 0.10)
   (corfu-auto-prefix 2)
