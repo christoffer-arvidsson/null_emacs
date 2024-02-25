@@ -31,7 +31,7 @@
 ;;; Code:
 
 (use-package auctex
-  :elpaca  (auctex :pre-build (("./autogen.sh")
+  :ensure  (auctex :pre-build (("./autogen.sh")
                                ("./configure"
                                 "--without-texmf-dir"
                                 "--with-packagelispdir=./"

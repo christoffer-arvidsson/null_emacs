@@ -9,7 +9,7 @@
   (add-to-list 'corfu-margin-formatters #'kind-icon-margin-formatter))
 
 (use-package corfu
-  :elpaca (:files (:defaults "extensions/*"))
+  :ensure (:files (:defaults "extensions/*"))
   :after orderless
   :general (:keymaps 'corfu-mode-map
                      "M-m" #'corfu-move-to-minibuffer)
@@ -156,7 +156,7 @@
   (vertico-prescient-mode +1))
 
 (use-package emacs
-  :elpaca nil
+  :ensure nil
   :hook (minibuffer-setup-hook #'cursor-intangible-mode)
   :init
   ;; TAB cycle if there are only few candidates

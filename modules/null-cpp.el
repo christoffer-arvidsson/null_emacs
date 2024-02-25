@@ -166,7 +166,7 @@ MODE is either `c' or `cpp'."
 
 ;; Mode
 (use-package cc-mode
-  :elpaca nil ; built-in
+  :ensure nil ; built-in
   :custom
   (ff-search-directories
    '("./base"

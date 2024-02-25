@@ -25,7 +25,7 @@
 ;;; Code:
 
 (use-package go-mode
-  :elpaca nil ; built-in
+  :ensure nil ; built-in
   :custom
   (go-ts-mode-indent-offset 4))
 

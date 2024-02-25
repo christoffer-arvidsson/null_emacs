@@ -33,7 +33,7 @@
 (require 'null-keybinds)
 
 (use-package calc
-  :elpaca nil)
+  :ensure nil)
 
 (use-package vterm
   :general (:states '(normal insert)
@@ -41,7 +41,7 @@
                     "C-c" 'vterm-send-C-c))
 
 (use-package eshell
-  :elpaca nil
+  :ensure nil
   :config
   (defun null/eshell-other-window ()
     (interactive)
@@ -63,13 +63,13 @@
         (message "No project found.")))))
 
 (use-package dired
-  :elpaca nil ; built-in
+  :ensure nil ; built-in
   :custom
   (dired-dwim-target t))
 
 (use-package wdired
   :after dired
-  :elpaca nil ; built-in
+  :ensure nil ; built-in
   :hook (dired-mode . auto-revert-mode))
 
 (use-package diredfl

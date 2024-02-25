@@ -50,7 +50,7 @@
   (add-hook 'marginalia-mode-hook #'nerd-icons-completion-marginalia-setup))
 
 (use-package nerd-icons-corfu
-  :elpaca (:host github :repo "LuigiPiucco/nerd-icons-corfu")
+  :ensure (:host github :repo "LuigiPiucco/nerd-icons-corfu")
   :after (nerd-icons corfu)
   :config
   (add-to-list 'corfu-margin-formatters #'nerd-icons-corfu-formatter))

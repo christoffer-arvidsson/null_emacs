@@ -169,11 +169,10 @@
   (yas-global-mode 1))
 
 (use-package yasnippet-snippets
-  :elpaca (:host github :repo "christoffer-arvidsson/yasnippet-snippets")
-  :ensure yasnippet)
+  :ensure (:host github :repo "christoffer-arvidsson/yasnippet-snippets"))
 
 (use-package yasnippet-radical-snippets
-  :elpaca (:host github :repo "Xaldew/yasnippet-radical-snippets" :files (:defaults "snippets" "yasnippet-radical-snippets.el"))
+  :ensure (:host github :repo "Xaldew/yasnippet-radical-snippets" :files (:defaults "snippets" "yasnippet-radical-snippets.el"))
   :after yasnippet
   :config
   (yasnippet-radical-snippets-initialize))

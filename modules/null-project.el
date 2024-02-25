@@ -1,21 +1,5 @@
 ;;; Code:
 
-;; -----------------------------------------
-;; See https://github.com/progfolio/elpaca/issues/216
-(defun +elpaca-unload-seq (e)
-  (and (featurep 'seq) (unload-feature 'seq t))
-  (elpaca--continue-build e))
-
-;; You could embed this code directly in the reicpe, I just abstracted it into a function.
-(defun +elpaca-seq-build-steps ()
-  (append (butlast (if (file-exists-p (expand-file-name "seq" elpaca-builds-directory))
-                       elpaca--pre-built-steps elpaca-build-steps))
-          (list '+elpaca-unload-seq 'elpaca--activate-package)))
-
-(use-package seq
-  :elpaca `(seq :build ,(+elpaca-seq-build-steps)))
-;; -----------------------------------------
-
 (use-package rg
   :config
   (rg-enable-default-bindings))
@@ -27,7 +11,7 @@
   (dumb-jump-prefer-searcher 'rg))
 
 (use-package compile
-  :elpaca nil ; built-in
+  :ensure nil ; built-in
   :config
   ;; Handle ansi characters in compilation buffer
   ;; https://emacs.stackexchange.com/questions/8135/why-does-compilation-buffer-show-control-characters
@@ -38,7 +22,7 @@
   (add-hook 'compilation-filter-hook 'my/ansi-colorize-buffer))
 
 (use-package project
-  :elpaca nil ; built-in
+  :ensure nil ; built-in
   :config
   ;; Handle ansi characters in compilation buffer
   ;; https://emacs.stackexchange.com/questions/8135/why-does-compilation-buffer-show-control-characters
@@ -49,7 +33,7 @@
   (add-hook 'compilation-filter-hook 'my/ansi-colorize-buffer))
 
 (use-package project
-  :elpaca nil ; built-in
+  :ensure nil ; built-in
   :config
   (defun null-project-override (dir)
     (let ((override (locate-dominating-file dir ".project.el")))
@@ -78,7 +62,7 @@
 (use-package hydra)
 
 (use-package smerge-mode
-  :elpaca nil ; built-in
+  :ensure nil ; built-in
   :after hydra
   :config
   (defhydra unpackaged/smerge-hydra
@@ -140,7 +124,7 @@ _p_rev       _u_pper              _=_: upper/lower       _r_esolve
 
 ;; Use ripgrep over grep
 (use-package grep
-  :elpaca nil ; built-in
+  :ensure nil ; built-in
   :config
   (grep-apply-setting
    'grep-find-command

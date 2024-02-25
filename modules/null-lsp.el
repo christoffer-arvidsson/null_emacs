@@ -7,7 +7,7 @@
 (require 'null-keybinds)
 
 (use-package eldoc
-  :elpaca nil)
+  :ensure nil)
 
 (use-package eldoc-box
   :after eldoc
@@ -18,7 +18,7 @@
   (evil-define-key 'normal 'eglot-mode-map (kbd "C-K") #'eldoc-doc-buffer))
 
 (use-package eglot
-  :elpaca nil
+  :ensure nil
   :after cape
   :hook
   (c-mode . eglot-ensure)
@@ -57,14 +57,14 @@
   (add-hook 'eglot-managed-mode-hook (lambda () (eldoc-mode -1))))
 
 (use-package flymake
-  :elpaca nil ; built-in
+  :ensure nil ; built-in
   :after eglot eldoc
   :custom
   (flymake-fringe-indicator-position 'right-fringe))
 
 (use-package eglot-booster
   :after eglot
-  :elpaca (:host github :repo "jdtsmith/eglot-booster")
+  :ensure (:host github :repo "jdtsmith/eglot-booster")
   :config
   (eglot-booster-mode))
 

@@ -27,7 +27,7 @@
 
 ;; Save history
 (use-package savehist
-  :elpaca nil ; built-in
+  :ensure nil ; built-in
   :init
   (savehist-mode))
 

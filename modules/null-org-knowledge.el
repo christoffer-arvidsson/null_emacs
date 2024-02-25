@@ -231,10 +231,10 @@ exist without jumping to it"
 
 (use-package org-format
   :hook (org-mode . org-format-on-save-mode)
-  :elpaca (:host github :repo "chrisbarrett/nursery" :files ("lisp/org-format.el" "lisp/org-capture-detect.el")))
+  :ensure (:host github :repo "chrisbarrett/nursery" :files ("lisp/org-format.el" "lisp/org-capture-detect.el")))
 
 (use-package org-roam-review
-  :elpaca (:host github :repo "chrisbarrett/nursery" :files ("lisp/org-roam-review.el" "lisp/org-tags-filter.el" "lisp/plisty.el"))
+  :ensure (:host github :repo "chrisbarrett/nursery" :files ("lisp/org-roam-review.el" "lisp/org-tags-filter.el" "lisp/plisty.el"))
   :after (org-roam org-drill ts)
   ;; :hook (org-roam-capture-new-node . org-roam-review-set-seedling)
   :commands (org-roam-review
