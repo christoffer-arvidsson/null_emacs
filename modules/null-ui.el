@@ -105,7 +105,8 @@
 (null-keybinds-leader-key-def
   :states 'normal
   "q t" '(consult-theme :wk "Switch theme")
-  "t b" '(lambda () (interactive) (null-global-big-text-mode 'toggle)))
+  "t b" '(lambda () (interactive) (null-global-big-text-mode 'toggle))
+  "t t" '(global-tab-line-mode :wk "Toggle tabs"))
 
 (provide 'null-ui)
 
