@@ -206,7 +206,7 @@ exist without jumping to it"
   :after citar org-roam
   :no-require
   :config (citar-org-roam-mode)
-  (setq citar-org-roam-note-title-template "${author} :: ${title}"
+  (setq citar-org-roam-note-title-template "${author:%etal} :: ${title}"
         citar-org-roam-capture-template-key "r"))
 
 (use-package consult-org-roam
