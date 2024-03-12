@@ -46,6 +46,9 @@
   ;; Magit
   (define-key project-prefix-map "m" #'magit-project-status)
   (add-to-list 'project-switch-commands '(magit-project-status "Magit") t)
+  ;; consult ripgrep
+  (define-key project-prefix-map "/" #'consult-ripgrep)
+  (add-to-list 'project-switch-commands '(consult-ripgrep "Search") t)
   ;; Dired
   (define-key project-prefix-map "." #'project-dired)
   (add-to-list 'project-switch-commands '(project-dired "Dired") t))
