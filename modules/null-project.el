@@ -30,11 +30,8 @@
   (defun my/ansi-colorize-buffer ()
     (let ((buffer-read-only nil))
       (ansi-color-apply-on-region (point-min) (point-max))))
-  (add-hook 'compilation-filter-hook 'my/ansi-colorize-buffer))
+  (add-hook 'compilation-filter-hook 'my/ansi-colorize-buffer)
 
-(use-package project
-  :ensure nil ; built-in
-  :config
   (defun null-project-override (dir)
     (let ((override (locate-dominating-file dir ".project.el")))
       (if override
@@ -53,7 +50,12 @@
   (define-key project-prefix-map "." #'project-dired)
   (add-to-list 'project-switch-commands '(project-dired "Dired") t))
 
+(use-package consult-project-extra
+  :after consult)
+
 ;;; Version control
+
+(use-package transient :ensure t)
 
 (use-package magit
   :custom
@@ -145,9 +147,9 @@ _p_rev       _u_pper              _=_: upper/lower       _r_esolve
   :states '(normal visual)
   "p c" '(project-compile :wk "Compile project")
   "p C" '(kill-compilation :wk "Kill compilation")
-  "p f" '(project-find-file :wk "Find file in project")
+  "p f" '(consult-project-extra-find :wk "Find file in project")
   "p p" '(project-switch-project :wk "Switch project")
-  "p b" '(project-switch-to-buffer :wk "Switch to project buffer")
+  "p b" '(consult-project-buffer :wk "Switch to project buffer")
   "p ." '(project-dired :wk "Open dired in projcet")
   "/" '(consult-ripgrep :wk "Search project")
 
