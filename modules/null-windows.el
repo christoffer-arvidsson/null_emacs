@@ -160,8 +160,6 @@ the only window, use evil-window-move-* (e.g. `evil-window-move-far-left')."
 ;;; Bindings
 (general-define-key
  :states 'normal
- "<prior>" 'evil-scroll-up
- "<next>" 'evil-scroll-down
  "C-<left>" 'evil-window-left
  "C-<right>" 'evil-window-right
  "C-<up>" 'evil-window-up
