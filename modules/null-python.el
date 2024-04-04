@@ -48,12 +48,6 @@
   (python-base-mode . anaconda-mode)
   (python-base-mode . anaconda-eldoc-mode))
 
-;; Handle different python versions
-(use-package pyenv-mode
-  :defer t
-  :config
-  (pyenv-mode))
-
 ;; Remove unused imports on save
 (use-package pyimport
   :hook (before-save . pyimport-remove-unused))
@@ -87,7 +81,10 @@
 
   "b" '(:ignore t :wk "buffer")
   "b r" 'python-black-region
-  "b f" 'python-black-buffer)
+  "b f" 'python-black-buffer
+
+  "v a" 'pyvenv-activate
+  "v d" 'pyvenv-deactivate)
 
 
 
