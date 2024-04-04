@@ -28,8 +28,11 @@
 
 ;;; Code:
 
-(use-package lua-mode
-  :ensure t)
+(use-package lua-mode)
+
+(use-package fennel-mode
+  :config
+  (add-to-list 'auto-mode-alist '("\\.fnl\\'" . fennel-mode)))
 
 (provide 'null-lua)
 
