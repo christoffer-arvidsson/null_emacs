@@ -38,7 +38,6 @@
     (setq-local completion-at-point-functions
                 (list (cape-capf-super
                        #'eglot-completion-at-point
-                       #'yasnippet-capf
                        #'cape-file))))
 
   (add-hook 'eglot-managed-mode-hook #'null/eglot-capf)

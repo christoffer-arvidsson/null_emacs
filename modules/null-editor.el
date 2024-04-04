@@ -160,26 +160,6 @@
   :config
   (global-undo-tree-mode))
 
-;; Snippets
-(use-package yasnippet
-
-  :custom
-  (yas-snippet-dirs (list (expand-file-name "snippets/" user-emacs-directory)))
-  :config
-  (yas-global-mode 1))
-
-(use-package yasnippet-snippets
-  :ensure (:host github :repo "christoffer-arvidsson/yasnippet-snippets"))
-
-(use-package yasnippet-radical-snippets
-  :ensure (:host github :repo "Xaldew/yasnippet-radical-snippets" :files (:defaults "snippets" "yasnippet-radical-snippets.el"))
-  :after yasnippet
-  :config
-  (yasnippet-radical-snippets-initialize))
-
-(use-package consult-yasnippet
-  :after consult yasnippet)
-
 (use-package dogears
   :ensure t)
 

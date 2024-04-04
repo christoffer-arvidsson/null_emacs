@@ -17,7 +17,7 @@
   (corfu-on-exact-match nil)
   (corfu-cycle t)
   (corfu-auto-delay 0.10)
-  (corfu-auto-prefix 2)
+  (corfu-auto-prefix 1)
   (corfu-auto t)
   (corfu-quit-no-match 'separator)
   (corfu-popupinfo-delay 0.25)
@@ -56,11 +56,6 @@
   :init
   (add-to-list 'completion-at-point-functions #'cape-file)
   (add-to-list 'completion-at-point-functions #'cape-dabbrev))
-
-(use-package yasnippet-capf
-  :after cape yasnippet
-  :config
-  (add-to-list 'completion-at-point-functions #'yasnippet-capf))
 
 (use-package vertico
   :custom

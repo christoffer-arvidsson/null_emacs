@@ -17,6 +17,8 @@
 (require 'null-completion)
 (require 'null-editor)
 (require 'null-treesit)
+(require 'null-snippets-tempel)
+;; (require 'null-snippets-yas)
 (require 'null-lsp)
 
 ;; org
