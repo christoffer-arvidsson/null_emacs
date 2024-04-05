@@ -55,6 +55,14 @@
 
 ;;; Version control
 
+(use-package ediff
+  :ensure nil ; built-in
+  :custom
+  (ediff-keep-variants nil)
+  (ediff-split-window-function 'split-window-horizontally)
+  (ediff-window-setup-function 'ediff-setup-windows-plain)
+  (ediff-highlight-all-diffs t))
+
 (use-package transient :ensure t)
 
 (use-package magit
