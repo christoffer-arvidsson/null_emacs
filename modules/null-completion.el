@@ -86,6 +86,7 @@
   :custom
   (xref-show-xrefs-function #'consult-xref)
   (xref-show-definitions-function #'consult-xref)
+  (consult-ripgrep-args "rg --hidden --null --line-buffered --color=never --max-columns=1000 --path-separator /   --smart-case --no-heading --with-filename --line-number --search-zip")
   :bind (:map minibuffer-local-map
               ("M-s". consult-history)
               ("M-r". consult-history))

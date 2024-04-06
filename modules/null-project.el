@@ -141,7 +141,7 @@ _p_rev       _u_pper              _=_: upper/lower       _r_esolve
   :config
   (grep-apply-setting
    'grep-find-command
-   '("rg -n -H --no-heading -e '' $(git rev-parse --show-toplevel || pwd)" . 27)))
+   '("rg -n -H --hidden --no-heading -e '' $(git rev-parse --show-toplevel || pwd)" . 27)))
 
 (setq compilation-scroll-output t)
 
