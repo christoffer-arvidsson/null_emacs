@@ -30,7 +30,7 @@
 
 (require 'null-keybinds)
 
-(defvar null-snippets-directory (concat user-emacs-directory "snippets_tempel")
+(defvar null-snippets-directory (concat user-emacs-directory "misc/snippets_tempel")
   "Snippets directory.")
 
 (use-package tempel

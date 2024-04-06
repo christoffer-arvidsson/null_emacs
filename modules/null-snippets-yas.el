@@ -32,7 +32,7 @@
 
 (use-package yasnippet
   :custom
-  (yas-snippet-dirs (list (expand-file-name "snippets/" user-emacs-directory)))
+  (yas-snippet-dirs (list (expand-file-name "misc/snippets-yasnippet/" user-emacs-directory)))
   :config
   (yas-global-mode 1))
 
