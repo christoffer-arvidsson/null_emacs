@@ -165,9 +165,7 @@
 
 (null-keybinds-leader-key-def
   :states 'normal
-  "i s" '(consult-yasnippet :wk "yasnippet insert snippet")
   "s m" '(evil-collection-consult-mark :wk "consult marks")
-  "i S" '(consult-yasnippet-visit-snippet-file :wk "yasnippet visit snippet")
   "o u" '(undo-tree-visualize :wk "show undo-tree")
 
   "j a" 'dogears-remember

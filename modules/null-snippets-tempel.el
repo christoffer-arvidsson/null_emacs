@@ -63,7 +63,7 @@
 
 (null-keybinds-leader-key-def
   :states 'normal
-  "i s" '(tempel-insert :wk "yasnippet insert snippet"))
+  "i s" '(tempel-insert :wk "insert snippet"))
 
 (provide 'null-snippets-tempel)
 
