@@ -7,15 +7,21 @@
 (require 'null-keybinds)
 
 (use-package eldoc
-  :ensure nil)
+  :ensure nil  ; built-in
+  :custom
+  (eldoc-idle-delay 0)
+  (eldoc-echo-area-use-multiline-p nil)
+  :config
+  (evil-define-key '(normal insert)
+    'eglot-mode-map (kbd "M-H") #'eldoc-doc-buffer))
 
 (use-package eldoc-box
   :after eldoc
+  :custom
+  (eldoc-box-clear-with-C-g t)
   :config
-  ;; These need to be evil since they have to override evil-collection bindings
-  (evil-define-key 'normal 'eglot-mode-map (kbd "K") #'eldoc-box-help-at-point)
-  (evil-define-key 'normal 'eglot-mode-map (kbd "K") #'eldoc-box-help-at-point)
-  (evil-define-key 'normal 'eglot-mode-map (kbd "C-K") #'eldoc-doc-buffer))
+  (evil-define-key '(normal insert)
+    'eglot-mode-map (kbd "M-h") #'eldoc-box-help-at-point))
 
 (use-package eglot
   :ensure nil
@@ -24,10 +30,7 @@
   (c-mode . eglot-ensure)
   (c-ts-base-mode . eglot-ensure)
   (c++-ts-base-mode . eglot-ensure)
-  (c++-ts-mode . eglot-ensure)
   (python-base-mode . eglot-ensure)
-  (python-ts-mode . eglot-ensure)
-  (python-mode . eglot-ensure)
   :config
   ;; Modes
   (add-to-list 'eglot-server-programs '((c++-ts-mode c++-ts-base-mode cuda-mode c++-mode c-mode) "clangd"))
@@ -38,34 +41,23 @@
     (setq-local completion-at-point-functions
                 (list (cape-capf-super
                        #'eglot-completion-at-point
+                       #'tempel-complete
                        #'cape-file))))
 
   (add-hook 'eglot-managed-mode-hook #'null/eglot-capf)
-  (advice-add #'eglot-completion-at-point :around #'cape-wrap-buster)
-
-  ;; Hover documentation
-  (add-hook 'eglot-managed-mode-hook
-            (lambda () (setq eldoc-documentation-strategy
-                             #'eldoc-documentation-compose)))
-  (add-hook 'eglot-managed-mode-hook
-            (lambda () (setq eldoc-documentation-functions
-                             '(flymake-eldoc-function
-                               eglot-signature-eldoc-function))))
-
-  ;; Turn off documentation on hover
-  (add-hook 'eglot-managed-mode-hook (lambda () (eldoc-mode -1))))
-
-(use-package flymake
-  :ensure nil ; built-in
-  :after eglot eldoc
-  :custom
-  (flymake-fringe-indicator-position 'right-fringe))
+  (advice-add #'eglot-completion-at-point :around #'cape-wrap-buster))
 
 (use-package eglot-booster
   :after eglot
   :ensure (:host github :repo "jdtsmith/eglot-booster")
   :config
   (eglot-booster-mode))
+
+(use-package flymake
+  :ensure nil ; built-in
+  :after eglot eldoc
+  :custom
+  (flymake-fringe-indicator-position 'right-fringe))
 
 (null-keybinds-leader-key-def
   :keymaps 'eglot-mode-map

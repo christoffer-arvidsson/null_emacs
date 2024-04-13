@@ -45,8 +45,7 @@
 (use-package anaconda-mode
   :defer t
   :hook
-  (python-base-mode . anaconda-mode)
-  (python-base-mode . anaconda-eldoc-mode))
+  (python-base-mode . anaconda-mode))
 
 ;; Remove unused imports on save
 (use-package pyimport
