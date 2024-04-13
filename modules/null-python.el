@@ -42,18 +42,12 @@
           (lambda ()
             (set-fill-column 100))))
 
-(use-package anaconda-mode
-  :defer t
-  :hook
-  (python-base-mode . anaconda-mode))
-
 ;; Remove unused imports on save
 (use-package pyimport
   :hook (before-save . pyimport-remove-unused))
 
 ;; Sort imports on save
 (use-package py-isort
-
   :hook (before-save . py-isort-before-save))
 
 ;; Handle venvs
