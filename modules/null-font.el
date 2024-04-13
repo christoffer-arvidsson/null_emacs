@@ -45,7 +45,7 @@
      (default
       :default-family "Monospace")
      (desktop
-      :default-family "Iosevka"
+      :default-family "Iosevka nerd font"
       :default-weight regular
       :default-height 110
       :variable-pitch-family "Iosevka Comfy Duo"
