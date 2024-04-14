@@ -30,7 +30,6 @@
 
 ;;; Code:
 (require 'null-keybinds)
-(require 'org-tempo)
 (require 'org-indent)
 (require 'ox-md)
 
@@ -156,27 +155,10 @@
    '((auto-mode . emacs)
      ("\\.mm\\'" . default)
      ("\\.x?html?\\'" . "qutebrowser %s")
-     ("\\.pdf\\'" . "zathura %s")
+     ("\\.pdf\\'" . "sioyek %s")
      ("\\.png\\'" . viewnior)
      ("\\.jpg\\'" . viewnior)
-     ("\\.svg\\'" . viewnior)))
-
-  :config
-  ;; Tempo
-  (add-to-list 'org-structure-template-alist '("sh" . "src sh"))
-  (add-to-list 'org-structure-template-alist '("el" . "src elisp"))
-  (add-to-list 'org-structure-template-alist '("py" . "src python"))
-  (add-to-list 'org-structure-template-alist '("as" . "aside"))
-  (add-to-list 'org-structure-template-alist '("al" . "algorithm"))
-  (add-to-list 'org-structure-template-alist '("pr" . "proof"))
-  (add-to-list 'org-structure-template-alist '("th" . "theorem"))
-  (add-to-list 'org-structure-template-alist '("cs" . "columns"))
-  (add-to-list 'org-structure-template-alist '("co" . "column"))
-  (add-to-list 'org-tempo-keywords-alist '("on" . "name"))
-  (add-to-list 'org-tempo-keywords-alist '("oc" . "caption"))
-  (add-to-list 'org-tempo-keywords-alist '("oo" . "attr_org"))
-  (add-to-list 'org-tempo-keywords-alist '("ol" . "attr_latex")))
-
+     ("\\.svg\\'" . viewnior))))
 
 ;; Pretty bullets
 (use-package org-superstar
