@@ -1,9 +1,0 @@
-# key: node
-# name: node
-# --
-${1:var} = Node(
-    op=${2:op},
-    name=${3:name},
-    tags=["${4:tag}"]
-)
-$0

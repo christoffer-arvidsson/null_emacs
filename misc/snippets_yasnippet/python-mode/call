@@ -1,6 +1,0 @@
-# -*- mode: snippet -*-
-# name: __call__
-# key: call
-# --
-def __call__(self, ${args}):
-    $0

@@ -1,7 +1,0 @@
-# -*- mode: snippet -*-
-# name: import seaborn
-# key: sns
-# group: general
-# --
-import seaborn as sns
-$0
