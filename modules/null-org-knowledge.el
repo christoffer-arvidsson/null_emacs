@@ -66,45 +66,6 @@
      (format org-download-screenshot-method fname)))
   (org-download-image fname))
 
-(defun null/org-roam-create-note-from-headline ()
-  "Create an Org-roam note from the current headline if it doesn't
-exist without jumping to it"
-  (let* ((title (nth 4 (org-heading-components)))
-         ;; Read in the name of the node, with the title filled in
-         ;; TODO: How can I just use the title without user input?
-         (node (org-roam-node-read title)))
-    ;; Skip the node if it already exists
-    (if (org-roam-node-file node)
-        (message "Skipping %s, node already exists" title)
-      ;; Without this the subsequent kills seem to be grouped together, not
-      ;; sure why
-      (kill-new "")
-      ;; Cut the subtree from the original file
-      (org-cut-subtree)
-      ;; Create the new capture file
-      (org-roam-capture- :node node)
-      ;; Paste in the subtree
-      (org-paste-subtree)
-      ;; Removing the heading from new node
-      (kill-whole-line)
-      ;; Finalizing the capture will save and close the capture buffer
-      (org-capture-finalize nil)
-      ;; Because we've deleted a subtree, we need the following line to make the
-      ;; `org-map-entries' call continue from the right place
-      (setq org-map-continue-from
-            (org-element-property :begin (org-element-at-point))))))
-
-(defun null/org-roam-create-note-from-headlines ()
-  (interactive)
-  (if (region-active-p)
-      ;; `region-start-level' means we'll map over only headlines that are at
-      ;; the same level as the first headline in the region. This may or may not
-      ;; be what you want
-      (org-map-entries
-       'null/org-roam-create-note-from-headline t 'region-start-level)
-    ;; If no region was selected, just create the note from the current headline
-    (null/org-roam-create-note-from-headline)))
-
 ;; I only use this for saving images to my org-roam buffers. All their images will be stored in
 ;; ../assets/imagse so that the links to those images will also be relative. This is important
 ;; for export purposes later, since I don't want any absolute paths to images.
