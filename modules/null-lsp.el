@@ -9,7 +9,7 @@
 (use-package eldoc
   :ensure nil  ; built-in
   :custom
-  (eldoc-idle-delay 0)
+  (eldoc-idle-delay 0.2)
   (eldoc-echo-area-use-multiline-p nil)
   :config
   (evil-define-key '(normal insert)
