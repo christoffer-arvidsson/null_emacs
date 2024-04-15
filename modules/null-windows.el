@@ -158,13 +158,6 @@ the only window, use evil-window-move-* (e.g. `evil-window-move-far-left')."
           (vc-annotate-mode                :same t))))
 
 ;;; Bindings
-(general-define-key
- :states 'normal
- "C-<left>" 'evil-window-left
- "C-<right>" 'evil-window-right
- "C-<up>" 'evil-window-up
- "C-<down>" 'evil-window-down)
-
 (null-keybinds-leader-key-def
   :states 'normal
   "TAB" '(evil-switch-to-windows-last-buffer :wk "Previous buffer")
