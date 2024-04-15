@@ -61,7 +61,7 @@
         evil-want-C-u-scroll t
         evil-want-C-i-jump t
         evil-want-Y-yank-to-eol t
-        evil-jumps-cross-buffers t
+        evil-jumps-cross-buffers nil
         evil-kill-on-visual-paste nil
         evil-undo-system 'undo-tree
         evil-symbol-word-search t
