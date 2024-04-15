@@ -155,7 +155,7 @@
    '((auto-mode . emacs)
      ("\\.mm\\'" . default)
      ("\\.x?html?\\'" . "qutebrowser %s")
-     ("\\.pdf\\'" . "sioyek %s")
+     ("\\.pdf\\'" . "sioyek --shared-database-path $HOME/Dropbox/org/bibliography/sioyek/shared.db %s")
      ("\\.png\\'" . viewnior)
      ("\\.jpg\\'" . viewnior)
      ("\\.svg\\'" . viewnior))))

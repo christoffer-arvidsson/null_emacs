@@ -58,7 +58,7 @@
 ;; Open pdfs with zathura
 (use-package openwith
   :custom
-  (openwith-associations '(("\\.pdf\\'" "zathura" (file))))
+  (openwith-associations '(("\\.pdf\\'" "sioyek --shared-database-path $HOME/Dropbox/org/bibliography/sioyek/shared.db " (file))))
   :config
   (openwith-mode t))
 
