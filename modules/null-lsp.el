@@ -12,8 +12,9 @@
   (eldoc-idle-delay 0.2)
   (eldoc-echo-area-use-multiline-p nil)
   :config
-  (evil-define-key '(normal insert)
-    'eglot-mode-map (kbd "M-H") #'eldoc-doc-buffer))
+  (with-eval-after-load 'evil
+    (evil-define-key '(normal insert)
+      'eglot-mode-map (kbd "M-H") #'eldoc-doc-buffer)))
 
 (use-package eldoc-box
   :after eldoc
