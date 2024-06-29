@@ -115,7 +115,7 @@
   (org-roam-directory (file-truename "~/Dropbox/org/orbit/articles"))
   (+org-roam-open-buffer-on-find-file nil)
   (org-roam-auto-replace-fuzzy-links nil)
-  (org-roam-completion-everywhere t)
+  (org-roam-completion-everywhere nil)
   (org-roam-db-autosync-mode t)
 
   (org-roam-node-display-template (format "${directories:12} ${title:120} %s %s ${backlinkscount:6}"
