@@ -32,7 +32,7 @@
 
 (require 'null-org)
 
-(defconst null/orbit-directory "~/Dropbox/org/orbit"
+(defconst null/orbit-directory (expand-file-name "orbit" null/org-directory)
   "Path to orbit directory.")
 
 (defconst null/citar-path (concat null/org-directory "bibliography")
@@ -112,7 +112,7 @@
   (org-roam-find-file . balance-windows)
   (org-follow-link . balance-windows)
   :custom
-  (org-roam-directory (file-truename "~/Dropbox/org/orbit/articles"))
+  (org-roam-directory (expand-file-name "articles" null/orbit-directory))
   (+org-roam-open-buffer-on-find-file nil)
   (org-roam-auto-replace-fuzzy-links nil)
   (org-roam-completion-everywhere nil)
@@ -137,24 +137,24 @@
       (format "[%d]" count)))
 
   (setq org-roam-capture-templates
-        '(("l" "lecture note" plain
-           (file "~/Dropbox/org/orbit/templates/lecture_note.org")
+        `(("l" "lecture note" plain
+           (file ,(expand-file-name "templates/lecture_note.org" null/orbit-directory))
            :target (file "%<%Y%m%d%H%M%S>-${slug}.org")
            :unnarrowed t)
           ("p" "permanent note" plain
-           (file "~/Dropbox/org/orbit/templates/basic.org")
+           (file ,(expand-file-name "templates/basic.org" null/orbit-directory))
            :target (file "%<%Y%m%d%H%M%S>-${slug}.org")
            :unnarrowed t)
           ("m" "metanote" plain
-           (file "~/Dropbox/org/orbit/templates/metanote.org")
+           (file ,(expand-file-name "templates/metanote.org" null/orbit-directory))
            :target (file "%<%Y%m%d%H%M%S>-${slug}.org")
            :unnarrowed t)
           ("r" "paper note" plain
-           (file "~/Dropbox/org/orbit/templates/paper.org")
+           (file ,(expand-file-name "templates/paper.org" null/orbit-directory))
            :target (file "paper_${slug}.org")
            :unnarrowed t)
           ("n" "notebook" plain
-           (file "~/Dropbox/org/orbit/templates/notebook.org")
+           (file ,(expand-file-name "templates/notebook.org" null/orbit-directory))
            :target (file "%<%Y%m%d%H%M%S>-${slug}.org")
            :unnarrowed t)))
 

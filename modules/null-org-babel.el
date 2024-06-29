@@ -29,6 +29,9 @@
 ;; Module for a nice org babel setup and thus notebooking.
 
 ;;; Code:
+(require 'null-org)
+(require 'null-org-knowledge)
+
 (setenv "PYDEVD_DISABLE_FILE_VALIDATION" "1")
 
 (use-package jupyter
@@ -51,13 +54,16 @@
   (add-to-list 'org-src-lang-modes '("jupyter-python" . python))
   (add-to-list 'org-structure-template-alist '("ju" . "src jupyter-python")))
 
-(setq org-babel-load-languages
-   '((emacs-lisp . t)
-     (python . t)
-     (jupyter . t)
-     (shell . t)
-     (C . t)
-     (gnuplot . t)))
+(with-eval-after-load 'org-babel
+  (setq org-babel-load-languages
+        '((emacs-lisp . t)
+          (python . t)
+          (jupyter . t)
+          (shell . t)
+          (C . t)
+          (gnuplot . t)))
+
+  (org-babel-lob-ingest (expand-file-name "templates/lob.org" null/orbit-directory)))
 
 ;; Had to to this to properly use this function.
 ;; This is nice to have as it makes github recognize the code blocks as python.
@@ -71,9 +77,7 @@
      (shell . t)
      (C . t)
      (gnuplot . t)))
-    (org-babel-jupyter-override-src-block "python"))
-
-(org-babel-lob-ingest "~/Dropbox/org/orbit/templates/lob.org")
+  (org-babel-jupyter-override-src-block "python"))
 
 (provide 'null-org-babel)
 

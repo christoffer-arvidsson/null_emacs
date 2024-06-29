@@ -31,6 +31,10 @@
 ;;; Code:
 
 (require 'null-keybinds)
+(require 'null-org)
+
+(defcustom null/elfeed-directory (expand-file-name "elfeed" null/org-directory)
+  "Path to elfeed directory")
 
 (use-package elfeed
   :config
@@ -38,12 +42,12 @@
       (pop-to-buffer buf)
       (set-window-text-height (get-buffer-window) (round (* 0.7 (frame-height)))))
   :custom
-  (elfeed-db-directory "~/Dropbox/org/elfeed/db/")
+  (elfeed-db-directory (expand-file-name "db/" null/elfeed-directory))
   (elfeed-show-entry-switch #'elfeed-display-buffer))
 
 (use-package elfeed-org
   :custom
-  (rmh-elfeed-org-files (list "~/Dropbox/org/elfeed/elfeed.org"))
+  (rmh-elfeed-org-files (list (expand-file-name "elfeed.org" null/elfeed-directory)))
   :config
   (elfeed-org))
 
