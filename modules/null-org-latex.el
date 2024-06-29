@@ -123,6 +123,11 @@
                  ("\\paragraph{%s}" . "\\paragraph*{%s}")
                  ("\\subparagraph{%s}" . "\\subparagraph*{%s}"))))
 
+
+;; Beamer support
+(use-package ox-beamer
+  :ensure nil)
+
 ;; Latex
 (use-package org-fragtog
   :hook (org-mode . org-fragtog-mode)
