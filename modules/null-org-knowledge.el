@@ -259,7 +259,13 @@
   "n r s" '(org-roam-buffer-toggle :wk "Toggle org roam status buffer")
   "n r t" '(org-roam-tag-add :wk "Add tag")
   "n r u" '(org-roam-ui-open :wk "Open org roam ui")
-  "n r x" '(org-roam-capture :wk "Capture note")
+
+  "n c" '(:ignore t :wk "Org roam capture")
+  "n c p" '((lambda () (interactive) (org-roam-capture :keys "p")) :wk "permanent note")
+  "n c l" '((lambda () (interactive) (org-roam-capture :keys "l")) :wk "lecture")
+  "n c m" '((lambda () (interactive) (org-roam-capture :keys "m")) :wk "metanote")
+  "n c r" '((lambda () (interactive) (org-roam-capture :keys "r")) :wk "paper")
+  "n c n" '((lambda () (interactive) (org-roam-capture :keys "n")) :wk "notebook")
 
   "n a" '(:ignore t :wk "Org roam attach")
   "n a c" '(null/orbit-org-download-screenshot :wk "Download screenshot")
