@@ -210,6 +210,7 @@
   :after org-roam
   :defer t
   :custom
+  (org-roam-ui-browser-function #'browse-url-firefox)
   (org-roam-ui-sync-theme t)
   (org-roam-ui-follow t)
   (org-roam-ui-update-on-save t)
