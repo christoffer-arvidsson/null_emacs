@@ -113,8 +113,8 @@
   (org-follow-link . balance-windows)
   :custom
   (org-roam-directory (expand-file-name "articles" null/orbit-directory))
-  (+org-roam-open-buffer-on-find-file nil)
   (org-roam-auto-replace-fuzzy-links nil)
+  (org-roam-database-connector 'sqlite-builtin)
   (org-roam-completion-everywhere nil)
   (org-roam-db-autosync-mode t)
 
