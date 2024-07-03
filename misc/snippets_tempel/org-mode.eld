@@ -16,3 +16,5 @@ org-mode
 (ol & "#+attr_latex: ")
 
 (bib & "* References" n> "#+print_bibliography: ")
+
+(equ "\\begin{equation}" n> r> n>"\\end{equation}")
