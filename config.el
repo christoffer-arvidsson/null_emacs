@@ -27,6 +27,7 @@
 (require 'null-org-knowledge)
 (require 'null-org-latex)
 (require 'null-org-html)
+(require 'null-denote)
 
 ;; languages
 (require 'null-cpp)
@@ -56,7 +57,6 @@
   "Do work specific initialization."
   (message "using work configuration.")
   (require 'secrets)
-  (require 'null-denote)
 
   (use-package ox-confluence-modern
     :ensure (:host github :repo "nan0scho1ar/ox-confluence-modern" :files ("*.el")))
