@@ -42,38 +42,10 @@
     (gnuplot . t))
   "Languages babel should load.")
 
-(use-package jupyter
-  :after (:all org python zmq ob-jupyter)
-  :config
-  (defun display-ansi-colors ()
-    (ansi-color-apply-on-region (point-min) (point-max)))
-
-  (add-hook 'org-babel-after-execute-hook #'display-ansi-colors)
-  (setq org-babel-python-command "~/.pyenv/shims/python")
-  (setq org-babel-default-header-args:jupyter-python '((:async . "yes")
-                                                       (:kernel . "python3")
-                                                       (:exports . "both")
-                                                       (:pandoc t)
-                                                       (:session . "py")
-                                                       (:eval . "never-export")))
-
-  (setq ob-async-no-async-languages-alist '("jupyter-python"))
-  (add-to-list 'savehist-additional-variables 'jupyter-server-kernel-names)
-  (add-to-list 'org-src-lang-modes '("jupyter-python" . python))
-  (add-to-list 'org-structure-template-alist '("ju" . "src jupyter-python")))
-
 (with-eval-after-load 'org
+  (setq org-babel-python-command (expand-file-name "pyenv/bin/python3" null/orbit-directory))
   (org-babel-do-load-languages 'org-babel-load-languages null/org-babel-languages)
   (org-babel-lob-ingest (expand-file-name "templates/lob.org" null/orbit-directory)))
-
-;; Had to to this to properly use this function.
-;; This is nice to have as it makes github recognize the code blocks as python.
-;; Plus, I have no use for normal python blocks anyway
-
-(with-eval-after-load 'ob-jupyter
-  (add-to-list null/org-babel-languages (jupyter . t))
-  (org-babel-do-load-languages 'org-babel-load-languages null/org-babel-languages)
-  (org-babel-jupyter-override-src-block "python"))
 
 (provide 'null-org-babel)
 

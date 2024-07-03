@@ -17,4 +17,8 @@ org-mode
 
 (bib & "* References" n> "#+print_bibliography: ")
 
+(notebook &
+          "#+property: header-args:python :results value :session " (s session) n
+          "#+call: plt-setup[:session " (s session) "]()" n q)
+
 (equ "\\begin{equation}" n> r> n>"\\end{equation}")
