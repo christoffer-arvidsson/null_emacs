@@ -34,6 +34,14 @@
 
 (setenv "PYDEVD_DISABLE_FILE_VALIDATION" "1")
 
+(defcustom null/org-babel-languages
+  '((emacs-lisp . t)
+    (python . t)
+    (shell . t)
+    (C . t)
+    (gnuplot . t))
+  "Languages babel should load.")
+
 (use-package jupyter
   :after (:all org python zmq ob-jupyter)
   :config
@@ -54,29 +62,17 @@
   (add-to-list 'org-src-lang-modes '("jupyter-python" . python))
   (add-to-list 'org-structure-template-alist '("ju" . "src jupyter-python")))
 
-(with-eval-after-load 'org-babel
-  (setq org-babel-load-languages
-        '((emacs-lisp . t)
-          (python . t)
-          (jupyter . t)
-          (shell . t)
-          (C . t)
-          (gnuplot . t)))
-
+(with-eval-after-load 'org
+  (org-babel-do-load-languages 'org-babel-load-languages null/org-babel-languages)
   (org-babel-lob-ingest (expand-file-name "templates/lob.org" null/orbit-directory)))
 
 ;; Had to to this to properly use this function.
 ;; This is nice to have as it makes github recognize the code blocks as python.
 ;; Plus, I have no use for normal python blocks anyway
+
 (with-eval-after-load 'ob-jupyter
-  (org-babel-do-load-languages
-   'org-babel-load-languages
-   '((emacs-lisp . t)
-     (python . t)
-     (jupyter . t)
-     (shell . t)
-     (C . t)
-     (gnuplot . t)))
+  (add-to-list null/org-babel-languages (jupyter . t))
+  (org-babel-do-load-languages 'org-babel-load-languages null/org-babel-languages)
   (org-babel-jupyter-override-src-block "python"))
 
 (provide 'null-org-babel)
