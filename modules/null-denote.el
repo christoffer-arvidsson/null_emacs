@@ -41,6 +41,7 @@
   :keymaps 'global-map
   "n w" '(:ignore t :wk "Denote")
   "n w f" 'denote-open-or-create
+  "n w i" 'denote-insert-link
   "n w R" 'denote-rename-file
   "n w c" 'denote-create-note)
 
