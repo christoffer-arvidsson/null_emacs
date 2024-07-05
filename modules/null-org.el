@@ -62,6 +62,17 @@
             (outline-show-entry)
           (org-cycle-hide-drawers 'all))))))
 
+(defun null/org-toggle-link-display ()
+  "Toggle the literal or descriptive display of links."
+  (interactive)
+  (if org-descriptive-links
+      (progn (org-remove-from-invisibility-spec '(org-link))
+         (org-restart-font-lock)
+         (setq org-descriptive-links nil))
+    (progn (add-to-invisibility-spec '(org-link))
+       (org-restart-font-lock)
+       (setq org-descriptive-links t))))
+
 (defun null/org--get-foldlevel ()
   (let ((max 1))
     (save-restriction
@@ -213,6 +224,11 @@
 (use-package ox-pandoc)
 
 (use-package htmlize)
+
+(null-keybinds-leader-key-def
+  :states 'normal
+  :keymaps 'org-mode-map
+  "t l" 'null/org-toggle-link-display)
 
 (null-keybinds-major-key-def
   :states 'normal
