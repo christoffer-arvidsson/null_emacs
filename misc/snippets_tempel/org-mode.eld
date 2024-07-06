@@ -22,3 +22,7 @@ org-mode
           "#+call: plt-setup[:session " (s session) "]()" n q)
 
 (equ "\\begin{equation}" n> r> n>"\\end{equation}")
+(equ* "\\begin{equation*}" n> r> n>"\\end{equation*}")
+(pmat "\\begin{pmatrix}" n> r> n>"\\end{pmatrix}")
+(bmat "\\begin{bmatrix}" n> r> n>"\\end{bmatrix}")
+(mat "\\begin{matrix}" n> r> n>"\\end{matrix}")
