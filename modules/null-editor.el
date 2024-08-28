@@ -11,9 +11,7 @@
   (prog-mode . rainbow-mode)
   (conf-mode . rainbow-mode))
 
-(use-package smartparens
-  :config
-  (smartparens-global-mode))
+(use-package smartparens)
 
 (use-package evil-snipe
   :after evil
