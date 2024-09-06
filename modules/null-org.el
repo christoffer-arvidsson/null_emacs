@@ -197,8 +197,8 @@
 (use-package org-appear
   :after org
   :custom
-  (org-appear-trigger 'manual)
-  (org-appear-autolinks t)
+  (org-appear-trigger 'automatic)
+  (org-appear-autolinks nil)
   (org-appear-inside-latex nil)
   :config
   (setq org-appear-trigger 'manual)
