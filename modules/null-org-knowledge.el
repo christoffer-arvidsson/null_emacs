@@ -103,6 +103,9 @@
   :no-require
   :config (citar-embark-mode))
 
+(use-package sqlite
+  :ensure nil)  ; built-in
+
 (use-package org-roam
   :ensure sqlite
   :after org
@@ -117,25 +120,10 @@
   (org-roam-database-connector 'sqlite-builtin)
   (org-roam-completion-everywhere nil)
   (org-roam-db-autosync-mode t)
-
-  (org-roam-node-display-template (format "${directories:12} ${title:120} %s %s ${backlinkscount:6}"
+  (org-roam-node-display-template (format "${title:120} %s %s"
                                           (propertize "${tags:30}" 'face 'font-lock-keyword-face)
                                           (propertize "${file:48}" 'face 'org-tag)))
   :config
-  (cl-defmethod org-roam-node-directories ((node org-roam-node))
-    (if-let ((dirs (file-name-directory (file-relative-name (org-roam-node-file node) org-roam-directory))))
-        (format "(%s)" (car (split-string dirs "/")))
-      ""))
-
-  (cl-defmethod org-roam-node-backlinkscount ((node org-roam-node))
-    (let* ((count (caar (org-roam-db-query
-                         [:select (funcall count source)
-                                  :from links
-                                  :where (= dest $s1)
-                                  :and (= type "id")]
-                         (org-roam-node-id node)))))
-      (format "[%d]" count)))
-
   (setq org-roam-capture-templates
         `(("l" "lecture note" plain
            (file ,(expand-file-name "templates/lecture_note.org" null/orbit-directory))
