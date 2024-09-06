@@ -64,6 +64,7 @@
 (with-eval-after-load 'org
   ;; (null/setup-minted)
   (setq org-latex-default-class "orbit"
+        org-export-with-toc nil
         org-latex-packages-alist
         '(("dvipsnames" "xcolor")
           ;; ("" "minted")
@@ -91,15 +92,38 @@
   (plist-put org-format-latex-options :scale 1.0))
 
 (with-eval-after-load 'ox-latex
+
+
+  (defun org-export-id-link-removal (backend)
+    "Inspired by 'org-attach-expand-links' ，which is in 'org-export-before-parsing-functions' "
+    (save-excursion
+      (while (re-search-forward "id:" nil t)
+        (let ((link (org-element-context)))
+          (if (and (eq 'link (org-element-type link))
+                   (string-equal "id"
+                                 (org-element-property :type link)))
+              (let ((description (and (org-element-property :contents-begin link)
+                                      (buffer-substring-no-properties
+                                       (org-element-property :contents-begin link)
+                                       (org-element-property :contents-end link))))
+                    )
+                (goto-char (org-element-property :end link))
+                (skip-chars-backward " \t")
+                (delete-region (org-element-property :begin link) (point))
+                (insert description))
+            )))))
+
+  (add-to-list 'org-export-before-parsing-functions #'org-export-id-link-removal)
+
   (add-to-list 'org-latex-classes
                '("orbit"
                  "
 \\documentclass[a4paper,11pt]{article}
 \\usepackage[a4paper, margin=3cm]{geometry}
 
-[DEFAULT-PACKAGES]
 [PACKAGES]
 [EXTRA]
+\\usepackage[colorlinks]{hyperref}
 
 \\definecolor{bgcode}{rgb}{0.95,0.95,0.95}
 
