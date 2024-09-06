@@ -159,7 +159,7 @@
   :config
   ;; Increase preview width
   (plist-put org-latex-preview-appearance-options
-             :page-width 0.6)
+             :page-width 1.0)
 
   ;No blur when scaling
   (setq org-latex-preview-process-default 'dvisvgm)
