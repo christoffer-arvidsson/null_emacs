@@ -51,7 +51,7 @@
       user-mail-address "christoffer@arvidson.nu")
 
 ;; Theme
-(setq null-theme 'ef-winter)
+(setq null-theme 'ef-dream)
 
 (defun null/init-work-config ()
   "Do work specific initialization."
