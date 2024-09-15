@@ -11,10 +11,10 @@
 
 (use-package dashboard
   :after nerd-icons
-  :ensure (:host github :repo "christoffer-arvidsson/emacs-dashboard" :branch "icon-fix")
   :init
   (add-hook 'dashboard-mode-hook 'null/dashboard-banner)
   :custom
+  ;; From nerd icons being small
   (dashboard-display-icons-p t)
   (dashboard-icon-type 'nerd-icons)
   (dashboard-projects-backend 'project-el)

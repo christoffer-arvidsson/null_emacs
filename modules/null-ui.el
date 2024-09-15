@@ -68,7 +68,7 @@
 (use-package nerd-icons
   :after kind-icon
   :config
-  (setq nerd-icons-font-family "Iosevka Nerd Font"))
+  (setq nerd-icons-font-family "Iosevka Nerd Font Mono"))
 
 (use-package nerd-icons-completion
   :after marginalia
