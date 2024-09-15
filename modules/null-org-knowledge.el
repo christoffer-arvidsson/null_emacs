@@ -103,11 +103,7 @@
   :no-require
   :config (citar-embark-mode))
 
-(use-package sqlite
-  :ensure nil)  ; built-in
-
 (use-package org-roam
-  :ensure sqlite
   :after org
   :init
   (setq org-roam-v2-ack t)
