@@ -38,7 +38,9 @@
 (use-package vterm
   :general (:states '(normal insert)
                     :keymaps 'vterm-mode-map
-                    "C-c" 'vterm-send-C-c))
+                    "C-c" 'vterm-send-C-c)
+  :custom
+  (vterm-always-compile-module t))
 
 (use-package eshell
   :ensure nil
