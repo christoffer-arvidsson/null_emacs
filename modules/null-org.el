@@ -142,7 +142,8 @@
 
   ;; Visuals
   (org-highlight-latex-and-related '(native))
-  (org-image-actual-width nil)
+  (org-image-max-width 0.8)
+  (org-image-actual-width t)
   (org-fontify-done-headline t)
   (org-fontify-quote-and-verse-blocks t)
   (org-fontify-whole-heading-line t)
