@@ -159,7 +159,6 @@ the only window, use evil-window-move-* (e.g. `evil-window-move-far-left')."
 ;;; Bindings
 (null-keybinds-leader-key-def
   :states 'normal
-  "TAB" '(evil-switch-to-windows-last-buffer :wk "Previous buffer")
   "w m" '(evil-window-left :wk "Select window left")
   "w n" '(evil-window-down :wk "Select window down")
   "w e" '(evil-window-up :wk "Select window up")
