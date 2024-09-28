@@ -170,6 +170,20 @@
    ;; in consult-buffer (and not down at the bottom)
    (consult-org-roam-buffer-after-buffers t))
 
+(use-package org-node
+  :after org
+  :config
+  (setq org-node-extra-id-dirs '("~/Dropbox/org/orbit/articles/"))
+  (org-node-cache-mode))
+
+(use-package org-node-fakeroam
+  :ensure (:host github :repo "meedstrom/org-node-fakeroam")
+  :defer
+  :custom
+  (org-node-creation-fn #'org-node-fakeroam-new-via-roam-capture)
+  (org-node-slug-fn #'org-node-fakeroam-slugify-via-roam)
+  (org-node-datestamp-format "%Y%m%d%H%M%S-"))
+
 ;; Review dependencies
 (use-package ht)
 (use-package ts)
