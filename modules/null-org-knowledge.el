@@ -188,10 +188,6 @@
        (list padded-title (when tags (propertize tags 'face 'font-lock-keyword-face)) nil))))
 
   :config
-  (defun null/org-node-find ()
-    (interactive)
-    (org-node-reset)
-    (org-node-find))
   (org-node-cache-mode)
   (org-node-complete-at-point-global-mode t))
 
@@ -265,7 +261,7 @@
 (null-keybinds-leader-key-def
   :states 'normal
   "n r" '(:ignore t :wk "Org roam")
-  "n r f" '(null/org-node-find :wk "Find node")
+  "n r f" '(org-node-find :wk "Find node")
   ;; "n r R" '(org-roam-rewrite-rename :wk "Rename node")
   "n r S" '(org-roam-db-sync :wk "Sync roam database")
   "n r a" '(org-node-alias-add :wk "Add alias")
