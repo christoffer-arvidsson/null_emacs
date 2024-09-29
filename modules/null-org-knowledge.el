@@ -176,26 +176,22 @@
   :custom
   (org-node-complete-at-point)
   (org-node-alter-candidates t)
-  (org-node-extra-id-dirs '("~/Dropbox/org/orbit/articles/"))
+
   (org-node-affixation-fn
    (defun my-prefix-with-tag (node title)
      "Let NODE's tags be right-aligned and prefix TITLE."
      (let* ((tags (when-let ((tags (org-node-get-tags node)))
-                    (concat " #" (string-join tags " #"))))
-            (title-width (string-width title))
+                    (concat "#" (string-join tags " #"))))
             (tags-width (length tags))
-            (frame-width (frame-width)) ; Gets the width of the current window
-            ;; Calculate the number of spaces needed to right-align the tags
-            (padding (max 1 (- frame-width title-width tags-width 1)))
-            (padded-title (concat title (make-string padding ? )))) ; Add spaces to the title
-       (list padded-title nil (when tags (propertize tags 'face 'font-lock-keyword-face))))))
+            (tags-padding (make-string (max 1 (- 34 tags-width)) ? ))
+            (padded-title (concat tags-padding title)))
+       (list padded-title (when tags (propertize tags 'face 'font-lock-keyword-face)) nil))))
 
   :config
   (defun null/org-node-find ()
     (interactive)
     (org-node-reset)
     (org-node-find))
-
   (org-node-cache-mode)
   (org-node-complete-at-point-global-mode t))
 
