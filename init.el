@@ -6,8 +6,10 @@
 (defvar null-config-file (expand-file-name "config.el" user-emacs-directory)
   "The user's configuration file.")
 
-;; Add the modules folder to the load path
+;; Add the modules/packages to load-path
 (add-to-list 'load-path (expand-file-name "modules/" user-emacs-directory))
+(let ((default-directory (expand-file-name "site-lisp/" user-emacs-directory)))
+  (normal-top-level-add-subdirs-to-load-path))
 
 ;; No littering (load as early as possible)
 (use-package no-littering
