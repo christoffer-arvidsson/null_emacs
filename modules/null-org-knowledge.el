@@ -173,6 +173,7 @@
 
 (use-package org-node
   :after org
+  :ensure (:host github :repo "meedstrom/org-node" :files ("*.el") :ref "1fefb2c9334a850bc24f22ae296f1ca8c34faa61")  ; pin because bug in package in the following commit
   :custom
   (org-node-complete-at-point)
   (org-node-alter-candidates t)
