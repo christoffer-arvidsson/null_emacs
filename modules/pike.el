@@ -300,15 +300,15 @@ If GLOBAL is non-nil then use the global pike cache."
   "Create list of buffers of each entry in cache file.
 Uses global cache file if project-specific one can't be found."
   (pike--create-cache-directory)
-  (let* ((project-cache-file (pike--project-cache-file-path))
-         (project-tabs (if project-cache-file
-                           (pike--get-buffers project-cache-file)
-                         (list)))
-         (cur-buf (current-buffer)))
-    (if (and pike-tab-line-add-non-pike-file
-             (not (member cur-buf project-tabs)))
-        (nconc project-tabs (list cur-buf))
-      project-tabs)))
+  (if-let* ((project-cache-file (pike--project-cache-file-path))
+            (project-tabs (if (and project-cache-file (file-exists-p project-cache-file))
+                              (pike--get-buffers project-cache-file)
+                            (list)))
+            (cur-buf (current-buffer)))
+      (if (and pike-tab-line-add-non-pike-file
+               (not (member cur-buf project-tabs)))
+          (nconc project-tabs (list cur-buf))
+        project-tabs)))
 
 (provide 'pike)
 ;;; pike.el ends here
