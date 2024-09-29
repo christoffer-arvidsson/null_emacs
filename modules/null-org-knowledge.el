@@ -120,6 +120,7 @@
                                           (propertize "${tags:30}" 'face 'font-lock-keyword-face)
                                           (propertize "${file:48}" 'face 'org-tag)))
   :config
+  (add-hook 'org-roam-mode-hook #'visual-line-mode)
   (setq org-roam-capture-templates
         `(("l" "lecture note" plain
            (file ,(expand-file-name "templates/lecture_note.org" null/orbit-directory))
@@ -172,9 +173,31 @@
 
 (use-package org-node
   :after org
+  :custom
+  (org-node-complete-at-point)
+  (org-node-alter-candidates t)
+  (org-node-extra-id-dirs '("~/Dropbox/org/orbit/articles/"))
+  (org-node-affixation-fn
+   (defun my-prefix-with-tag (node title)
+     "Let NODE's tags be right-aligned and prefix TITLE."
+     (let* ((tags (when-let ((tags (org-node-get-tags node)))
+                    (concat " #" (string-join tags " #"))))
+            (title-width (string-width title))
+            (tags-width (length tags))
+            (frame-width (frame-width)) ; Gets the width of the current window
+            ;; Calculate the number of spaces needed to right-align the tags
+            (padding (max 1 (- frame-width title-width tags-width 1)))
+            (padded-title (concat title (make-string padding ? )))) ; Add spaces to the title
+       (list padded-title nil (when tags (propertize tags 'face 'font-lock-keyword-face))))))
+
   :config
-  (setq org-node-extra-id-dirs '("~/Dropbox/org/orbit/articles/"))
-  (org-node-cache-mode))
+  (defun null/org-node-find ()
+    (interactive)
+    (org-node-reset)
+    (org-node-find))
+
+  (org-node-cache-mode)
+  (org-node-complete-at-point-global-mode t))
 
 (use-package org-node-fakeroam
   :ensure (:host github :repo "meedstrom/org-node-fakeroam")
@@ -182,7 +205,9 @@
   :custom
   (org-node-creation-fn #'org-node-fakeroam-new-via-roam-capture)
   (org-node-slug-fn #'org-node-fakeroam-slugify-via-roam)
-  (org-node-datestamp-format "%Y%m%d%H%M%S-"))
+  (org-node-datestamp-format "%Y%m%d%H%M%S-")
+  :config
+  (org-node-fakeroam-fast-render-mode))
 
 ;; Review dependencies
 (use-package ht)
@@ -244,18 +269,17 @@
 (null-keybinds-leader-key-def
   :states 'normal
   "n r" '(:ignore t :wk "Org roam")
-  "n r f" '(org-roam-node-find :wk "Find node")
-  "n r R" '(org-roam-rewrite-rename :wk "Rename node")
+  "n r f" '(null/org-node-find :wk "Find node")
+  ;; "n r R" '(org-roam-rewrite-rename :wk "Rename node")
   "n r S" '(org-roam-db-sync :wk "Sync roam database")
-  "n r a" '(org-roam-alias-add :wk "Add alias")
+  "n r a" '(org-node-alias-add :wk "Add alias")
   "n r c" '(citar-open :wk "Find cite")
   "n r n" '(citar-open-note :wk "Find cite note")
   "n r p" '(citar-open-files :wk "Find cite pdf")
-  "n r f" '(consult-org-roam-file-find :wk "Find node")
-  "n r i" '(org-roam-node-insert :wk "Insert node")
-  "n r r" '(org-roam-node-random :wk "Random node")
+  "n r i" '(org-node-insert-link :wk "Insert node")
+  "n r r" '(org-node-visit-random :wk "Random node")
   "n r s" '(org-roam-buffer-toggle :wk "Toggle org roam status buffer")
-  "n r t" '(org-roam-tag-add :wk "Add tag")
+  "n r t" '(org-node-tag-add :wk "Add tag")
   "n r u" '(org-roam-ui-open :wk "Open org roam ui")
 
   "n c" '(:ignore t :wk "Org roam capture")
@@ -275,7 +299,6 @@
   "n d t" '(org-roam-dailies-find-today :wk "find today")
   "n d y" '(org-roam-dailies-find-yesterday :wk "find yesterday")
   "n d d" '(org-roam-dailies-find-date :wk "find by date")
-
   "n d p" '(org-roam-dailies-goto-previous-note :wk "find previous note")
   "n d n" '(org-roam-dailies-goto-next-note :wk "find next note")
 
