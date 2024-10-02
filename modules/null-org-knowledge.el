@@ -171,6 +171,35 @@
    ;; in consult-buffer (and not down at the bottom)
    (consult-org-roam-buffer-after-buffers t))
 
+(defun null/truncate-string-to-width (str max-width &optional ellipsis)
+  "Truncate STR to MAX-WIDTH characters, considering display width.
+If the truncated string is shorter than STR, append ELLIPSIS if provided."
+  (let* ((ellipsis (or ellipsis ""))
+         (ellipsis-width (string-width ellipsis))
+         (available-width (max 0 (- max-width ellipsis-width)))
+         (accum-width 0)
+         (result ""))
+    (catch 'done
+      (dolist (char (string-to-list str))
+        (let ((char-width (char-width char)))
+          (if (> (+ accum-width char-width) available-width)
+              (throw 'done nil)
+            (setq result (concat result (string char)))
+            (setq accum-width (+ accum-width char-width))))))
+    (if (< (string-width result) (string-width str))
+        (concat result ellipsis)
+      result)))
+
+(defun null/pad-or-truncate-string (str max-width &optional ellipsis)
+  "Truncate STR to MAX-WIDTH characters or pad with spaces.
+If truncating, append ELLIPSIS if provided.
+If STR is nil, treat it as an empty string."
+  (let* ((str (or str ""))
+         (truncated-str (null/truncate-string-to-width str max-width ellipsis)))
+    (if (< (string-width truncated-str) max-width)
+        (concat truncated-str (make-string (- max-width (string-width truncated-str)) ? ))
+      truncated-str)))
+
 (use-package org-node
   :after org
   :ensure (:host github :repo "meedstrom/org-node" :files ("*.el") :ref "1fefb2c9334a850bc24f22ae296f1ca8c34faa61")  ; pin because bug in package in the following commit
@@ -183,10 +212,13 @@
      "Let NODE's tags be right-aligned and prefix TITLE."
      (let* ((tags (when-let ((tags (org-node-get-tags node)))
                     (concat "#" (string-join tags " #"))))
-            (tags-width (length tags))
-            (tags-padding (make-string (max 1 (- 34 tags-width)) ? ))
-            (padded-title (concat tags-padding title)))
-       (list padded-title (when tags (propertize tags 'face 'font-lock-keyword-face)) nil))))
+            (padded-title (null/pad-or-truncate-string title 150 "..."))
+            (padded-tags (null/pad-or-truncate-string tags 30 "..."))
+            (filepath (f-filename (org-node-get-file-path node))))
+       (list nil padded-title
+             (concat
+              (propertize padded-tags 'face 'font-lock-keyword-face)
+              (propertize filepath 'face 'org-tag))))))
 
   :config
   (org-node-cache-mode)
