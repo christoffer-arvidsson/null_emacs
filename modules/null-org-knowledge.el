@@ -116,9 +116,6 @@
   (org-roam-database-connector 'sqlite-builtin)
   (org-roam-completion-everywhere nil)
   (org-roam-db-autosync-mode t)
-  (org-roam-node-display-template (format "${title:120} %s %s"
-                                          (propertize "${tags:30}" 'face 'font-lock-keyword-face)
-                                          (propertize "${file:48}" 'face 'org-tag)))
   :config
   (add-hook 'org-roam-mode-hook #'visual-line-mode)
   (setq org-roam-capture-templates
@@ -202,7 +199,7 @@ If STR is nil, treat it as an empty string."
 
 (use-package org-node
   :after org
-  :ensure (:host github :repo "meedstrom/org-node" :files ("*.el") :ref "1fefb2c9334a850bc24f22ae296f1ca8c34faa61")  ; pin because bug in package in the following commit
+  :ensure (:host github :repo "meedstrom/org-node" :branch "main" :files ("*.el"))
   :custom
   (org-node-complete-at-point)
   (org-node-alter-candidates t)
@@ -222,10 +219,10 @@ If STR is nil, treat it as an empty string."
 
   :config
   (org-node-cache-mode)
-  (org-node-complete-at-point-global-mode t))
+  (org-node-complete-at-point-mode t))
 
 (use-package org-node-fakeroam
-  :ensure (:host github :repo "meedstrom/org-node-fakeroam")
+  :ensure (:host github :repo "meedstrom/org-node-fakeroam" :branch "main")
   :defer
   :custom
   (org-node-creation-fn #'org-node-fakeroam-new-via-roam-capture)
