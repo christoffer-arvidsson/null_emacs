@@ -66,6 +66,7 @@
       :bold weight bold
       :italic-slant italic
       :line-spacing nil)))
+  :hook (enable-theme-functions #'fontaine-apply-current-preset)
   :config
   (define-minor-mode null-global-big-text-mode
     "Toggle big text mode."
@@ -78,20 +79,7 @@
           (message "big-text-mode activated!")
           (fontaine-set-preset null-font-big-preset))
       (progn (message "big-text-mode deactivated!")
-             (fontaine-set-preset null-font-preset))))
-
-    ;; Required so that emacs client changes font
-    (if (daemonp)
-        (add-hook 'after-make-frame-functions
-                (defun null/font-init-daemon (frame)
-                    (with-selected-frame frame
-                    (fontaine-set-preset null-font-preset))
-                    (remove-hook 'after-make-frame-functions
-                                #'null/font-init-daemon)
-                    (fmakeunbound 'null/font-init-daemon)))
-    (fontaine-set-preset null-font-preset)))
-
-
+             (fontaine-set-preset null-font-preset)))))
 
 (null-keybinds-leader-key-def
   :states 'normal
