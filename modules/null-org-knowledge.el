@@ -201,6 +201,7 @@ If STR is nil, treat it as an empty string."
   :after org
   :ensure (:host github :repo "meedstrom/org-node" :branch "main" :files ("*.el"))
   :custom
+  (org-node-extra-id-dirs (list (expand-file-name "articles" null/orbit-directory)))
   (org-node-complete-at-point)
   (org-node-alter-candidates t)
 
