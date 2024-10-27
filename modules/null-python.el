@@ -58,8 +58,7 @@
 ;; Format buffer on save
 (use-package python-black
   :demand t
-  :after python
-  :hook (python-base-mode . python-black-on-save-mode-enable-dwim))
+  :after python)
 
 (null-keybinds-major-key-def
   :states '(normal visual)
