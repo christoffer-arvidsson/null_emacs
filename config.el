@@ -97,7 +97,7 @@
         null-font-big-preset 'big))
 
 (pcase (system-name)
-  ("ucnd1387l61" (null/init-work-config))
+  ("u5cg4373yhk" (null/init-work-config))
   ("station" (null/init-home-config))
   ("shuttle" (null/init-shuttle-config))
   (_ (message "No matching system configuration")))
