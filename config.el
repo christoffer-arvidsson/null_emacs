@@ -71,6 +71,18 @@
   (setq null-font-preset 'laptop
         null-font-big-preset 'laptop-big))
 
+  (use-package gptel
+    :ensure t
+    :config
+    (setq-default
+     gptel-model "llama3.2"
+     gptel-backend (gptel-make-ollama "Ollama"
+                     :host "localhost:11434"
+                     :stream t
+                     :models '("llama3.2")))
+    (setq gptel-log-level 'debug))
+
+
 (defun null/init-home-config ()
   "Do home specific initialization."
   (message "using home configuration.")
