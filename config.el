@@ -58,6 +58,15 @@
   (message "using work configuration.")
   (require 'secrets)
 
+  (use-package copilot
+    :ensure (:host github :repo "copilot-emacs/copilot.el")
+    :custom
+    (copilot-idle-delay 0.5)
+    :general (:keymaps 'copilot-completion-map
+                       "M-]" 'copilot-accept-completion))
+
+  (use-package ox-slack
+    :ensure (:host github :repo "titaniumbones/ox-slack"))
 
   (setq null-font-preset 'laptop
         null-font-big-preset 'laptop-big))
