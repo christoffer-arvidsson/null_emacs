@@ -58,8 +58,6 @@
   (message "using work configuration.")
   (require 'secrets)
 
-  (use-package ox-confluence-modern
-    :ensure (:host github :repo "nan0scho1ar/ox-confluence-modern" :files ("*.el")))
 
   (setq null-font-preset 'laptop
         null-font-big-preset 'laptop-big))
