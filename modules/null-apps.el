@@ -40,7 +40,16 @@
                     :keymaps 'vterm-mode-map
                     "C-c" 'vterm-send-C-c)
   :custom
-  (vterm-always-compile-module t))
+  (vterm-timer-delay 0.01)
+  (vterm-always-compile-module t)
+  :config
+  (defun null/vterm-project ()
+    (interactive)
+    (let ((buffer (get-buffer-create (concat "*vterm " (project-name (project-current)) "*"))))
+      (with-current-buffer buffer
+        (unless (derived-mode-p 'vterm-mode)
+          (vterm-mode)))
+      (switch-to-buffer-other-window buffer))))
 
 (use-package eshell
   :ensure nil
@@ -87,6 +96,7 @@
   "o c" '(quick-calc :wk "Quick calculator")
   "o t" '(vterm-other-window :wk "Open vterm popup")
   "o T" '(vterm :wk "Open vterm")
+  "p t" '(null/vterm-project :wk "Open vterm in current project")
   "o e" '(null/eshell-other-window :wk "Open eshell popup")
   "o E" '(eshell :wk "Open eshell")
   "o r" '(null/open-ranger-in-project-root :wk "Open ranger in project root")
