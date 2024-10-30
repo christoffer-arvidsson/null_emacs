@@ -151,25 +151,14 @@
   :config
   (vertico-prescient-mode +1))
 
-(use-package emacs
-  :ensure nil
-  :hook (minibuffer-setup-hook #'cursor-intangible-mode)
-  :init
-  ;; TAB cycle if there are only few candidates
-  (setq completion-cycle-threshold 3)
-
-  :config
-  ;; Add prompt indicator to `completing-read-multiple'.
-  ;; Alternatively try `consult-completing-read-multiple'.
-  (defun crm-indicator (args)
-    (cons (concat "[CRM] " (car args)) (cdr args)))
-  (advice-add #'completing-read-multiple :filter-args #'crm-indicator)
-
-  ;; Do not allow the cursor in the minibuffer prompt
-  (setq minibuffer-prompt-properties
-        '(read-only t cursor-intangible t face minibuffer-prompt))
-
-  ;; Enable recursive minibuffers
-  (setq enable-recursive-minibuffers t))
+;; For completion
+(add-hook 'minibuffer-setup-hook #'cursor-intangible-mode)
+(setq completion-cycle-threshold 3)
+(defun crm-indicator (args)
+  (cons (concat "[CRM] " (car args)) (cdr args)))
+(advice-add #'completing-read-multiple :filter-args #'crm-indicator)
+(setq minibuffer-prompt-properties
+      '(read-only t cursor-intangible t face minibuffer-prompt))
+(setq enable-recursive-minibuffers t)
 
 (provide 'null-completion)
