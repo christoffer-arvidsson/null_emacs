@@ -224,6 +224,8 @@
 
 (use-package ox-pandoc)
 
+(use-package ox-clip :ensure t)
+
 (use-package htmlize)
 
 (null-keybinds-leader-key-def
