@@ -40,6 +40,7 @@
                     :keymaps 'vterm-mode-map
                     "C-c" 'vterm-send-C-c)
   :custom
+  (vterm-shell "/bin/fish")
   (vterm-timer-delay 0.01)
   (vterm-always-compile-module t)
   :config
