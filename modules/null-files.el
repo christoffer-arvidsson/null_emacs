@@ -107,7 +107,7 @@
   "b b" '(consult-buffer :wk "Switch buffer")
   "b s" '(save-buffer :wk "Save buffer")
   "b r" '(revert-buffer :wk "Revert buffer")
-  "b d" '(kill-this-buffer :wk "Kill current buffer")
+  "b d" '(kill-current-buffer :wk "Kill current buffer")
   "b n" '(null/new-buffer :wk "Edit new unnamed buffer")
   "b N" '(lambda () (interactive)(null/new-buffer t) :wk "Create new unnamed buffer"))
 
