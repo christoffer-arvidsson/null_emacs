@@ -25,6 +25,9 @@
 (defalias 'yes-or-no-p 'y-or-n-p)
 (setq use-dialog-box nil)
 
+;; Default shell
+(setq shell-file-name "/usr/bin/fish")
+
 ;; Save history
 (use-package savehist
   :custom
