@@ -199,7 +199,6 @@ If STR is nil, treat it as an empty string."
 
 (use-package org-node
   :after org
-  :ensure (:host github :repo "meedstrom/org-node" :branch "main" :files ("*.el"))
   :custom
   (org-node-extra-id-dirs (list (expand-file-name "articles" null/orbit-directory)))
   (org-node-complete-at-point)
@@ -223,7 +222,6 @@ If STR is nil, treat it as an empty string."
   (org-node-complete-at-point-mode t))
 
 (use-package org-node-fakeroam
-  :ensure (:host github :repo "meedstrom/org-node-fakeroam" :branch "main")
   :defer
   :custom
   (org-node-creation-fn #'org-node-fakeroam-new-via-roam-capture)
