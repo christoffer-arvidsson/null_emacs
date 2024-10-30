@@ -41,9 +41,12 @@
                     "C-c" 'vterm-send-C-c)
   :custom
   (vterm-shell "/bin/fish")
+  (vterm-max-scrollback 2000)
   (vterm-timer-delay 0.01)
   (vterm-always-compile-module t)
+
   :config
+  (add-hook 'vterm-mode-hook (lambda () (display-line-numbers-mode 1)))
   (defun null/vterm-project ()
     (interactive)
     (let ((buffer (get-buffer-create (concat "*vterm " (project-name (project-current)) "*"))))
