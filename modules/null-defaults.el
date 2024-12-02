@@ -91,6 +91,12 @@
 ;; Cleanup whitespace on save
 (add-hook 'before-save-hook 'whitespace-cleanup)
 
+;; Suggest VLF mode for large files
+(use-package vlf
+  :ensure t
+  :config
+  (require 'vlf-setup))
+
 (general-define-key
  :states 'normal
  "C-h f" 'helpful-callable
