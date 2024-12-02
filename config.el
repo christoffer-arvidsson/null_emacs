@@ -35,6 +35,7 @@
 (require 'null-python)
 (require 'null-rust)
 (require 'null-sql)
+(require 'null-zig)
 
 (require 'null-org-babel)
 ;; (require 'null-org-publish)
