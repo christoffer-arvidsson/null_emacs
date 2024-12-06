@@ -207,7 +207,7 @@ If STR is nil, treat it as an empty string."
   (org-node-affixation-fn
    (defun my-prefix-with-tag (node title)
      "Let NODE's tags be right-aligned and prefix TITLE."
-     (let* ((tags (when-let ((tags (org-node-get-tags node)))
+     (let* ((tags (when-let ((tags (org-node-get-tags-local node)))
                     (concat "#" (string-join tags " #"))))
             (padded-title (null/pad-or-truncate-string title 150 "..."))
             (padded-tags (null/pad-or-truncate-string tags 30 "..."))
