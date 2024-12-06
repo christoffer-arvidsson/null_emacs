@@ -1,8 +1,8 @@
-;;; null-zig.el --- summary -*- lexical-binding: t -*-
+;;; null-zig.el --- zig configuration -*- lexical-binding: t -*-
 
 ;; Author: Christoffer Arvidsson
-;; Version: version
-;; Package-Requires: dependencies
+;; Version: 1.0
+;; Package-Requires:
 ;; Homepage: homepage
 ;; Keywords: keywords
 
@@ -23,13 +23,24 @@
 
 ;;; Commentary:
 
+;; Zig related packages.
+
 ;;; Code:
 
-(use-package zig-mode
-  :ensure t)
+(require 'null-keybinds)
 
-;; (use-package zig-ts-mode
-;;   :ensure t)
+(use-package zig-mode
+  :ensure t
+  :custom
+  (zig-format-on-save nil))
+
+;; Keybinds
+(null-keybinds-major-key-def
+  :states '(normal visual)
+  :keymaps '(zig-mode-map)
+  "b" '(:ignore t :wk "buffer")
+  "b f" '(zig-format-buffer :wk format buffer))
+
 
 (provide 'null-zig)
 ;;; null-zig.el ends here
