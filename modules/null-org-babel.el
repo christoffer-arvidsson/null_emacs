@@ -39,6 +39,7 @@
     (python . t)
     (shell . t)
     (C . t)
+    (lilypond . t)
     (gnuplot . t))
   "Languages babel should load.")
 
