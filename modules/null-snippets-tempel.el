@@ -40,8 +40,8 @@
   (tempel-path (expand-file-name "*.eld" null-snippets-directory))
   :bind (("C-' S" . tempel-complete)
          (:map tempel-map
-               ("M-<right>" . tempel-next)
-               ("M-<left>" . tempel-previous)))
+               ("C-<right>" . tempel-next)
+               ("C-<left>" . tempel-previous)))
   :init
   ;; Setup completion at point
   (defun tempel-setup-capf ()
