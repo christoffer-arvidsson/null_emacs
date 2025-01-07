@@ -58,14 +58,14 @@
 
 (null-keybinds-leader-key-def
   :states 'normal
-  "' a" #'(lambda () (interactive) (pike-add-key nil))
-  "' n" #'(lambda () (interactive) (pike-next nil))
   "' '" #'(lambda () (interactive) (pike-open-buffer nil))
+  "' a" #'(lambda () (interactive) (pike-add-key nil))
   "' X" #'(lambda () (interactive) (pike-clear nil))
   "' x" #'pike-delete-current
-  "` a" #'(lambda () (interactive) (pike-add-key t))
-  "` n" #'(lambda () (interactive) (pike-next t))
+  "' p" #'pike-promote-current
+  "' d" #'pike-demote-current
   "` `" #'(lambda () (interactive) (pike-open-buffer t))
+  "` a" #'(lambda () (interactive) (pike-add-key t))
   "` X" #'(lambda () (interactive) (pike-clear t)))
 
 (provide 'null-pike)

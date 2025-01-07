@@ -296,6 +296,33 @@ If GLOBAL is non-nil then use the global pike cache."
   "Mode for pike buffer."
   (display-line-numbers-mode t))
 
+(defun pike--move-line (num)
+  "Move the current cache line a number of lines up or down."
+  (interactive)
+  (let ((cache-line (pike--find-cache-number (pike--cache-file-path) (pike--get-cache-key))))
+    (if cache-line
+        (save-excursion
+          (with-current-buffer (pike--get-cache-buffer)
+            (goto-char (point-min))
+            (forward-line (1- cache-line))
+            (let ((line-text (delete-and-extract-region (line-beginning-position) (line-beginning-position 2))))
+              (forward-line num)
+              (insert line-text)
+              (save-buffer))))
+      (message "Buffer is not stored in pike."))))
+
+;;;###autoload
+(defun pike-promote-current ()
+  "Promote the current line based on cache line number."
+  (interactive)
+  (pike--move-line -1))
+
+;;;###autoload
+(defun pike-demote-current ()
+  "Demote the current line based on cache line number."
+  (interactive)
+  (pike--move-line 1))
+
 (defun pike-tab-line-tabs-function ()
   "Create list of buffers of each entry in cache file.
 Uses global cache file if project-specific one can't be found."
