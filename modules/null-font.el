@@ -45,10 +45,10 @@
      (default
       :default-family "Monospace")
      (desktop
-      :default-family "Iosevka nerd font"
+      :default-family "Iosevka Nerd Font"
       :default-weight regular
       :default-height 110
-      :variable-pitch-family "Iosevka Comfy Duo"
+      :variable-pitch-family "Iosevka"
       :variable-pitch-weight nil
       :variable-pitch-height 1.00)
      (big
@@ -56,8 +56,8 @@
       :default-height 150)
      (laptop
       :inherit desktop
-      :default-family "Iosevka"
-      :variable-pitch-family "Iosevka Comfy Duo"
+      :default-family "Iosevka Nerd Font"
+      :variable-pitch-family "Iosevka"
       :default-height 95)
      (laptop-big
       :inherit laptop
