@@ -62,7 +62,7 @@
   (use-package copilot
     :ensure (:host github :repo "copilot-emacs/copilot.el")
     :custom
-    (copilot-idle-delay 0.5)
+    (copilot-idle-delay 0.1)
     :general (:keymaps 'copilot-completion-map
                        "M-]" 'copilot-accept-completion))
 
