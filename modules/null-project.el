@@ -70,7 +70,13 @@
   (magit-display-buffer-function 'magit-display-buffer-same-window-except-diff-v1)
   (magit-section-disable-line-numbers nil)
   :config
-  (setenv "SSH_AUTH_SOCK" "/run/user/1400946984/ssh-agent.socket"))
+  (setenv "SSH_AUTH_SOCK" "/run/user/1400946984/ssh-agent.socket")
+
+  (magit-add-section-hook 'magit-status-sections-hook
+                          'magit-insert-branch-description
+                          nil t)
+  (magit-add-section-hook 'magit-refs-sections-hook
+                          'magit-insert-branch-description))
 
 (use-package hydra)
 
