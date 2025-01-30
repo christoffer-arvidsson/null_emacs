@@ -228,6 +228,13 @@
 
 (use-package htmlize)
 
+(use-package orgit
+  ;; Link to magit buffers in org mode
+  :after org
+  :custom
+  (orgit-rev-description-format "%%N (%%R): %s (%ai)")
+  :ensure t)
+
 (null-keybinds-leader-key-def
   :states 'normal
   :keymaps 'org-mode-map
