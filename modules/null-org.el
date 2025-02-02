@@ -231,9 +231,21 @@
 (use-package orgit
   ;; Link to magit buffers in org mode
   :after org
+  :ensure t
+  :hook (git-commit-post-finish  . orgit-store-after-commit)
   :custom
   (orgit-rev-description-format "%%N (%%R): %s (%ai)")
-  :ensure t)
+  :config
+  (defun orgit-store-after-commit ()
+    "Store orgit-link for latest commit after commit message editor is finished.
+    Source: https://www.reddit.com/r/emacs/comments/lsr161/wishlist_has_anyone_built_an_orgmode_git_log/
+"
+    (let* ((repo (abbreviate-file-name default-directory))
+           (rev (magit-git-string "rev-parse" "HEAD"))
+           (link (format "orgit-rev:%s::%s" repo rev))
+           (summary (substring-no-properties (magit-format-rev-summary rev)))
+           (desc (format "%s (%s)" summary repo)))
+      (push (list link desc) org-stored-links))))
 
 (null-keybinds-leader-key-def
   :states 'normal
