@@ -72,7 +72,7 @@
 (use-package org-download
   :after org
   :config
-  (setq org-download-screenshot-method "xfce4-screenshooter -r -o cat > %s"
+  (setq org-download-screenshot-method "flameshot gui --raw > %s"
         org-download-method 'directory
         org-download-timestamp "%Y-%m-%d_%H-%M-%S_")
   (setq-default org-download-heading-lvl nil))
