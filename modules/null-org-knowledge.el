@@ -234,10 +234,6 @@ If STR is nil, treat it as an empty string."
 (use-package ht)
 (use-package ts)
 
-(use-package org-format
-  :hook (org-mode . org-format-on-save-mode)
-  :ensure (:host github :repo "chrisbarrett/nursery" :files ("lisp/org-format.el" "lisp/org-capture-detect.el")))
-
 (use-package org-roam-review
   :ensure (:host github :repo "chrisbarrett/nursery" :files ("lisp/org-roam-review.el" "lisp/org-tags-filter.el" "lisp/plisty.el"))
   :after (org-roam org-drill ts)
