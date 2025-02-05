@@ -104,10 +104,12 @@
   (_ (message "No matching system configuration")))
 
 ;; Reload the font
-(fontaine-set-preset null-font-preset)
+(when (display-graphic-p)
+    (fontaine-set-preset null-font-preset))
 
 (elpaca-wait)
 (load-theme null-theme t)
+
 
 (provide 'config)
 ;;; config.el ends here

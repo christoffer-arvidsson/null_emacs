@@ -47,10 +47,10 @@
 
 (general-define-key
  :states 'normal
- "M-N" #'pike-find-global-1
- "M-E" #'pike-find-global-2
- "M-I" #'pike-find-global-3
- "M-O" #'pike-find-global-4
+ ;; "M-N" #'pike-find-global-1
+ ;; "M-E" #'pike-find-global-2
+ ;; "M-I" #'pike-find-global-3
+ ;; "M-O" #'pike-find-global-4
  "M-n" #'pike-find-1
  "M-e" #'pike-find-2
  "M-i" #'pike-find-3

@@ -39,6 +39,7 @@
   "Fontaine big font preset to use.")
 
 (use-package fontaine
+  :if (display-graphic-p)
   :custom
   (fontaine-presets
    '(
