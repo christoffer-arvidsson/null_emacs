@@ -66,7 +66,6 @@
       :bold weight bold
       :italic-slant italic
       :line-spacing nil)))
-  :hook (enable-theme-functions #'fontaine-apply-current-preset)
   :config
   (define-minor-mode null-global-big-text-mode
     "Toggle big text mode."
@@ -79,7 +78,8 @@
           (message "big-text-mode activated!")
           (fontaine-set-preset null-font-big-preset))
       (progn (message "big-text-mode deactivated!")
-             (fontaine-set-preset null-font-preset)))))
+             (fontaine-set-preset null-font-preset))))
+  (fontaine-mode +1))
 
 (null-keybinds-leader-key-def
   :states 'normal
