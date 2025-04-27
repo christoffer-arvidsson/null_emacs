@@ -44,6 +44,7 @@
 (require 'null-docker)
 (require 'null-apps)
 (require 'null-rss)
+(require 'null-llm)
 
 (elpaca-wait)
 
@@ -59,13 +60,6 @@
   (message "using work configuration.")
   (require 'secrets)
 
-  (use-package copilot
-    :ensure (:host github :repo "copilot-emacs/copilot.el")
-    :custom
-    (copilot-idle-delay 0.1)
-    :general (:keymaps 'copilot-completion-map
-                       "M-]" 'copilot-accept-completion))
-
   (use-package ox-slack
     :ensure (:host github :repo "titaniumbones/ox-slack"))
 
@@ -79,23 +73,20 @@
   (setq null-font-preset 'laptop
         null-font-big-preset 'laptop-big))
 
-  (use-package gptel
-    :ensure t
-    :config
+(defun null/init-home-config ()
+  "Do home specific initialization."
+  (message "using home configuration.")
+  (setq null-font-preset 'desktop
+        null-font-big-preset 'big)
+
+  (with-eval-after-load 'gptel
     (setq-default
      gptel-model "llama3.2"
      gptel-backend (gptel-make-ollama "Ollama"
                      :host "localhost:11434"
                      :stream t
-                     :models '("llama3.2")))
-    (setq gptel-log-level 'debug))
+                     :models '("llama3.2")))))
 
-
-(defun null/init-home-config ()
-  "Do home specific initialization."
-  (message "using home configuration.")
-  (setq null-font-preset 'desktop
-        null-font-big-preset 'big))
 
 (pcase (system-name)
   ("u5cg4373yhk" (null/init-work-config))
