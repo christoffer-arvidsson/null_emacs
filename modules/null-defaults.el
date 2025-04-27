@@ -112,6 +112,6 @@
   "h d" 'helpful-at-point
   "h c" 'describe-char
   "h P" 'elpaca-info
-  "h M" 'woman)
+  "h M" 'man)
 
 (provide 'null-defaults)
