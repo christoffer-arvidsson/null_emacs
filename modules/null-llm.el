@@ -35,7 +35,12 @@
                        "M-]" 'copilot-accept-completion))
 
 (use-package gptel
-  :ensure t)
+  :ensure t
+  :custom
+  (gptel-org-branching-context t)
+  :config
+  (setf (alist-get 'org-mode gptel-prompt-prefix-alist) "@user\n")
+  (setf (alist-get 'org-mode gptel-response-prefix-alist) "@assistant\n"))
 
 (null-keybinds-leader-key-def
   :states '(normal visual)
