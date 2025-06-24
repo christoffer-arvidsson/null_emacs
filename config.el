@@ -60,6 +60,10 @@
   (message "using work configuration.")
   (require 'secrets)
 
+  (with-eval-after-load 'gptel
+    (setq gptel-model 'claude-3.7-sonnet
+          gptel-backend (gptel-make-gh-copilot "Copilot")))
+
   (use-package ox-slack
     :ensure (:host github :repo "titaniumbones/ox-slack"))
 
