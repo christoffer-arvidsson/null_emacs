@@ -60,7 +60,7 @@
   :config
   (super-save-mode +1))
 
-(setq split-width-threshold 0)
+(setq split-width-threshold nil)
 (setq split-height-threshold  nil)
 
 (defun stop-using-minibuffer ()
