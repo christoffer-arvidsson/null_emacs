@@ -40,7 +40,7 @@
                     :keymaps 'vterm-mode-map
                     "C-c" 'vterm-send-C-c)
   :custom
-  (vterm-shell "/bin/fish")
+  (vterm-shell shell-file-name)
   (vterm-max-scrollback 2000)
   (vterm-timer-delay 0.01)
   (vterm-always-compile-module t)
@@ -63,8 +63,6 @@
     (let ((buf (eshell)))
       (switch-to-buffer (other-buffer buf))
       (switch-to-buffer-other-window buf))))
-
-(use-package fish-mode)
 
 (use-package ranger
   :config

@@ -26,7 +26,7 @@
 (setq use-dialog-box nil)
 
 ;; Default shell
-(setq shell-file-name "/usr/bin/fish")
+(setq shell-file-name "/usr/bin/zsh")
 
 ;; Save history
 (use-package savehist
