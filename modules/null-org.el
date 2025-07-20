@@ -256,7 +256,8 @@
   :states 'normal
   :keymaps 'org-mode-map
   "k s" 'org-babel-demarcate-block
-  "i l" 'org-cdlatex-environment-indent
+  "i l" 'org-insert-link
+  "i L" 'org-cdlatex-environment-indent
   "i c" 'org-cite-insert
   "i f" 'org-footnote-new
   "i s" 'org-insert-structure-template
