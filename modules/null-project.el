@@ -12,10 +12,23 @@
 
 (use-package compile
   :ensure nil ; built-in
+  :custom
+  (compilation-scroll-output t)
   :config
   ;; Handle ansi characters in compilation buffer
   ;; https://emacs.stackexchange.com/questions/8135/why-does-compilation-buffer-show-control-characters
   (require 'ansi-color)
+  ;; Handle pattern like "|-> path:line:column: message" (F841 style errors)
+  (add-to-list 'compilation-error-regexp-alist
+               '("^|-> \\([^:]+\\):\\([0-9]+\\):\\([0-9]+\\): [A-Z][0-9]+ \\(.+\\)$" 1 2 3 nil 1))
+
+  ;; Handle pattern like "|-> path:line: [code, function] message" (pylint style errors)
+  (add-to-list 'compilation-error-regexp-alist
+               '("^|-> \\([^:]+\\):\\([0-9]+\\): \\[\\(.+\\)\\] \\(.+\\)$" 1 2 nil nil 1))
+  ;; Handle mypy errors with the format "|-> path:line: error: message [tag]"
+  (add-to-list 'compilation-error-regexp-alist
+               '("^|-> \\([^:]+\\):\\([0-9]+\\): error: \\(.+\\) \\[\\(.+\\)\\]$" 1 2 nil nil 1))
+
   (defun my/ansi-colorize-buffer ()
     (let ((buffer-read-only nil))
       (ansi-color-apply-on-region (point-min) (point-max))))
@@ -148,8 +161,6 @@ _p_rev       _u_pper              _=_: upper/lower       _r_esolve
   (grep-apply-setting
    'grep-find-command
    '("rg -n -H --hidden --no-heading -e '' $(git rev-parse --show-toplevel || pwd)" . 27)))
-
-(setq compilation-scroll-output t)
 
 ;; Ansi colors in compilation mode
 (use-package fancy-compilation
