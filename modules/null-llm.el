@@ -37,20 +37,24 @@
 (use-package gptel
   :ensure t
   :custom
+  (gptel-track-media t)
   (gptel-org-branching-context t)
   :config
-  (setf (alist-get 'org-mode gptel-prompt-prefix-alist) "@user\n")
-  (setf (alist-get 'org-mode gptel-response-prefix-alist) "@assistant\n"))
+  (setf (alist-get 'org-mode gptel-prompt-prefix-alist) "=@user=\n")
+  (setf (alist-get 'org-mode gptel-response-prefix-alist) "=@assistant=\n"))
 
 (null-keybinds-leader-key-def
   :states '(normal visual)
   "o l" '(:ignore t :wk "llm")
+  "o l A" 'gptel-add-file
+  "o l a" 'gptel-add
   "o l n" 'gptel
   "o l o" 'gptel-menu
-  "o l s" 'gptel-send
   "o l r" 'gptel-rewrite
-  "o l a" 'gptel-add
-  "o l A" 'gptel-add-file)
+  "o l s" 'gptel-send
+
+  "o l t" 'gptel-org-set-topic
+  "o l p" 'gptel-org-set-properties)
 
 (provide 'null-llm)
 ;;; null-llm.el ends here
